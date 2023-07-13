@@ -1,0 +1,17 @@
+#my-campaigns {
+  min-height: calc(100vh - 125px);
+  width: 100vw;
+  padding: 25px;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #D6D6D6;
+}
+
+.campaign {
+  height: 200px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4B6982;
+}

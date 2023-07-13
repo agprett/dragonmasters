@@ -1,0 +1,16 @@
+#stuff-nav {
+  height: 50px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(75, 105, 130);
+  border-top: #E94445 1px solid;
+}
+
+.stuff-nav-links {
+  padding: 0 10px;
+}
+
+.stuff-nav-links:hover {
+  background-color: #E94445;
+}

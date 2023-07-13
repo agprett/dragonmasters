@@ -1,0 +1,72 @@
+#encounter-view {
+  width: 100%;
+  padding: 10px;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  background-color: #E94445;
+}
+
+#viewed-encounter-name-stuff {
+  width: 90%;
+  padding: 0 20%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#encounter-monsters {
+  position: relative;
+  width: 97%;
+  margin-bottom: 5px;
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #264C5E;
+  color: white;
+}
+
+.character-view-title {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+
+#monster-view {
+  min-height: 160px;
+  width: 95%;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+#add-monster-form {
+  height: 250px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #3F7D20;
+}
+
+#encounter-players {
+  width: 97%;
+  margin-bottom: 5px;
+  background-color: #264C5E;
+  color: white;
+}
+
+#player-view {
+  min-height: 160px;
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

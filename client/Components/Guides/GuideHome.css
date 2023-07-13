@@ -1,0 +1,208 @@
+#guide-home {
+  width: 100%;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#guide-display {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-auto-rows: 300px;
+}
+
+.guide-div {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: auto;
+  border-radius: 15px;
+  color: #CEC2AE;
+  background-color: #264C5E;
+}
+
+#guide-page {
+  width: 100%;
+}
+
+.guide-title {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guide-back-btn {
+  height: 30px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 50px;
+  left: 9%;
+  text-decoration: none;
+  color: white;
+  background-color: #264C5E;
+  z-index: 5;
+}
+
+.guide-body {
+  width: 100%;
+  min-height: 40%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.guide-filters {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: red;
+}
+
+.guide-results {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.guide-result {
+  width: 90%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+  cursor: pointer;
+  background-color: grey;
+}
+
+.monster-popup {
+  position: fixed;
+  top: 15%;
+  left: 10%;
+  width: 80%;
+  max-height: 70%;
+  overflow: auto;
+  padding: 25px 35px;
+  background-image: url('../../images/paper-background.jpeg');
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: top;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 50px 40px black;
+  z-index: 8;
+}
+
+.splitter {
+  height: 5px;
+  width: 95%;
+  margin: 10px 2.5%;
+  background-color: #264C5E;
+  border-radius: 50%;
+}
+
+.view-specs {
+  height: 25px;
+  padding: 0 15px;
+  position: absolute;
+  top: 20px;
+  right: 55px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  color: #CEC2AE;
+  background-color: #264C5E;
+}
+
+.close-info-button {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border-radius: 50%;
+  border: 2px solid black;
+  background-color: inherit;
+  cursor: pointer;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.monster-header {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.monster-name {
+  margin-right: 3px;
+}
+
+.monster-desc {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.monster-base-info {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.monster-main-skills {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-content: space-between;
+  flex-wrap: wrap;
+  margin: 5px 0;
+}
+
+.monster-sub-skills {
+  min-height: 85px;
+  padding: 10px 0;
+}
+
+.monster-specials {
+  height: fit-content;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.monster-actions {
+  height: fit-content;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.monster-legendary-actions {
+  height: fit-content;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

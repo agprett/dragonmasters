@@ -1,0 +1,19 @@
+.match-password-input {
+  border: solid green 2px;
+}
+
+.match-password-input:focus {
+  outline-color: green;
+}
+
+.no-match-password-input {
+  border: solid red 2px;
+}
+
+.no-match-password-input:focus {
+  outline-color: red;
+}
+
+.no-match-password-text {
+  color: red;
+}
