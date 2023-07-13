@@ -40,7 +40,7 @@ module.exports = {
         SELECT id, name, count, encounter_id FROM encounter_monsters
         WHERE encounter_id = ${+id};
 
-        SELECT c.character_id, c.name, c.player, c.level, c.hit_points hp
+        SELECT c.character_id, c.name, c.player, c.level, c.hit_points
         FROM encounter_characters e
         JOIN characters c
         ON e.character_id = c.character_id
@@ -70,40 +70,41 @@ module.exports = {
 
   createEncounter: (req, res) => {
     let {name, shortDesc, desc, characters,  monsters} = req.body
-    if(req.session.user && name && shortDesc && characters[0] && monsters) {
+    if(req.session.user && name && shortDesc && characters[0] && Object.keys(monsters).length) {
       const {user_id} = req.session.user
-
-      // console.log(req.body)
-      // let monsters = [
-      //   {
-      //     "name": "Acolyte",
-      //     "url": "/api/monsters/acolyte",
-      //     "amount": 4
-      //   },
-      //   {
-      //     "name": "Adult Blue Dragon",
-      //     "url": "/api/monsters/adult-blue-dragon",
-      //     "amount": 1
-      //   }
-      // ]
 
       desc = desc ? desc : 'None'
       
-      let monstersValues = []
+      sequelize.query(`INSERT INTO encounters (user_id, name, short_description, description)
+      VALUES ('${user_id}', $$${name}$$, $$${shortDesc}$$, $$${desc}$$)
+      RETURNING encounter_id;`)
+        .then((dbRes) => {
+          const {encounter_id} = dbRes[0][0]
+          let monstersValues = []
+          
+          for(let monster in monsters) {
+              const {name, url, amount} = monsters[monster]
+              monstersValues.push(`($$${name}$$, $$${url}$$, ${amount}, ${encounter_id})`)
+            }
+            
+          let characterValues = characters.map(char => {
+            return `(${encounter_id}, ${char.character_id})`
+          })
+          
+          console.log(monstersValues.join(', '))
+          console.log(characterValues.join(', '))
+          
+          sequelize.query(`
+            INSERT INTO encounter_characters (encounter_id, character_id)
+            VALUES ${characterValues.join(', ')};
 
-      for(let monster in monsters) {
-        const {name, url, amount} = monsters[monster]
-        monstersValues.push(`('${name}', '${url}', ${amount})`)
-      }
-      
-      console.log(monstersValues.join(', '))
-
-      // sequelize.query(`INSERT INTO encounters (user_id, name, short_description, description)
-      // VALUES ('${user_id}', '${name}', '${shortDesc}', '${desc}');`)
-      //   .then(() => {
-      //     res.sendStatus(200)
-      //   })
-      res.status(200).send('works')
+            INSERT INTO encounter_monsters (name, url, count, encounter_id)
+            VALUES ${monstersValues.join(', ')};
+          `)
+            .then(() => {
+              res.sendStatus(200)
+            })
+        })
     } else {
       res.status(400).send('Must send all required data')
     }

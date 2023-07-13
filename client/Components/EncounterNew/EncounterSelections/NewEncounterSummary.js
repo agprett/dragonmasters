@@ -16,7 +16,7 @@ function NewEncounterSummary(props) {
           <h2>{char.name}</h2>
           <h3>{char.player}</h3>
           <p>Level: {char.level}</p>
-          <p>HP: {char.hp}</p>
+          <p>HP: {char.hit_points}</p>
         </div>
       </div>
     )

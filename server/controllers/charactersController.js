@@ -40,12 +40,12 @@ module.exports = {
 
   createCharacter: (req, res) => {
     const {user_id} = req.session.user
-    const {name, player, level, hp} = req.body
+    const {name, player, level, hit_points} = req.body
 
-    if(name && player && level && hp) {
+    if(name && player && level && hit_points) {
       sequelize.query(`
         INSERT INTO characters (user_id, name, player, level, hit_points)
-        VALUES ('${user_id}', '${name}', '${player}', ${level}, ${hp});
+        VALUES ('${user_id}', '${name}', '${player}', ${level}, ${hit_points});
       `)
         .then(dbRes => {
           return res.sendStatus(200)
