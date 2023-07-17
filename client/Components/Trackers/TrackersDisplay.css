@@ -10,6 +10,12 @@
   background-color: orange;
 }
 
+.monster-tp-name {
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+}
+
 .tracker {
   min-height: 150px;
   min-width: 160px;
@@ -68,8 +74,8 @@
   width: 18px;
   height: 18px;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 10px;
+  top: 10px;
   border-radius: 50%;
   border: 2px solid white;
   background-color: inherit;

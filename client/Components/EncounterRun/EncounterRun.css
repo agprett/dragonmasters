@@ -1,68 +1,64 @@
 #encounter-view {
   width: 100%;
-  padding: 10px;
+  padding: 25px 10px 10px;
   overflow: auto;
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  background-color: #E94445;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+  background-color: blue;
+}
+
+#back-to-info {
+  position: absolute;
+  top: 25px;
+  left: 50px;
 }
 
 #viewed-encounter-name-stuff {
-  width: 90%;
-  padding: 0 20%;
-  margin-bottom: 10px;
+  min-height: 45px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+#encounter-characters {
+  position: relative;
+  width: 97%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #264C5E;
+  color: white;
+}
+
+#character-view {
+  min-height: 160px;
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 25px;
 }
 
 #encounter-monsters {
   position: relative;
   width: 97%;
-  margin-bottom: 5px;
-  padding-top: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: #264C5E;
-  color: white;
-}
-
-.character-view-title {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-}
-
-#monster-view {
-  min-height: 160px;
-  width: 95%;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-
-#add-monster-form {
-  height: 250px;
-  width: 20%;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  background-color: #3F7D20;
-}
-
-#encounter-players {
-  width: 97%;
-  margin-bottom: 5px;
   background-color: #264C5E;
   color: white;
 }
 
-#player-view {
+#monster-view {
+  position: relative;
   min-height: 160px;
   width: 100%;
   padding: 5px 10px;

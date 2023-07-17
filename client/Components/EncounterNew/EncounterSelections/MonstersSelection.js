@@ -1,7 +1,13 @@
 import React from 'react';
 
 function MonstersSelection(props) {
-  const {encounterCharacters, setEncounterCharacters, monsters} = props
+  const {encounterCharacters, setEncounterCharacters, monsters, filters, setFilters} = props
+
+  const filterMonsters = (event) => {
+    const value = event.target.value
+
+    setFilters({...filters, name: value})
+  }
 
   const addMonster = (monster) => {
     const {name, index, url} = monster
@@ -43,7 +49,11 @@ function MonstersSelection(props) {
     setEncounterCharacters({...tempChars})
   }
 
-  const monstersDisplay = monsters.map((monster, i) => {
+  const monstersDisplay = monsters
+  .filter((monster) => {
+    return monster.name.toLowerCase().includes(filters.name.toLowerCase())
+  })
+  .map((monster, i) => {
     const {name, size, hit_points, armor_class, challenge_rating, xp} = monster
     return (
       <div className='new-encounter-monster-card' key={i}>
@@ -58,17 +68,6 @@ function MonstersSelection(props) {
     )
   })
 
-  // const addedMonsters = (
-  //   <div className='new-add-monster-card'>
-  //     <h2>Dragon</h2>
-  //     <p>Challenge</p>
-  //     <p>XP</p>
-  //     <label for='dragon-amount'>Amount</label>
-  //     <input id='dragon-amount' type='number' min='1' value='1'/>
-  //     <button>Remove</button>
-  //   </div>
-  // )
-
   const addedMonsters = () => {
     let monsterDivs = []
 
@@ -80,9 +79,9 @@ function MonstersSelection(props) {
           <h2>{info.name}</h2>
           <p>Challenge: {info.challenge_rating}</p>
           <p>XP: {info.xp}</p>
-          <label for='dragon-amount'>Amount</label>
+          <label for='monster-amount'>Amount</label>
           <input
-            id='dragon-amount'
+            id='monster-amount'
             type='number'
             min='0'
             value={amount}
@@ -103,25 +102,17 @@ function MonstersSelection(props) {
 
   return (
     <section class="new-encounter-selections" id="monsters-selection">
-      {/* <form
-        name="search-monsters"
-        id="search-monsters"
-        onSubmit={(event) => {
-          event.preventDefault()
-        }}
-      >
-        <input placeholder="Search name" id="search-monsters-input"/>
-        <buttonmonster
-          type="submit"
-        >Search</button>
-      </form> */}
+      <form name="search-monsters" id="search-monsters">
+        <input placeholder="Search name" id="search-monsters-input" onChange={filterMonsters}/>
+      </form>
+
       <div className="new-displayed-characters">{monstersDisplay}</div>
+
       <div className='new-added'>
         <h2>Added Monsters</h2>
         <div id='added-monster-display'>{addedMonsters()}</div>
-        <div id='encounter-diff-stats'>
 
-        </div>
+        <div id='encounter-diff-stats'></div>
       </div>
     </section>
   )

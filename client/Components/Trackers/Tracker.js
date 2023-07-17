@@ -22,6 +22,16 @@ function Tracker(props) {
     }
   }
 
+  const updateNumInput = (event) => {
+    let newNum = event.target.value.split('')
+
+    if(newNum[0] === '0' && newNum.length !== 1){
+      newNum.shift()
+    }
+
+    setHealthInput(newNum.join(''))
+  }
+
   return (
     <>{!props.monster.name ? (
       <p>Loading</p>
@@ -32,7 +42,7 @@ function Tracker(props) {
           <h3 class="tracker-health" id={`${monsterInfo.index}-${i}-hp`}>Health: {monsterInfo.hit_points}</h3>
           <div class="health-updater">
             <button onClick={() => updateHealth('down')}>-</button>
-            <input id={`${monsterInfo.index}-${i}-hp-input`} class="health-updater-input" type="number" min="0" value={healthInput} onChange={(event) => setHealthInput(+event.target.value)}/>
+            <input id={`${monsterInfo.index}-${i}-hp-input`} class="health-updater-input" type="number" min='0'  onChange={updateNumInput} value={healthInput}/>
             <button onClick={() => updateHealth('up')}>+</button>
           </div>
         </div>

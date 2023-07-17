@@ -24,6 +24,7 @@ function NewEncounter(props) {
   const [confirmed, setConfirmed] = useState(false)
   const [players, setPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
+  const [filters, setFilters] = useState({name: ''})
 
   useEffect(() => {
     const {name, short_description: shortDesc, description: desc, monsters: preMonsters, players: prePlayers} = props.encounterData
@@ -132,7 +133,7 @@ function NewEncounter(props) {
           ) : display === 1 ? (
             CharacterSelection({display, encounterCharacters: encounterPlayers, setEncounterCharacters: setEncounterPlayers, players})
           ) : display === 2 ? (
-            CharacterSelection({display, encounterCharacters: encounterMonsters, setEncounterCharacters: setEncounterMonsters, monsters})
+            CharacterSelection({display, encounterCharacters: encounterMonsters, setEncounterCharacters: setEncounterMonsters, monsters, filters, setFilters})
           ): NewEncounterSummary({display, confirmed, setConfirmed, encounterInfo, encounterPlayers, encounterMonsters})
         }
       {/* </section> */}

@@ -4,7 +4,7 @@ import PlayersSelection from './PlayerSelection';
 import MonstersSelection from './MonstersSelection';
 
 function CharactersSelection(props) {
-  const {display, encounterCharacters, setEncounterCharacters, players, monsters} = props
+  const {display, encounterCharacters, setEncounterCharacters, players, monsters, filters, setFilters} = props
   
   useEffect(() => {
     console.log('ran character selection')
@@ -17,7 +17,7 @@ function CharactersSelection(props) {
       {display === 1 ? (
         PlayersSelection({encounterCharacters, setEncounterCharacters, players})
         ) : (
-        MonstersSelection({encounterCharacters, setEncounterCharacters, monsters})
+        MonstersSelection({encounterCharacters, setEncounterCharacters, monsters, filters, setFilters})
       )}
     </section>
   )

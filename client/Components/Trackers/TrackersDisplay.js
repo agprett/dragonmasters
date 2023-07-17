@@ -1,10 +1,11 @@
 import React from 'react'
+import axios from 'axios'
 
 import './TrackersDisplay.css'
 import Tracker from './Tracker.js'
 
 function TrackersDisplay(props) {
-  const {type, monster} = props
+  const {type, monster, displayPopup} = props
 
   const trackerBuilder = (count) => {
     const trackerArray = []
@@ -22,9 +23,15 @@ function TrackersDisplay(props) {
     <>
       {monster.name ? (
         <div className='monster-tracker-display'>
-          <h2>{monster.name}</h2>
+          <h2 className='monster-tp-name'>{monster.name}</h2>
+          <button
+            className='info-button'
+            onClick={() => {
+              displayPopup(monster.info)
+            }}
+          >i</button>
+          
           {trackerBuilder(monster.count)}
-          <button className='info-button'>i</button>
         </div>
       ) : (
         <p>x</p>

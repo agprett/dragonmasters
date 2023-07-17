@@ -21,23 +21,24 @@ function EncounterSummary(props) {
   }, [])
 
   const updateEncounter = () => {
-    let updatedMonsters = {}
+    alert('This functionality is currenlty out of order')
+    // let updatedMonsters = {}
 
-    encounterInfo.monsters.forEach(monster => {
-      let obj = {
-        name: monster.name,
-        info: monster.info,
-        amount: monster.count,
-        url: monster.url
-      }
+    // encounterInfo.monsters.forEach(monster => {
+    //   let obj = {
+    //     name: monster.name,
+    //     info: monster.info,
+    //     amount: monster.count,
+    //     url: monster.url
+    //   }
 
-      updatedMonsters[monster.info.index] = obj
-    })
+    //   updatedMonsters[monster.info.index] = obj
+    // })
 
-    let info = {...encounterInfo, monsters: updatedMonsters}
+    // let info = {...encounterInfo, monsters: updatedMonsters}
 
-    props.addEncounter(info)
-    navigate('/stuff/encounters/new')
+    // props.addEncounter(info)
+    // navigate('/stuff/encounters/new')
   }
 
   const charShorts = encounterInfo.players.map((char, i) => {

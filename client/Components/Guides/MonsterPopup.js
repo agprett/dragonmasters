@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './GuideHome.css'
+
 function MonsterPopup (props) {
   console.log('Popup reload')
   const {specs, setViewPopup} = props
@@ -79,7 +81,7 @@ function MonsterPopup (props) {
   return (
     <div className='monster-popup'>
 
-      <Link className='view-specs' to={`../specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer">View in Seperate Page</Link>
+      <Link className='view-specs' to={`/guide/specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
       
       <button className='close-info-button' onClick={() => setViewPopup(false)}>X</button>
 
