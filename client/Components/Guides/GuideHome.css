@@ -22,8 +22,11 @@
   text-decoration: none;
   margin: auto;
   border-radius: 15px;
+  border: 5px solid #6B778D;
   color: #CEC2AE;
-  background-color: #264C5E;
+  background-color: #263859;
+  font-size: 24pt;
+  font-family: 'MedievalSharp', sans-serif;
 }
 
 #guide-page {

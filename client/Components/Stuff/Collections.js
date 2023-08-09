@@ -7,8 +7,12 @@ function Collections(props) {
   return (
     <div className='collections'>
       <h2>My {name}</h2>
-      <button>
-        <Link to={`/stuff/${link}`}>View My {name}</Link>
+      <h3>4 saved {link}</h3>
+      <button className='collections-buttons'>
+        <Link to={`/stuff/${link}`}>View All {name}</Link>
+      </button>
+      <button className='collections-buttons'>
+        <Link to={`/stuff/${link}/new`}>Create New</Link>
       </button>
     </div>
   )

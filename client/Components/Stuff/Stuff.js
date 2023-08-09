@@ -1,15 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import './Stuff.css'
 import Collections from './Collections.js'
 
 function Stuff() {
   return (
-    <div id='my-stuff'>
-      {/* <Collections collectionInfo={{name: 'Campaigns', link: 'campaigns'}} /> */}
-      <Collections collectionInfo={{name: 'Encounters', link: 'encounters'}} />
-    </div>
+    <section id='my-stuff'>
+      <h2>DM Stuff</h2>
+      <div className='collections-groups'>
+        <Collections collectionInfo={{name: 'Campaigns', link: 'campaigns'}} />
+        <Collections collectionInfo={{name: 'Encounters', link: 'encounters'}} />
+      </div>
+      <h2>Other Stuff</h2>
+      <div className='collections-groups'>
+        <Collections collectionInfo={{name: 'Characters', link: 'characters'}} />
+        <Collections collectionInfo={{name: 'Spells', link: 'spells'}} />
+      </div>
+    </section>
   )
 }
 

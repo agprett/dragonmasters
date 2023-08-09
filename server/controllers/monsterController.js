@@ -1,15 +1,7 @@
-const monstersDB = require('../json/base_json_files/5e-monsters.json')
+const monstersDB = require('../json/SRD_data/monsters.json')
 
 const quickDB = monstersDB.map(monster => {
   const {index, name, size, hit_points, armor_class, challenge_rating, xp, url} = monster
-
-  // if(monster.actions) {
-  //   monster.actions.forEach(action => {
-  //     if(action.name === 'Multiattack') {
-  //       console.log(action)
-  //     }
-  //   })
-  // }
 
   return {index, name, size, hit_points, armor_class, challenge_rating, xp, url}
 })

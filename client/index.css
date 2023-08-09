@@ -5,6 +5,10 @@
   width: 100vw;
   font-family: 'Josefin Sans', sans-serif;
   overflow: auto;
+  width: 100vw;
+  font-family: 'Josefin Sans', sans-serif;
+  overflow: auto;
+  background-color: #FAFDED;
 }
 
 form {
@@ -12,4 +16,12 @@ form {
   flex-direction: column;
   align-items: center;
   width: fit-content;
+}
+
+button, Link, a {
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  color: #17223B;
+  background-color: #FF6768;
 }

@@ -19,7 +19,7 @@ import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
 import EncounterRun from './Components/EncounterRun/EncounterRun.js'
 
 import Login from './Components/Login/Login.js'
-import Signin from './Components/Signup/Signup.js'
+import Signin from './Components/Login/Signup.js'
 
 const router = createBrowserRouter([
   {

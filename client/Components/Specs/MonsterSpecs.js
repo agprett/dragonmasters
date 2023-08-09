@@ -6,7 +6,7 @@ import './MonsterSpecs.css'
 
 function MonsterSpecs () {
   const {index} = useParams()
-  let [specs, setSpecs] = useState({})
+  let [specs, setSpecs] = useState({saving_throws: [], skills: []})
 
   useEffect(() => {
     axios.get(`/api/monsters/${index}`)
@@ -26,24 +26,28 @@ function MonsterSpecs () {
     return 'Speed: ' + speedArr.join(', ')
   }
 
-  const createSubSkills = () => {
-    let savingThrowData = []
-    let skillsData = []
+  const statsBlock = () => {
+    let stuff = []
+    for(let stat in specs.stats) {
+      let text = <p key={stat}>{stat.substring(0, 3).toUpperCase()}: {specs.stats[stat]}</p>
 
-    if(specs.proficiencies) {
-      specs.proficiencies.forEach(element => element.proficiency.name.includes('Saving Throw') ? savingThrowData.push(element) : skillsData.push(element))
+      stuff.push(text)
     }
 
+    return stuff
+  }
+
+  const createSubSkills = () => {
     return (
       <>
-        {savingThrowData[0] ? (
+        {specs.saving_throws[0] ? (
           <p>
-            Saving Throws: {savingThrowData.map((element) => `${element.proficiency.name.replace('Saving Throw: ', '')}: ${element.value}`).join(', ')}
+            Saving Throws: {specs.saving_throws.map((element) => `${element.name}: ${element.value}`).join(', ')}
           </p>
         ) : ''}
-        {skillsData[0] ? (
+        {specs.skills[0] ? (
           <p>
-            Skills: {skillsData.map(element => `${element.proficiency.name.replace('Skill: ', '')}: +${element.value}`).join(', ')}
+            Skills: {specs.skills.map(element => `${element.name}: +${element.value}`).join(', ')}
           </p>
         ) : ''}
         {specs.senses ? (
@@ -56,7 +60,7 @@ function MonsterSpecs () {
       </>
     )
   }
-
+  
   const createSpecials = specs.special_abilities ? (
     specs.special_abilities.map(ability => {
       return (
@@ -66,6 +70,13 @@ function MonsterSpecs () {
         </div>
       )
     })
+  ) : <></>
+
+  const createSpellStuff = specs.spellcasting ? (
+    <div>
+      <h2>Spellcasting</h2>
+      {specs.spellcasting.desc.split('\n').map(str => <p>{str}</p>)}
+    </div>
   ) : <></>
 
   const createActions = specs.actions ? (
@@ -112,12 +123,7 @@ function MonsterSpecs () {
       <div class="splitter"></div>
 
       <div className='monster-main-skills'>
-        <p class="monster-main-skill">STR: {specs.strength} ({Math.floor((specs.strength - 10) / 2)})</p>
-        <p class="monster-main-skill">DEX: {specs.dexterity} ({Math.floor((specs.dexterity - 10) / 2)})</p>
-        <p class="monster-main-skill">CON: {specs.constitution} ({Math.floor((specs.constitution - 10) / 2)})</p>
-        <p class="monster-main-skill">INT: {specs.intelligence} ({Math.floor((specs.intelligence - 10) / 2)})</p>
-        <p class="monster-main-skill">WIS: {specs.wisdom} ({Math.floor((specs.wisdom - 10) / 2)})</p>
-        <p class="monster-main-skill">CHA: {specs.charisma} ({Math.floor((specs.charisma - 10) / 2)})</p>
+        {statsBlock()}
       </div>
 
       <div class="splitter"></div>
@@ -136,6 +142,14 @@ function MonsterSpecs () {
           </div>
         </>
       ) : ''}
+
+      {specs.spellcasting ? (
+        <>
+          <div class="splitter"></div>
+
+          {createSpellStuff}
+        </>
+      ) : <></>}
 
       <div class="splitter"></div>
 
