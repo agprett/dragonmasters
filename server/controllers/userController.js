@@ -1,18 +1,8 @@
-const bcrypt = require('bcryptjs')
-const Sequelize = require('sequelize')
-const {CONNECTION_STRING} = process.env
+import bcrypt from 'bcryptjs'
 
-const sequelize = new Sequelize(CONNECTION_STRING, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-        rejectUnauthorized: false
-    }
-  },
-  logging: false
-})
+import { User } from '../db/models.js'
 
-module.exports = {
+const userFunctions = {
   getUser: (req, res) => {
     if(req.session.user) {
       const {username} = req.session.user
@@ -22,29 +12,29 @@ module.exports = {
     }
   },
 
-  register: (req, res) => {
+  register: async (req, res) => {
     const {username, password} = req.body
-
-    const salt = bcrypt.genSaltSync(10)
-    const passHash = bcrypt.hashSync(password, salt)
-
+    
     if(!username || !password) {
       res.status(400).send('Username and password need to be provided!')
     } else {
-      sequelize.query(`SELECT username FROM users WHERE username = '${username}';`)
-        .then(dbRes => {
-          if(dbRes[0][0]){
-            res.status(400).send('Username already taken!')
-          } else {
-            sequelize.query(`INSERT INTO users (username, password) VALUES ('${username}', '${passHash}') RETURNING user_id, username;`)
-              .then(dbRes => {
-                const {user_id, username: dbUsername} = dbRes[0][0]
-                req.session.user = {user_id, username: dbUsername}
-                res.status(200).send({username: dbUsername})
-              })
-              .catch(() => res.sendStatus(500))
-          }
+      const salt = bcrypt.genSaltSync(10)
+      const passHash = bcrypt.hashSync(password, salt)
+
+      const user = await User.findOne({where: {username}})
+
+      if(!user) {
+        const newUser = await User.create({
+          username,
+          password: passHash
         })
+
+        const {user_id, username: dbUsername} = newUser
+        req.session.user = {user_id, username: dbUsername}
+        res.status(200).send({username: dbUsername})
+      } else {
+        res.status(400).send('Username already taken!')
+      }
     }
   },
 
@@ -82,3 +72,5 @@ module.exports = {
     })
   }
 }
+
+export default userFunctions

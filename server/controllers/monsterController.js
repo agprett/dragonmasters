@@ -1,4 +1,4 @@
-const monstersDB = require('../json/SRD_data/monsters.json')
+import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
 const quickDB = monstersDB.map(monster => {
   const {index, name, size, hit_points, armor_class, challenge_rating, xp, url} = monster
@@ -6,7 +6,7 @@ const quickDB = monstersDB.map(monster => {
   return {index, name, size, hit_points, armor_class, challenge_rating, xp, url}
 })
 
-module.exports = {
+const monsterFunctions = {
   getAllMonsters: (req, res) => {
     const {name, size, challenge_rating} = req.query
     
@@ -43,3 +43,5 @@ module.exports = {
     res.status(200).send(monster)
   }
 }
+
+export default monsterFunctions

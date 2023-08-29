@@ -1,9 +1,7 @@
-const axios = require('axios')
-
-//these tests are for the monster endpoints of the API
+import axios from 'axios'
 
 describe.skip('Test the sign up server functionality', () => {
-  test('test that when providing a valid username and password, the user can sign in', async () => {
+  test('test that when providing a valid username and password, the user can create a new account', async () => {
     const user = {
       username: 'test1',
       password: 'badpass123'

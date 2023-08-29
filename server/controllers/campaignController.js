@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
@@ -10,7 +10,7 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
   }
 })
 
-module.exports = {
+const campaignFunctions = {
   getCampaign: (req, res) => {
     if(req.session.user) {
       const {user_id} = req.session.user
@@ -67,3 +67,5 @@ module.exports = {
     }
   }      
 }
+
+export default campaignFunctions

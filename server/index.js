@@ -1,13 +1,17 @@
-const express = require('express')
-let session = require('express-session')
-const path = require('path')
+import express from 'express'
+import session from 'express-session'
+import path from 'path'
+import url from 'url'
+import cors from 'cors'
 
-require('dotenv').config()
+import 'dotenv/config'
 
 const {SERVER_PORT, SESSION_SECRET} = process.env
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 app.use(session({
   secret: SESSION_SECRET,
@@ -16,19 +20,27 @@ app.use(session({
   saveUninitialized: true
 }))
 
-const {getUser, register, login, logout} = require('./controllers/userController')
-const {getCampaign} = require('./controllers/campaignController')
-const {getEncounters, getEncounter, createEncounter} = require('./controllers/encounterController')
-const {getCharacters} = require('./controllers/charactersController')
-const {getAllMonsters, getMonster} = require('./controllers/monsterController')
-const {getAllSpells, getSpell} = require('./controllers/spellsController')
+import userFunctions from './controllers/userController.js'
+const {getUser, register, login, logout} = userFunctions
+
+import encounterFunctions from './controllers/encounterController.js'
+const {getEncounters, getEncounter, createEncounter} = encounterFunctions
+
+import characterFunctions from './controllers/characterController.js'
+const {getCharacters} = characterFunctions
+
+import monsterFunctions from './controllers/monsterController.js'
+const {getAllMonsters, getMonster} = monsterFunctions
+
+import spellFunctions from './controllers/spellController.js'
+const {getAllSpells, getSpell} = spellFunctions
 
 app.get('/api/user', getUser)
 app.post('/api/register', register)
 app.post('/api/login', login)
 app.post('/api/logout', logout)
 
-app.get('/api/campaign', getCampaign)
+// app.get('/api/campaign', getCampaign)
 
 app.get('/api/encounters', getEncounters)
 app.get('/api/encounters/:id', getEncounter)
@@ -43,8 +55,7 @@ app.get('/api/spells/:index', getSpell)
 app.get('/api/spells', getAllSpells)
 
 app.use(express.static(__dirname + '/../dist'))
-
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 })
 

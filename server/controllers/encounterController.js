@@ -1,6 +1,6 @@
-const Sequelize = require('sequelize')
+import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
-const monstersDB = require('../json/base_json_files/5e-monsters')
+import monstersDB from '../json/SRD_data/monsters.json' assert {type: "json"}
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: 'postgres',
@@ -11,7 +11,7 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
   }
 })
 
-module.exports = {
+const encounterFunctions = {
   getEncounters: (req, res) => {
     if(req.session.user){
       const {user_id} = req.session.user
@@ -114,3 +114,5 @@ module.exports = {
     res.status(200).send('test')
   }
 }
+
+export default encounterFunctions
