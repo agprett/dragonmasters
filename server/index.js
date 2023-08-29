@@ -16,7 +16,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
-const {getUser, signup, login, logout} = require('./controllers/userController')
+const {getUser, register, login, logout} = require('./controllers/userController')
 const {getCampaign} = require('./controllers/campaignController')
 const {getEncounters, getEncounter, createEncounter} = require('./controllers/encounterController')
 const {getCharacters} = require('./controllers/charactersController')
@@ -24,7 +24,7 @@ const {getAllMonsters, getMonster} = require('./controllers/monsterController')
 const {getAllSpells, getSpell} = require('./controllers/spellsController')
 
 app.get('/api/user', getUser)
-app.post('/api/signup', signup)
+app.post('/api/register', register)
 app.post('/api/login', login)
 app.post('/api/logout', logout)
 

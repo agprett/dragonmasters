@@ -8,7 +8,8 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
     ssl: {
         rejectUnauthorized: false
     }
-  }
+  },
+  logging: false
 })
 
 module.exports = {
@@ -21,26 +22,30 @@ module.exports = {
     }
   },
 
-  signup: (req, res) => {
+  register: (req, res) => {
     const {username, password} = req.body
 
     const salt = bcrypt.genSaltSync(10)
     const passHash = bcrypt.hashSync(password, salt)
 
-    sequelize.query(`SELECT username FROM users WHERE username = '${username}';`)
-      .then(dbRes => {
-        if(dbRes[0][0]){
-          res.sendStatus(400)
-        } else {
-          sequelize.query(`INSERT INTO users (username, password) VALUES ('${username}', '${passHash}') RETURNING user_id, username;`)
-            .then(dbRes => {
-              const {user_id, username: dbUsername} = dbRes[0][0]
-              req.session.user = {user_id, username: dbUsername}
-              res.status(200).send({username: dbUsername})
-            })
-            .catch(() => res.sendStatus(500))
-        }
-      })
+    if(!username || !password) {
+      res.status(400).send('Username and password need to be provided!')
+    } else {
+      sequelize.query(`SELECT username FROM users WHERE username = '${username}';`)
+        .then(dbRes => {
+          if(dbRes[0][0]){
+            res.status(400).send('Username already taken!')
+          } else {
+            sequelize.query(`INSERT INTO users (username, password) VALUES ('${username}', '${passHash}') RETURNING user_id, username;`)
+              .then(dbRes => {
+                const {user_id, username: dbUsername} = dbRes[0][0]
+                req.session.user = {user_id, username: dbUsername}
+                res.status(200).send({username: dbUsername})
+              })
+              .catch(() => res.sendStatus(500))
+          }
+        })
+    }
   },
 
   login: (req, res) => {

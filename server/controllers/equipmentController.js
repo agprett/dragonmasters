@@ -1,0 +1,1 @@
+// The get request should have a filter for just weapons, other equipment, and both or those
