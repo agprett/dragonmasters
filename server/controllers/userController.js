@@ -38,27 +38,28 @@ const userFunctions = {
     }
   },
 
-  login: (req, res) => {
+  login: async (req, res) => {
     const {username, password} = req.body
 
-    sequelize.query(`SELECT * FROM users WHERE username = '${username}';`)
-      .then(dbRes => {
-        if(dbRes[1].rowCount){
-          let passCheck = bcrypt.compareSync(password, dbRes[0][0].password)
-          if(passCheck){
-            const {user_id, username: dbUsername} = dbRes[0][0]
-            req.session.user = {user_id, username: dbUsername}
-            res.status(200).send({username: dbUsername})
-          } else {
-            res.sendStatus(400)
-          }
+    if(username && password) {
+      const user = await User.findOne({where: {username}})
+      console.log(user)
+      if(user) {
+        let passCheck = bcrypt.compareSync(password, user.password)
+
+        if(passCheck){
+          const {user_id, username: dbUsername} = user
+          req.session.user = {user_id, username: dbUsername}
+          res.status(200).send({username: dbUsername})
         } else {
-          res.sendStatus(400)
+          res.status(400).send('Username or password incorrect!')
         }
-      })
-      .catch(() => {
-        res.sendStatus(500)
-      })
+      } else {
+        res.status(400).send('Username or password incorrect!')
+      }
+    } else {
+      res.status(400).send('Must provide a username and password!')
+    }
   },
 
   logout: (req, res) => {
