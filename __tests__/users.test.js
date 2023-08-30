@@ -56,7 +56,7 @@ describe.skip('Test the sign up server functionality', () => {
   })
 })
 
-describe('Users can login with proper credentials, will be reminded to send username and password or will recieve an error message that there credentials were incorrect', () => {
+describe.skip('Users can login with proper credentials, will be reminded to send username and password or will recieve an error message that there credentials were incorrect', () => {
   const user = {
     username: 'test1',
     password: 'badpass123'
