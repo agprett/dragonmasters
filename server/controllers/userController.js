@@ -43,7 +43,7 @@ const userFunctions = {
 
     if(username && password) {
       const user = await User.findOne({where: {username}})
-      console.log(user)
+
       if(user) {
         let passCheck = bcrypt.compareSync(password, user.password)
 
