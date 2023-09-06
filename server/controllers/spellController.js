@@ -1,9 +1,5 @@
 import spellsDb from '../json/SRD_data/spells.json' assert {type: 'json'}
 
-let keys = ['index', 'name', 'desc', 'higher_level', 'range', 'components', 'material', 'ritual', 'duration', 'concentration', 'casting_time', 'level', 'attack_type', 'damage', 'school', 'classes', 'subclasses', 'url', 'dc', 'heal_at_slot_level', 'area_of_effect']
-let inconsistent = ['dc', 'heal_at_slot_level', 'area_of_effect', 'higher_level', 'material', 'attack_type', 'damage']
-let classesAvail = ['Wizard', 'Sorcerer', 'Cleric', 'Paladin', 'Ranger', 'Bard', 'Druid',  'Warlock']
-
 const quickDB = spellsDb.map(spell => {
   const {index, name, desc, casting_time, range, level, school, classes, dc, url} = spell
   
@@ -72,3 +68,7 @@ const spellFunctions = {
 }
 
 export default spellFunctions
+
+let keys = ['index', 'name', 'desc', 'higher_level', 'range', 'components', 'material', 'ritual', 'duration', 'concentration', 'casting_time', 'level', 'attack_type', 'damage', 'school', 'classes', 'subclasses', 'url', 'dc', 'heal_at_slot_level', 'area_of_effect']
+let inconsistent = ['dc', 'heal_at_slot_level', 'area_of_effect', 'higher_level', 'material', 'attack_type', 'damage']
+let classesAvail = ['Wizard', 'Sorcerer', 'Cleric', 'Paladin', 'Ranger', 'Bard', 'Druid',  'Warlock']
