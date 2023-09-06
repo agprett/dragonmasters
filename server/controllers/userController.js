@@ -8,7 +8,7 @@ const userFunctions = {
       const {username} = req.session.user
       res.status(200).send({username})
     } else {
-      res.sendStatus(400)
+      res.status(400).send('Must sign in!')
     }
   },
 
