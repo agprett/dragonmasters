@@ -116,3 +116,19 @@ describe('These tests will ensure that when the endpoint to retrieve all/filtere
     })
   })
 })
+
+describe('Endpoint should respond with individual monsters based on the index that is put as a param', () => {
+  test('Endpoint should respond with the monsters requested in the url', async () => {
+    let zombie = await axios.get('http://localhost:6789/api/monsters/zombie')
+
+    expect(zombie.data.name).toBe('Zombie')
+
+    let blueDragon = await axios.get('http://localhost:6789/api/monsters/ancient-blue-dragon')
+
+    expect(blueDragon.data.name).toBe('Ancient Blue Dragon')
+
+    let toad = await axios.get('http://localhost:6789/api/monsters/giant-toad')
+
+    expect(toad.data.name).toBe('Giant Toad')
+  })
+})
