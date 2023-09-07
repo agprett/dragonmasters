@@ -8,15 +8,15 @@ const userFunctions = {
       const {username} = req.session.user
       res.status(200).send({username})
     } else {
-      res.status(400).send('Must sign in!')
+      res.status(401).send('Must sign in!')
     }
   },
 
-  register: async (req, res) => {
+  registerUser: async (req, res) => {
     const {username, password} = req.body
     
     if(!username || !password) {
-      res.status(400).send('Username and password need to be provided!')
+      res.status(401).send('Username and password need to be provided!')
     } else {
       const salt = bcrypt.genSaltSync(10)
       const passHash = bcrypt.hashSync(password, salt)
@@ -33,12 +33,12 @@ const userFunctions = {
         req.session.user = {user_id, username: dbUsername}
         res.status(200).send({username: dbUsername})
       } else {
-        res.status(400).send('Username already taken!')
+        res.status(403).send('Username already taken!')
       }
     }
   },
 
-  login: async (req, res) => {
+  loginUser: async (req, res) => {
     const {username, password} = req.body
 
     if(username && password) {
@@ -52,17 +52,17 @@ const userFunctions = {
           req.session.user = {user_id, username: dbUsername}
           res.status(200).send({username: dbUsername})
         } else {
-          res.status(400).send('Username or password incorrect!')
+          res.status(401).send('Username or password incorrect!')
         }
       } else {
-        res.status(400).send('Username or password incorrect!')
+        res.status(401).send('Username or password incorrect!')
       }
     } else {
-      res.status(400).send('Must provide a username and password!')
+      res.status(401).send('Must provide a username and password!')
     }
   },
 
-  logout: (req, res) => {
+  logoutUser: (req, res) => {
     req.session.user = null
     req.session.save((err) => {
       if(err) {
@@ -71,6 +71,34 @@ const userFunctions = {
         res.sendStatus(200)
       }
     })
+  },
+
+  deleteUser: async (req, res) => {
+    const {username, password} = req.body
+
+    if(req.session.user) {
+      const user = await User.findOne({where: {username}})
+
+      if(user && user.username === username) {
+        let passCheck = bcrypt.compareSync(password, user.password)
+
+        if(passCheck){
+          await User.destroy({
+            where: {
+              username
+            }
+          })
+          res.status(200).send('Account successfully deleted!')
+        } else {
+          res.status(401).send('Incorrect credentials. Could not delete account.')
+        }
+      } else {
+        res.status(401).send('Incorrect credentials. Could not delete account.')
+      }
+
+    } else {
+      res.status(403).send('Must be signed in as the user account being deleted.')
+    }
   }
 }
 
