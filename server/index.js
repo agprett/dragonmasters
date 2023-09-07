@@ -21,7 +21,7 @@ app.use(session({
 }))
 
 import userFunctions from './controllers/userController.js'
-const {getUser, register, login, logout} = userFunctions
+const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
 
 import encounterFunctions from './controllers/encounterController.js'
 const {getEncounters, getEncounter, createEncounter} = encounterFunctions
@@ -36,9 +36,10 @@ import spellFunctions from './controllers/spellController.js'
 const {getAllSpells, getSpell} = spellFunctions
 
 app.get('/api/user', getUser)
-app.post('/api/register', register)
-app.post('/api/login', login)
-app.post('/api/logout', logout)
+app.post('/api/user/register', registerUser)
+app.post('/api/user/login', loginUser)
+app.post('/api/user/logout', logoutUser)
+app.post('/api/user/delete', deleteUser)
 
 // app.get('/api/campaign', getCampaign)
 
