@@ -27,7 +27,7 @@ import encounterFunctions from './controllers/encounterController.js'
 const {getEncounters, getEncounter, createEncounter} = encounterFunctions
 
 import characterFunctions from './controllers/characterController.js'
-const {getCharacters} = characterFunctions
+const {getCharacters, createCharacter} = characterFunctions
 
 import monsterFunctions from './controllers/monsterController.js'
 const {getAllMonsters, getMonster} = monsterFunctions
@@ -48,6 +48,7 @@ app.get('/api/encounters/:id', getEncounter)
 app.post('/api/encounters', createEncounter)
 
 app.get('/api/characters', getCharacters)
+app.post('/api/characters', createCharacter)
 
 app.get('/api/monsters/:index', getMonster)
 app.get('/api/monsters', getAllMonsters)

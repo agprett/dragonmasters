@@ -1,6 +1,8 @@
 import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
 
+import { Character } from '../db/models.js'
+
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: 'postgres',
   dialectOptions: {
@@ -34,27 +36,27 @@ const characterFunctions = {
         res.sendStatus(500)
       })
     } else {
-      res.status(400).send('Must be signed in to view this!')
+      res.status(400).send('You must be signed in to view your characters!')
     }
   },
 
-  createCharacter: (req, res) => {
-    const {user_id} = req.session.user
-    const {name, player, level, hit_points} = req.body
+  createCharacter: async (req, res) => {
+    const {name, player, level, hit_points, race, char_class, armor_class} = req.body
 
-    if(name && player && level && hit_points) {
-      sequelize.query(`
-        INSERT INTO characters (user_id, name, player, level, hit_points)
-        VALUES ('${user_id}', '${name}', '${player}', ${level}, ${hit_points});
-      `)
-        .then(dbRes => {
-          return res.sendStatus(200)
-        })
-        .catch(err => {
-          console.log(err)
-          return res.status(400).send('Could not create character')
-        })
-      res.status(500).send('Unable to create character.')
+    
+    if(req.session.user) {
+      if(!name || !player || !hit_points) {
+        res.status(400).send('You must provide all required info to create a character')
+      } else {
+        const {user_id} = req.session.user
+  
+        let newChar = await Character.create({name, player, level, hit_points, race, char_class, armor_class, user_id}, {fields: ['name', 'player', 'hit_points', 'level', 'race', 'char_class', 'armor_class', 'user_id']})
+    
+
+        res.status(200).send(`New character, ${newChar.name}, created!`)
+      }
+    } else {
+      res.status(401).send('You must be signed in to create a character!')
     }
   }
 }

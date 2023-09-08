@@ -1,6 +1,10 @@
 import axios from 'axios'
 import http from 'node:http'
 
+function fail(reason = "fail was called in a test.") {
+  throw new Error(reason);
+}
+
 describe('Test the sign up server functionality', () => {
   test('test that when providing a valid username and password, the user can create a new account', async () => {
     const user = {
@@ -21,7 +25,7 @@ describe('Test the sign up server functionality', () => {
     
     await axios.post('http://localhost:6789/api/user/register', user1)
       .then(res => {
-        expect(res).toThrow()
+        fail('User did not provide a password when signing up')
       })
       .catch(err => {
         expect(err.response.data).toBe('Username and password need to be provided!')
@@ -34,7 +38,7 @@ describe('Test the sign up server functionality', () => {
 
     await axios.post('http://localhost:6789/api/user/register', user2)
       .then(res => {
-        expect(res).toThrow()
+        fail('User did not provide a password when signing up')
       })
       .catch(err => {
         expect(err.response.data).toBe('Username and password need to be provided!')
@@ -49,7 +53,7 @@ describe('Test the sign up server functionality', () => {
       
       await axios.post('http://localhost:6789/api/user/register', user)
         .then(res => {
-          expect(res).toThrow()
+          fail('User provided an existing username, should give error')
         })
         .catch(err => {
           expect(err.response.data).toBe('Username already taken!')
@@ -72,7 +76,7 @@ describe('Users can login with proper credentials, will be reminded to send user
   test('Users will get a error message when using the wrong username or password', async () => {
     await axios.post('http://localhost:6789/api/user/login', {username: 'test1', password: 'wrong'})
       .then(res => {
-        expect('Should not have worked').toBe('Why did it work?')
+        fail('User did not provide valid sign in info')
       })
       .catch(err => {
         expect(err.response.data).toBe('Username or password incorrect!')
@@ -81,7 +85,7 @@ describe('Users can login with proper credentials, will be reminded to send user
       
     await axios.post('http://localhost:6789/api/user/login', {username: 'test9', password: 'badpass123'})
       .then(res => {
-        expect('Should not have worked').toBe('Why did it work?')
+        fail('User did not provide valid sign in info')
       })
       .catch(err => {
         expect(err.response.data).toBe('Username or password incorrect!')
@@ -91,7 +95,7 @@ describe('Users can login with proper credentials, will be reminded to send user
     test('User will get an error message when trying to sign in without a username or password', async () => {
       await axios.post('http://localhost:6789/api/user/login', {username: 'test1', password: ''})
         .then(res => {
-          expect('Should have failed').toBe('Why did it work?')
+          fail('User did not have to provide password')
         })
         .catch(err => {
           expect(err.response.data).toBe('Must provide a username and password!')
@@ -99,7 +103,7 @@ describe('Users can login with proper credentials, will be reminded to send user
 
       await axios.post('http://localhost:6789/api/user/login', {username: '', password: 'badpass123'})
         .then(res => {
-          expect('Should have failed').toBe('Why did it work?')
+          fail('User did not have to provide username')
         })
         .catch(err => {
           expect(err.response.data).toBe('Must provide a username and password!')
@@ -112,7 +116,7 @@ describe('Tests the endpoint that is used to ensure a user is signed in before b
 
     await  axios.get('http://localhost:6789/api/user')
       .then(res => {
-        expect('This should not work.').toBe('Why did it work?')
+        fail('User should have had to sign in')
       })
       .catch(err => {
         expect(err.response.data).toBe('Must sign in!')
@@ -134,7 +138,7 @@ describe('Tests the endpoint that is used to ensure a user is signed in before b
         instance.defaults.headers.Cookie = res.headers['set-cookie'][0]
       })
       .catch(err => {
-        console.log(err.response.data)
+        fail('User was unable to sign in')
       })
       
     await instance.get('http://localhost:6789/api/user')
@@ -142,7 +146,7 @@ describe('Tests the endpoint that is used to ensure a user is signed in before b
         expect(res.data.username).toBe(user.username)
       })
       .catch(() => {
-        expect('It is not working').toBe('I can not figure it out')
+        fail('User should have been signed in')
       })
   })
 })
@@ -163,12 +167,12 @@ describe('Users can delete their account when providing the correct username and
         instance.defaults.headers.Cookie = res.headers['set-cookie'][0]
       })
       .catch(err => {
-        console.log(err.response.data)
+        fail('Unable to sign in')
       })
 
     await instance.post('http://localhost:6789/api/user/delete', {username: 'othertest1', password: 'wrongpassword'})
       .then(() => {
-        expect('Should have given error').toBe('This test failed')
+        fail('Attempting to delete wrong account')
       })
       .catch(err => {
         expect(err.response.data).toBe('Incorrect credentials. Could not delete account.')
@@ -178,7 +182,7 @@ describe('Users can delete their account when providing the correct username and
   test('User will not be able to delete an account when not signed in as that user', async () => {
     await axios.post('http://localhost:6789/api/user/delete', user)
     .then(() => {
-      expect('Should have given error').toBe('This test failed')
+      fail('Should not succeed, not signed in')
     })
     .catch(err => {
       expect(err.response.data).toBe('Must be signed in as the user account being deleted.')
@@ -195,7 +199,7 @@ describe('Users can delete their account when providing the correct username and
         instance.defaults.headers.Cookie = res.headers['set-cookie'][0]
       })
       .catch(err => {
-        console.log(err.response.data)
+        fail('Unable to sign in')
       })
 
     await instance.post('http://localhost:6789/api/user/delete', user)

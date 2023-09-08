@@ -66,10 +66,10 @@ Character.init({
   race: {
     type: DataTypes.TEXT
   },
-  class: {
+  char_class: {
     type: DataTypes.TEXT
   },
-  armorclass: {
+  armor_class: {
     type: DataTypes.INTEGER
   }
 }, {
