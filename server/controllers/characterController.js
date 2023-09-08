@@ -58,6 +58,35 @@ const characterFunctions = {
     } else {
       res.status(401).send('You must be signed in to create a character!')
     }
+  },
+
+  getCharacter: async (req, res) => {
+    const {id} = req.params
+
+    let character = await Character.findOne({where: {character_id: id}, attributes: ['character_id', 'player', 'name', 'hit_points', 'level', 'race', 'armor_class', 'char_class']})
+
+    if(character !== null) {
+      res.status(200).send(character)
+    } else {
+      res.status(404).send('Character was not found')
+    }
+  },
+
+  deleteCharacter: async (req, res) => {
+    const {id} = req.params
+
+    let character = await Character.findByPk(id)
+
+    if(character !== null) {
+      if(req.session.user && req.session.user.user_id === character.user_id) {
+        await Character.destroy({where: {character_id: id}})
+        res.status(200).send('Successfully deleted character!')
+      } else {
+        res.status(403).send('You must be signed in as the creator to delete this character!')
+      }
+    } else {
+      res.status(404).send('Character was not found')
+    }
   }
 }
 

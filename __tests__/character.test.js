@@ -26,7 +26,7 @@ describe('Users can create new characters when providing all the correct informa
     let newChar = {
       player: 'Me',
       hit_points: 43,
-      name: 'newChar',
+      name: 'new char',
       level: 6
     }
     
@@ -115,3 +115,62 @@ describe('Users can retrieve all of their created characters', () => {
 
 })
 
+describe('Users can retrieve a single character', () => {
+  test('User can retrieve a character by that characters ID', async () => {
+    await signedIn.get('http://localhost:6789/api/characters/6')
+      .then(res => {
+        expect(res.data.name).toBe('char1')
+      })
+      .catch(() => {
+        fail('Server failed to respond with the character')
+      })
+  })
+})
+
+describe('Users can delete a character they created', () => {
+  test('Users will not be able to delete a character if they are not signed in', async () => {
+    let {data} = await signedIn.get('http://localhost:6789/api/characters')
+  
+    let id = data[data.findIndex(ele => ele.name === 'new char')].character_id
+
+    await axios.delete('http://localhost:6789/api/characters/' + id)
+      .then(() => {
+        fail('Should not have been allowed to delete item')
+      })
+      .catch(err => {
+        expect(err.response.data).toBe('You must be signed in as the creator to delete this character!')
+      })
+  })
+
+  test('Users will not be able to delete a character if they are not signed in', async () => {
+    let {data} = await signedIn.get('http://localhost:6789/api/characters')
+  
+    let id1 = data[data.findIndex(ele => ele.name === 'new char')].character_id
+    let id2 = data[data.findIndex(ele => ele.name === 'new char 2')].character_id
+
+    await signedIn.delete('http://localhost:6789/api/characters/' + id1)
+      .then(res => {
+        expect(res.data).toBe('Successfully deleted character!')
+      })
+      .catch(() => {
+        fail('Should have been signed in and provided correct id')
+      })
+      
+    await signedIn.delete('http://localhost:6789/api/characters/' + id2)
+        .then(res => {
+          expect(res.data).toBe('Successfully deleted character!')
+        })
+        .catch(() => {
+          fail('Should have been signed in and provided correct id')
+        })
+    
+    // Tests to make sure they are actually deleted
+    await signedIn.get('http://localhost:6789/api/characters')
+      .then(res => {
+        expect(res.data).toHaveLength(2)
+      })
+      .catch(() => {
+        fail('User should have recieved a list of their characters')
+      })
+  })
+})
