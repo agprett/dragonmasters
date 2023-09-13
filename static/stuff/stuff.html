@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../client/images/logo.png">
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="../stuff-nav.css">
+    <title>DragonMasters Static</title>
+  </head>
+  <body>
+    <div id="app">
+
+      <!-- Nav when signed in -->
+      <nav id="main-nav">
+        <div class="main-nav-divs" id="main-nav-left">
+          <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
+          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links btn-type-1-hover" href="/static/guide/guide.html">Guide</a>
+          <a class="nav-links btn-type-1-hover active" href="/static/stuff/stuff.html">My Stuff</a>
+        </div>
+
+        <div class='main-nav-divs' id='nav-right'>
+          <p>Welcome, Rogue</p>
+          <button
+            class='nav-links btn-type-1-hover login-logout'
+          >Logout</button>
+        </div>
+      </nav>
+
+      <!-- Stuff nav shows when on stuff pages(ie. campaigns, encounters, characters, etc.) -->
+      <nav id='stuff-nav'>
+        <a class='stuff-nav-links btn-type-1-hover nav-links active' href="/stuff.html" end>My Stuff</a>
+        <a class='stuff-nav-links btn-type-1-hover nav-links' href="../campaigns/campaigns,html">My Campaigns</a>
+        <a class='stuff-nav-links btn-type-1-hover nav-links' href="../encounters/encounters.html">My Encounters</a>
+      </nav>
+
+
+
+    </div>
+
+  </body>
+</html>
