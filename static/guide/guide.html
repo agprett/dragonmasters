@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../client/images/logo.png">
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="./guide.css">
+    <title>DragonMasters Static</title>
+  </head>
+  <body>
+    <div id="app">
+
+      <!-- Nav when signed out -->
+      <nav id="main-nav">
+        <div class="main-nav-divs" id="main-nav-left">
+          <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
+          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links btn-type-1-hover active" href="/static/guide/guide.html">Guide</a>
+        </div>
+
+        <div class='main-nav-divs' id='nav-right'>
+          <a
+            class='nav-links btn-type-1-hover login-logout'
+          >Log in/Sign up</a>
+        </div>
+      </nav>
+
+      <section class='page-layout-2'>
+        <h1>Guides</h1>
+        <!-- <form>
+          <p>Search a name to query all guides</p>
+          <input placeholder='Name'/>
+          <button type='submit'>Search</button>
+        </form> -->
+        <section class='collections-display'>
+          <div class="collections">
+            <h3>Monsters</h3>
+            <a class='btn-type-1 btn-type-1-hover' href='/static/guide/monsters.html'>View</a>
+          </div> 
+          <div class="collections">
+            <h3>Spells</h3>
+            <a class='btn-type-1 btn-type-1-hover' href='/static/guide/spells.html'>View</a>
+          </div>
+        </section>
+      </section>
+
+    </div>
+
+  </body>
+</html>
