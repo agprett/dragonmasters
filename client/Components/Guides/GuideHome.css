@@ -81,15 +81,36 @@
   gap: 25px;
 }
 
-.guide-result {
+#guide-result-head {
+  height: 60px;
   width: 90%;
-  height: 50px;
-  display: flex;
+  color: #264C5E;
+  background-color: inherit;
+  pointer-events: none;
+  padding: 0 2%;
+  margin: 0;
+}
+
+.guide-result {
+  width: 87%;
+  min-height: 50px;
+  font-size: 16pt;
+  text-align: center;
+  /* display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0px 10px;
+  justify-content: space-between; */
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2.25fr;
+  grid-auto-columns: 1fr;
+  align-items: center;
+  padding: 9px 15px 9px 10px;
+  transition: all .5s ease;
   cursor: pointer;
-  background-color: grey;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  color: #CEC2AE;
+  background-color: #263859;
 }
 
 .monster-popup {

@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  margin-top: 65px;
+  margin-top: 25px;
   padding: 20px 0;
   color: #CEC2AE;
   background-color: #6B778D;
@@ -41,29 +41,35 @@
 }
 
 #guide-result-head {
+  height: 60px;
+  width: 90%;
   color: #264C5E;
   background-color: inherit;
   pointer-events: none;
+  padding: 0 2%;
   margin: 0;
 }
 
 .guide-result {
-  width: 90%;
-  height: 50px;
+  width: 87%;
+  min-height: 50px;
   font-size: 16pt;
+  text-align: center;
   /* display: flex;
   align-items: center;
   justify-content: space-between; */
   display: grid;
-  grid-template-columns: .5fr 2.5fr repeat(5, .7fr);
+  grid-auto-flow: column;
+  grid-template-columns: 2.25fr;
+  grid-auto-columns: 1fr;
   align-items: center;
-  padding: 0 15px 0 10px;
+  padding: 9px 15px 9px 10px;
   transition: all .5s ease;
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   color: #CEC2AE;
-  background-color: #6B778D;
+  background-color: #263859;
 }
 
 .guide-result:hover {
