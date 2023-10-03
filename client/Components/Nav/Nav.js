@@ -13,10 +13,11 @@ function Nav(props) {
   const [userInfo, setUserInfo] = useState({})
 
   useEffect(() => {
-    console.log('nav refresh')
+    console.log('nav refresh', props.username)
     if(!props.username) {
       axios.get('/api/user')
         .then(res => {
+          console.log(res.data)
           const {username} = res.data
           props.getUser({username})
           setUserInfo({username})

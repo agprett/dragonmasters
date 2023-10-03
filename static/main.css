@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=MedievalSharp|Josefin+Sans');
 
 #app {
-  height: 100vh;
-  width: 100vw;
-  font-family: 'Josefin Sans', sans-serif;
+  min-height: 100vh;
+  max-width: 100vw;
+  padding-bottom: 150px;
   overflow: auto;
-  width: 100vw;
   font-family: 'Josefin Sans', sans-serif;
+  position: relative;
   overflow: auto;
-  background-color: #FAFDED;
+  background-color: #DDECF8;
 }
 
 .page-layout-1 {
@@ -17,12 +17,14 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  background: linear-gradient(-45deg, #c52e09, #fc6a05, #ffab06, #f75206);
+  background-color: #DDECF8;
+  /* background: linear-gradient(-45deg, #c52e09, #fc6a05, #ffab06, #f75206); */
+  /* background: linear-gradient(-45deg, #263859, #1B9AAA, #263859);
 	background-size: 400% 400%;
-	animation: gradient 6s ease infinite;
+	animation: gradient 6s ease infinite; */
 }
 
-@keyframes gradient {
+/* @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
@@ -32,10 +34,10 @@
 	100% {
 		background-position: 0% 50%;
 	}
-}
+} */
 
 .page-layout-2 {
-  min-height: calc(100vh - 75px);
+  /* min-height: calc(100vh - 75px); */
   width: 100%;
   padding-top: 25px;
   display: flex;
@@ -103,9 +105,18 @@ option {
   background-color: #263859;
 }
 
+.small-logo {
+  height: 40px;
+  margin-right: 7px;
+}
+
 .medium-logo {
   height: 60px;
   margin-right: 10px;
+}
+
+.large-logo {
+  height: 90px;
 }
 
 .btn-type-1 {
@@ -296,6 +307,7 @@ option {
   border-radius: 20px;
   gap: 10px;
   /* border: 5px solid #263859; */
+  z-index: 2;
   color: #CEC2AE;
   background-color: #6B778D;
 }
