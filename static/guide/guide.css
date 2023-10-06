@@ -45,11 +45,11 @@
 #guide-result-head {
   height: 60px;
   width: 91%;
-  color: #264C5E;
-  background-color: inherit;
   pointer-events: none;
   padding: 0 2%;
   margin: 0;
+  color: #CEC2AE;
+  background-color: #263859;
 }
 
 .guide-result {
@@ -70,8 +70,8 @@
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
-  color: #CEC2AE;
-  background-color: #263859;
+  color: #264C5E;
+  background-color: inherit;
 }
 
 .guide-result:hover {
