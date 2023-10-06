@@ -4,6 +4,7 @@ import connectToDB from "./db.js"
 
 const db = await connectToDB(process.env.CONNECTION_STRING)
 
+// User table tracks the data for a user: username, password, etc.
 class User extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -29,6 +30,7 @@ User.init({
   sequelize: db
 })
 
+// Character table holds data about a players character and who create that character
 class Character extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -64,16 +66,17 @@ Character.init({
   race: {
     type: DataTypes.TEXT
   },
-  class: {
+  char_class: {
     type: DataTypes.TEXT
   },
-  armorclass: {
+  armor_class: {
     type: DataTypes.INTEGER
   }
 }, {
   sequelize: db
 })
 
+// Campaign table tracks information about the overall campaign
 class Campaign extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -110,6 +113,7 @@ Campaign.init({
   sequelize: db
 })
 
+// Campaign Note is a table that has notes about the campaign and who can view them
 class Campaign_Note extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -138,6 +142,7 @@ Campaign_Note.init({
   sequelize: db
 })
 
+// This table links a specific character to the campaigns they're participating in
 class Campaign_Character extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -166,6 +171,7 @@ Campaign_Character.init({
   sequelize: db
 })
 
+// This table contains overall information about an encounter: description, location, terrain, rewards, campaign it's in, etc.
 class Encounter extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -209,7 +215,7 @@ Encounter.init({
   sequelize: db
 })
 
-
+// This table links encounters to the monsters added to them and how many there are of each monster
 class Encounter_Monster extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -242,6 +248,7 @@ Encounter_Monster.init({
   sequelize: db
 })
 
+// This table links the characters to the encounters they're participating in
 class Encounter_Character extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
@@ -266,6 +273,7 @@ Encounter_Character.init({
   sequelize: db
 })
 
+// Below are all the relationships present in the above tables
 User.hasMany(Character, {foreignKey: 'user_id'})
 Character.belongsTo(User, {foreignKey: 'user_id'})
 

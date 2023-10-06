@@ -8,9 +8,9 @@ const quickDB = monstersDB.map(monster => {
 
 const monsterFunctions = {
   getAllMonsters: (req, res) => {
-    const {name, size, challenge_rating} = req.query
+    const {name, size, challenge_rating_min, challenge_rating_max, alignment} = req.query
     
-    if(name || size || challenge_rating) {  
+    if(name || size || challenge_rating_min || challenge_rating_max || alignment) {  
       let filtered = quickDB.filter(monster => {
         let keep = true
         
@@ -22,7 +22,15 @@ const monsterFunctions = {
           keep = false
         }
   
-        if(challenge_rating && monster.challenge_rating < challenge_rating) {
+        if(challenge_rating_min && monster.challenge_rating < challenge_rating_min) {
+          keep = false
+        }
+
+        if(challenge_rating_max && monster.challenge_rating >= challenge_rating_max) {
+          keep = false
+        }
+
+        if(alignment && monster.alignment !== alignment) {
           keep = false
         }
   
