@@ -6,9 +6,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: #FF6768 2px solid;
+  border-bottom: #E8413C 2px solid;
   color: #CEC2AE;
-  background-color: #263859;
+  background-color: #1E4E73;
   font-family: 'MedievalSharp', sans-serif;
 }
 
@@ -35,13 +35,13 @@
 }
 
 #nav .nav-links:hover {
-  color: #17223B;
-  background-color: #FF6768;
+  color: #13324A;
+  background-color: #E8413C;
 }
 
 .active {
-  color: #17223B;
-  background-color: #FF6768;
+  color: #13324A;
+  background-color: #E8413C;
 }
 
 .login_logout {
@@ -49,5 +49,5 @@
   font-size: 20px;
   margin-left: 20px;
   cursor: pointer;
-  background-color: #FF6768;
+  background-color: #E8413C;
 }

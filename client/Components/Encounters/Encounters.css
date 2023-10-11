@@ -25,9 +25,9 @@
   text-decoration: none;
   cursor: pointer;
   font-size: large;
-  border: 5px solid #6B778D;
-  color: #17223B;
-  background-color: #FF6768;
+  border: 5px solid #4F5E69;
+  color: #13324A;
+  background-color: #E8413C;
 }
 
 #all-encounters {
@@ -50,9 +50,9 @@
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  border: 5px solid #6B778D;
+  border: 5px solid #4F5E69;
   color: #CEC2AE;
-  background-color: #263859;
+  background-color: #1E4E73;
   color: white;
 }
 

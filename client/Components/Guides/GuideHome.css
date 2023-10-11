@@ -22,9 +22,9 @@
   text-decoration: none;
   margin: auto;
   border-radius: 15px;
-  border: 5px solid #6B778D;
+  border: 5px solid #4F5E69;
   color: #CEC2AE;
-  background-color: #263859;
+  background-color: #1E4E73;
   font-size: 24pt;
   font-family: 'MedievalSharp', sans-serif;
 }
@@ -53,7 +53,7 @@
   left: 9%;
   text-decoration: none;
   color: white;
-  background-color: #264C5E;
+  background-color: #1E4E73;
   z-index: 5;
 }
 
@@ -84,7 +84,7 @@
 #guide-result-head {
   height: 60px;
   width: 90%;
-  color: #264C5E;
+  color: #1E4E73;
   background-color: inherit;
   pointer-events: none;
   padding: 0 2%;
@@ -110,7 +110,7 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   color: #CEC2AE;
-  background-color: #263859;
+  background-color: #1E4E73;
 }
 
 .monster-popup {
@@ -134,7 +134,7 @@
   height: 5px;
   width: 95%;
   margin: 10px 2.5%;
-  background-color: #264C5E;
+  background-color: #1E4E73;
   border-radius: 50%;
 }
 
@@ -150,7 +150,7 @@
   align-items: center;
   border-radius: 10px;
   color: #CEC2AE;
-  background-color: #264C5E;
+  background-color: #1E4E73;
 }
 
 .close-info-button {

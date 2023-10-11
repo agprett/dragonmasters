@@ -3,14 +3,15 @@
   padding: 0 15px;
   display: flex;
   align-items: center;
-  background-color: #6B778D;
+  background-color: #4F5E69;
 }
 
 .stuff-nav-links {
   padding: 0 10px;
+  border-radius: 0 0 2px;
 }
 
 .stuff-nav-links:hover, .stuff-nav-links:active {
-  color: #263859;
-  background-color: #FF6768;
+  color: #13324A;
+  background-color: #E8413C;
 }

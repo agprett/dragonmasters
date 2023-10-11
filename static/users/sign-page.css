@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #263859, #1B9AAA, #263859);
+  background: linear-gradient(-45deg, #1E4E73, #3C9EE8, #286A9C);
 	background-size: 300% 300%;
 	animation: gradient 12s ease infinite;
 }
@@ -43,7 +43,7 @@
   align-items: center;
   justify-content: space-evenly;
   color: #CEC2AE;
-  background-color: #6B778D;
+  background-color: #4F5E69;
 }
 
 
