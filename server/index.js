@@ -23,6 +23,9 @@ app.use(session({
 import userFunctions from './controllers/userController.js'
 const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
 
+import campaignFunctions from './controllers/campaignController.js'
+const {createCampaign, addCampaignNote} = campaignFunctions
+
 import encounterFunctions from './controllers/encounterController.js'
 const {getEncounters, getEncounter, createEncounter} = encounterFunctions
 
@@ -42,6 +45,9 @@ app.post('/api/user/logout', logoutUser)
 app.post('/api/user/delete', deleteUser)
 
 // app.get('/api/campaign', getCampaign)
+app.post('/api/campaigns', createCampaign)
+
+app.post('/api/campaigns/note', addCampaignNote)
 
 app.get('/api/encounters', getEncounters)
 app.get('/api/encounters/:id', getEncounter)

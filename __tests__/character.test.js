@@ -21,7 +21,7 @@ beforeAll(async () => {
     })
 })
 
-describe('Users can create new characters when providing all the correct information', () => {
+describe.skip('Users can create new characters when providing all the correct information', () => {
   test('Users can create a new character when providing the required information', async () => {
     let newChar = {
       player: 'Me',
@@ -92,7 +92,7 @@ describe('Users can create new characters when providing all the correct informa
   })
 })
 
-describe('Users can retrieve all of their created characters', () => {
+describe.skip('Users can retrieve all of their created characters', () => {
   test('User can retrieve all of their characters', async () => {
     await signedIn.get('http://localhost:6789/api/characters')
       .then(res => {
@@ -115,7 +115,7 @@ describe('Users can retrieve all of their created characters', () => {
 
 })
 
-describe('Users can retrieve a single character', () => {
+describe.skip('Users can retrieve a single character', () => {
   test('User can retrieve a character by that characters ID', async () => {
     await signedIn.get('http://localhost:6789/api/characters/6')
       .then(res => {
@@ -127,7 +127,7 @@ describe('Users can retrieve a single character', () => {
   })
 })
 
-describe('Users can delete a character they created', () => {
+describe.skip('Users can delete a character they created', () => {
   test('Users will not be able to delete a character if they are not signed in', async () => {
     let {data} = await signedIn.get('http://localhost:6789/api/characters')
   

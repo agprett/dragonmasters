@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLoaderData } from 'react-router-dom'
 
 import GuideFilter from './GuideFilter'
 import GuideResult from './GuideResult'
@@ -10,11 +10,12 @@ import './GuideHome.css'
 const capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
 function Guide () {
+  const data = useLoaderData()
   const {guide_type: type} = useParams()
 
   const [viewPopup, setViewPopup] = useState(false)
   const [popupData, setPopupData] = useState({})
-  const [guideData, setGuideData] = useState([])
+  const [guideData, setGuideData] = useState(data)
 
   const viewGuides = guideData.map(data => <GuideResult data={data} setViewPopup={setViewPopup} setPopupData={setPopupData} type={type} />)
 

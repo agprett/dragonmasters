@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 
 const buildFilterString = (filters) => {
@@ -15,15 +15,6 @@ function GuideFilter (props) {
   const {type, setGuideData} = props
 
   const [filters, setFilters] = useState({name: ''})
-
-  useEffect(() => {
-    axios.get(`/api/${type}?${buildFilterString(filters)}`)
-      .then(res => {
-        const {data} = res
-        console.log(data)
-        setGuideData(data)
-      })
-  }, [])
 
   const sendFilters = (e) => {
     e.preventDefault()

@@ -1,16 +1,4 @@
-import Sequelize from 'sequelize'
-const {CONNECTION_STRING} = process.env
-
 import { Character } from '../db/models.js'
-
-const sequelize = new Sequelize(CONNECTION_STRING, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-        rejectUnauthorized: false
-    }
-  }
-})
 
 const characterFunctions = {
   getCharacters: async (req, res) => {
