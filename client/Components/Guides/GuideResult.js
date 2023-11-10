@@ -11,11 +11,11 @@ function GuideResult (props) {
 
         return (
           <>
-            <p>Size: {data.size}</p>
-            <p>HP: {data.hit_points}</p>
-            <p>AC: {data.armor_class}</p>
-            <p>CR: {data.challenge_rating}</p>
-            <p>XP: {data.xp}</p>
+            <td>{data.size}</td>
+            <td>{data.hit_points}</td>
+            <td>{data.armor_class}</td>
+            <td>{data.challenge_rating}</td>
+            <td>{data.xp}</td>
           </>
         )
       
@@ -23,11 +23,11 @@ function GuideResult (props) {
 
         return (
           <>
-            <p>Casting Time: {data.casting_time}</p>
-            <p>Range: {data.range}</p>
-            <p>Level: {data.level === 0 ? 'Cantrip' : data.level}</p>
-            <p>School: {data.school.name}</p>
-            {data.dc ? <p>DC: {data.dc.dc_type.name}</p> : <></>}
+            <td>{data.casting_time}</td>
+            <td>{data.range}</td>
+            <td>{data.level === 0 ? 'Cantrip' : data.level}</td>
+            <td>{data.school.name}</td>
+            {data.dc ? <td>{data.dc.dc_type.name}</td> : <td></td>}
           </>
         )
     }
@@ -42,10 +42,10 @@ function GuideResult (props) {
   }
 
   return (
-    <div className='guide-result' key={index} onClick={getData}>
-      <h2>{name}</h2>
+    <tr className='guide-result' key={index} onClick={getData}>
+      <td className='result-name'>{name}</td>
       {displayResults()}
-    </div>
+    </tr>
   )
 }
 

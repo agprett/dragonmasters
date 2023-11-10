@@ -7,29 +7,3 @@
   align-items: center;
   gap: 25px;
 }
-
-.collections-groups {
-  width: 100%;
-  padding: 5px 25px 25px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-
-.collections {
-  width: 30%;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  border-radius: 20px;
-  border: 5px solid #4F5E69;
-  color: #CEC2AE;
-  background-color: #1E4E73;
-}
-
-.collections-buttons {
-  padding: 5px 15px;
-  font-size: 12pt;
-}

@@ -42,7 +42,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  color: #CEC2AE;
+  color: #B8B8B8;
   background-color: #577993;
 }
 
@@ -56,7 +56,7 @@
   font-weight: 700;
   line-height: 70px;
   text-align: center;
-  color: #CEC2AE;
+  color: #B8B8B8;
   background-image: url('../../client/images/login-img.jpg');
   background-position: center;
   background-size: cover;

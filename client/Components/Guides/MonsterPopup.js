@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './GuideHome.css'
+import './Guide.css'
 
 function MonsterPopup (props) {
   console.log('Popup reload')

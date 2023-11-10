@@ -1,5 +1,5 @@
 #stuff-nav {
-  height: 50px;
+  height: 40px;
   padding: 0 15px;
   display: flex;
   align-items: center;
@@ -12,6 +12,6 @@
 }
 
 .stuff-nav-links:hover, .stuff-nav-links:active {
-  color: #13324A;
+  color: #B8B8B8;
   background-color: #E8413C;
 }
