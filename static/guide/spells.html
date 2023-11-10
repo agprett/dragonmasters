@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../client/images/logo.png">
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="./guide.css">
+    <title>DragonMasters Static</title>
+  </head>
+  <body>
+    <div id="app">
+
+      <!-- Nav when signed out -->
+      <nav id="main-nav">
+        <div class="main-nav-divs" id="main-nav-left">
+          <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
+          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links btn-type-1-hover active" href="/static/guide/guide.html">Guide</a>
+        </div>
+
+        <div class='main-nav-divs' id='nav-right'>
+          <a
+            href="/static/users/login.html"
+            class='nav-links btn-type-1-hover login-logout'
+          >Log in/Sign up</a>
+        </div>
+      </nav>
+
+      <section class='page-layout-2'>
+        <header class='guide-title'>
+          <a class='btn-type-2 btn-type-2-hover guide-back-btn' href='/static/guide/guide.html'>&lt Back</a>
+          <h1 class="title-2">Spells</h1>
+        </header>
+  
+        <section class='guide-body'>
+  
+          <form id="guide-filters">
+            <p class="form-header">Filters</p>
+            <div class="form-piece">
+              <label for="filter-name">Name</label>
+              <input id="filter-name" placeholder='ex: Fireball'/>
+            </div>
+            <div class="form-piece">
+              <label for="filter-casting-time">Casting Time</label>
+              <select id="filter-casting-time">
+                <option selected value=''>Select Casting Time</option>
+                <option>1 action</option>
+                <option>1 bonus action</option>
+                <option>1 reaction</option>
+                <option>1 minute</option>
+                <option>10 minutes</option>
+                <option>1 hour</option>
+                <option>8 hours</option>
+                <option>12 hours</option>
+                <option>24 hours</option>
+              </select>
+            </div>
+            <div class="form-piece">
+              <label for="filter-school">School</label>
+              <select id="filter-school">
+                <option selected value=''>Select School</option>
+                <option>Evocation</option>
+                <option>Conjuration</option>
+                <option>Abjuration</option>
+                <option>Transmutation</option>
+                <option>Enchantment</option>
+                <option>Necromancy</option>
+                <option>Divination</option>
+                <option>Illusion</option>
+              </select>
+            </div>
+            <div class="form-piece">
+              <label for="filter-min-level">Min Level</label>
+              <select id="filter-min-level">
+                <option selected value=''>Select Min Level</option>
+                <option value='0'>Cantrip</option>
+                <option value='1'>1st</option>
+                <option value='2'>2nd</option>
+                <option value='3'>3rd</option>
+                <option value='4'>4th</option>
+                <option value='5'>5th</option>
+                <option value='6'>6th</option>
+                <option value='7'>7th</option>
+                <option value='8'>8th</option>
+                <option value='9'>9th</option>
+              </select>
+            </div>
+            <div class="form-piece">
+              <label for="filter-max-level">Max Level</label>
+              <select id="filter-max-level">
+                <option selected value=''>Select Max Level</option>
+                <option value='0'>Cantrip</option>
+                <option value='1'>1st</option>
+                <option value='2'>2nd</option>
+                <option value='3'>3rd</option>
+                <option value='4'>4th</option>
+                <option value='5'>5th</option>
+                <option value='6'>6th</option>
+                <option value='7'>7th</option>
+                <option value='8'>8th</option>
+                <option value='9'>9th</option>
+              </select>
+            </div>
+            <div class="form-piece">
+              <label for="filter-class">Class</label>
+              <select id="filter-class">
+                <option selected value=''>Select Class</option>
+                <option>Wizard</option>
+                <option>Sorcerer</option>
+                <option>Cleric</option>
+                <option>Paladin</option>
+                <option>Ranger</option>
+                <option>Bard</option>
+                <option>Druid</option>
+                <option>Warlock</option>
+              </select>
+            </div>
+            <button class="btn-type-2 btn-type-2-hover" type='submit'>Filter</button>
+            <button class='btn-type-2 btn-type-2-hover' type='reset'>Clear Filters</button>
+          </form>
+  
+          <section class='guide-results'>
+            <!-- <p class="title-3">Results</p> -->
+            <div class="guide-result" id="guide-result-head">
+              <h2>Name</h2>
+              <p>Casting Time</p>
+              <p>Range</p>
+              <p>Level</p>
+              <p>School</p>
+              <p>Save DC</p>
+            </div>
+
+            <!-- Actual monster data will be displayed here, for the static page this is just one repeated for ease of use -->
+            <div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div>
+            <div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p></p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div><div class='guide-result'>
+              <h2>Fireball</h2>
+              <p>Instantaneous</p>
+              <p>150 feet</p>
+              <p>13</p>
+              <p>Evocation</p>
+              <p>DEX</p>
+            </div>
+            
+          </section>
+  
+        </section>
+      </section>
+
+      <footer id="main-footer">
+        <div id="copyright-stuff">
+          <img class="small-logo" src="../../client/images/logo.png" alt="logo" />
+          <h3>DragonMasters</h3>
+          <p>&copy2023 DragonMasters</p>
+        </div>
+
+        <div id="social-stuff">
+          <a class="social-link">
+            <img class="social-img" src="../../client/images/github-mark.png" alt="Github"/>
+            <p>Github</p>
+          </a>
+        </div>
+      </footer>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=MedievalSharp|Josefin+Sans');
+
+.login-register-page {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: 'MedievalSharp';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(-45deg, #1E4E73, #3C9EE8, #286A9C);
+	background-size: 300% 300%;
+	animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.login-form-container {
+  height: 80%;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+#login-form {
+  height: 100%;
+  width: 50%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #CEC2AE;
+  background-color: #577993;
+}
+
+
+
+.login-image {
+  height: 100%;
+  width: 50%;
+  padding: 5%;
+  font-size: 44pt;
+  font-weight: 700;
+  line-height: 70px;
+  text-align: center;
+  color: #CEC2AE;
+  background-image: url('../../client/images/login-img.jpg');
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1000px rgb(107,119,141, .6);
+  overflow: hidden;
+}
