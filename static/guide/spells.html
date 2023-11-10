@@ -32,7 +32,7 @@
 
       <section class='page-layout-2'>
         <header class='guide-title'>
-          <a class='btn-type-2 btn-type-2-hover guide-back-btn' href='/static/guide/guide.html'>&lt Back</a>
+          <a class='btn btn-type-1 btn-color-1 guide-back-btn' href='/static/guide/guide.html'>&lt Back</a>
           <h1 class="title-2">Spells</h1>
         </header>
   
@@ -42,11 +42,11 @@
             <p class="form-header">Filters</p>
             <div class="form-piece">
               <label for="filter-name">Name</label>
-              <input id="filter-name" placeholder='ex: Fireball'/>
+              <input id="filter-name" class="full-form" placeholder='ex: Fireball'/>
             </div>
             <div class="form-piece">
               <label for="filter-casting-time">Casting Time</label>
-              <select id="filter-casting-time">
+              <select id="filter-casting-time" class="full-form">
                 <option selected value=''>Select Casting Time</option>
                 <option>1 action</option>
                 <option>1 bonus action</option>
@@ -61,7 +61,7 @@
             </div>
             <div class="form-piece">
               <label for="filter-school">School</label>
-              <select id="filter-school">
+              <select id="filter-school" class="full-form">
                 <option selected value=''>Select School</option>
                 <option>Evocation</option>
                 <option>Conjuration</option>
@@ -74,9 +74,9 @@
               </select>
             </div>
             <div class="form-piece">
-              <label for="filter-min-level">Min Level</label>
-              <select id="filter-min-level">
-                <option selected value=''>Select Min Level</option>
+              <label for="filter-min-level">Spell Level</label>
+              <select id="filter-min-level" class="split-form">
+                <option selected value=''>Min</option>
                 <option value='0'>Cantrip</option>
                 <option value='1'>1st</option>
                 <option value='2'>2nd</option>
@@ -88,11 +88,9 @@
                 <option value='8'>8th</option>
                 <option value='9'>9th</option>
               </select>
-            </div>
-            <div class="form-piece">
-              <label for="filter-max-level">Max Level</label>
-              <select id="filter-max-level">
-                <option selected value=''>Select Max Level</option>
+              <p>-</p>
+              <select id="filter-max-level" class="split-form">
+                <option selected value=''>Max</option>
                 <option value='0'>Cantrip</option>
                 <option value='1'>1st</option>
                 <option value='2'>2nd</option>
@@ -107,7 +105,7 @@
             </div>
             <div class="form-piece">
               <label for="filter-class">Class</label>
-              <select id="filter-class">
+              <select id="filter-class" class="full-form">
                 <option selected value=''>Select Class</option>
                 <option>Wizard</option>
                 <option>Sorcerer</option>
@@ -119,111 +117,115 @@
                 <option>Warlock</option>
               </select>
             </div>
-            <button class="btn-type-2 btn-type-2-hover" type='submit'>Filter</button>
-            <button class='btn-type-2 btn-type-2-hover' type='reset'>Clear Filters</button>
+            <button class="btn btn-type-2 btn-color-1" type='submit'>Filter</button>
+            <button class='btn btn-type-2 btn-color-1' type='reset'>Clear Filters</button>
           </form>
   
-          <section class='guide-results'>
+          <table class='guide-results'>
             <!-- <p class="title-3">Results</p> -->
-            <div class="guide-result" id="guide-result-head">
-              <h2>Name</h2>
-              <p>Casting Time</p>
-              <p>Range</p>
-              <p>Level</p>
-              <p>School</p>
-              <p>Save DC</p>
-            </div>
+            <thead>
+              <tr class="guide-result" id="guide-result-head">
+                <th class="result-name">Name</th>
+                <th>Casting Time</th>
+                <th>Range</th>
+                <th>Level</th>
+                <th>School</th>
+                <th>Save DC</th>
+              </tr>
+            </thead>
 
             <!-- Actual monster data will be displayed here, for the static page this is just one repeated for ease of use -->
-            <div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p></p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div><div class='guide-result'>
-              <h2>Fireball</h2>
-              <p>Instantaneous</p>
-              <p>150 feet</p>
-              <p>13</p>
-              <p>Evocation</p>
-              <p>DEX</p>
-            </div>
+            <tbody>
+              <tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>8</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>1</td>
+                <td>Evocation</td>
+                <td></td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>16</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr><tr class='guide-result'>
+                <td class="result-name">Fireball</td>
+                <td>Instantaneous</td>
+                <td>150 feet</td>
+                <td>13</td>
+                <td>Evocation</td>
+                <td>DEX</td>
+              </tr>
+            </tbody>
             
-          </section>
-  
+          </table>
+          
         </section>
       </section>
 

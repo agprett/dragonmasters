@@ -32,7 +32,6 @@
 
 .social-img {
   height: 40px;
-  border: 1px #B8B8B8 solid;
+  border: 3px black solid;
   border-radius: 50%;
-  background-color: #B8B8B8;
 }

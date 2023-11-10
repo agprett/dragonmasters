@@ -1,13 +1,15 @@
 import React from 'react'
 import './Home.css'
+import { Link } from 'react-router-dom'
 
 import bossBattle from '../../images/boss-battle.jpeg'
 
 function Home() {
   return (
-    <div id='home-page'>
+    <div className='page-layout-1'>
       <section id="opener">
         <h1 className="opac-box">DragonMasters</h1>
+        <h2 className='opener-desc'>Start your next adventure now</h2>
         <img src={bossBattle} alt="boss-battle-image" id="opener-img"/>
       </section>
 
@@ -26,14 +28,16 @@ function Home() {
         </p>
       </section>
 
-      <section id='home-quick-sections'>
-        <div>
-          <p>Guides</p>
-        </div>
-
-        <div>
-          <p>Stuff(Must be signed in)</p>
-        </div>
+      <section className='collections-display'>
+        <div class="collections">
+            <p>Guides</p>
+            <Link to="/guide" class="btn btn-type-2 btn-type-2-hover">View</Link>
+          </div>
+  
+          <div class="collections">
+            <p>My Stuff<br/>(Must be signed in)</p>
+            <Link to="/stuff" class="btn btn-type-2 btn-type-2-hover">View</Link>
+          </div>
       </section>
     </div>
   )
