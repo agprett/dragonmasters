@@ -18,111 +18,128 @@
       <nav id="main-nav">
         <div class="main-nav-divs" id="main-nav-left">
           <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
-          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
-          <a class="nav-links btn-type-1-hover active" href="/static/guide/guide.html">Guide</a>
+          <a class="nav-links" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links active" href="/static/guide/guide.html">Guide</a>
         </div>
 
         <div class='main-nav-divs' id='nav-right'>
           <a
             href="/static/users/login.html"
-            class='nav-links btn-type-1-hover login-logout'
+            class='nav-links login-logout'
           >Log in/Sign up</a>
         </div>
       </nav>
 
       <section class='page-layout-2'>
         <header class='guide-title'>
-          <a class='btn btn-type-1 btn-color-1 guide-back-btn' href='/static/guide/guide.html'>&lt Back</a>
+          <a class='btn btn-type-1 btn-color-1 back-btn' href='/static/guide/guide.html'>&lt Back</a>
           <h1 class="title-2">Spells</h1>
         </header>
   
         <section class='guide-body'>
   
-          <form id="guide-filters">
+          <form id="guide-filters" class="vertical-form">
             <p class="form-header">Filters</p>
             <div class="form-piece">
-              <label for="filter-name">Name</label>
-              <input id="filter-name" class="full-form" placeholder='ex: Fireball'/>
+              <label class="form-piece-filled">
+                <input class='form-input' required/>
+                <span class="form-label">Name</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label for="filter-casting-time">Casting Time</label>
-              <select id="filter-casting-time" class="full-form">
-                <option selected value=''>Select Casting Time</option>
-                <option>1 action</option>
-                <option>1 bonus action</option>
-                <option>1 reaction</option>
-                <option>1 minute</option>
-                <option>10 minutes</option>
-                <option>1 hour</option>
-                <option>8 hours</option>
-                <option>12 hours</option>
-                <option>24 hours</option>
-              </select>
+              <label class="form-piece-filled">
+                <select class="form-input">
+                  <option selected value=''>Select Casting Time</option>
+                  <option>1 action</option>
+                  <option>1 bonus action</option>
+                  <option>1 reaction</option>
+                  <option>1 minute</option>
+                  <option>10 minutes</option>
+                  <option>1 hour</option>
+                  <option>8 hours</option>
+                  <option>12 hours</option>
+                  <option>24 hours</option>
+                </select>
+                <span class="form-label">Casting Time</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label for="filter-school">School</label>
-              <select id="filter-school" class="full-form">
-                <option selected value=''>Select School</option>
-                <option>Evocation</option>
-                <option>Conjuration</option>
-                <option>Abjuration</option>
-                <option>Transmutation</option>
-                <option>Enchantment</option>
-                <option>Necromancy</option>
-                <option>Divination</option>
-                <option>Illusion</option>
-              </select>
+              <label class="form-piece-filled">
+                <select class="form-input">
+                  <option selected value=''>Select School</option>
+                  <option>Evocation</option>
+                  <option>Conjuration</option>
+                  <option>Abjuration</option>
+                  <option>Transmutation</option>
+                  <option>Enchantment</option>
+                  <option>Necromancy</option>
+                  <option>Divination</option>
+                  <option>Illusion</option>
+                </select>
+                <span class="form-label">School</span>
+              </label>
+            </div>
+            <p>Spell Level</p>
+            <div class="form-piece form-piece-split">
+              <div class="form-input-split">
+                <label class="form-piece-filled">
+                  <select class="form-input">
+                    <option selected value=''>Select Level</option>
+                    <option value='0'>Cantrip</option>
+                    <option value='1'>1st</option>
+                    <option value='2'>2nd</option>
+                    <option value='3'>3rd</option>
+                    <option value='4'>4th</option>
+                    <option value='5'>5th</option>
+                    <option value='6'>6th</option>
+                    <option value='7'>7th</option>
+                    <option value='8'>8th</option>
+                    <option value='9'>9th</option>
+                  </select>
+                  <span class="form-label">Min</span>
+                </label>
+              </div>
+              <div class="form-dash"></div>
+              <div class="form-input-split">
+                <label class="form-piece-filled">
+                  <select class="form-input">
+                    <option selected value=''>Select Level</option>
+                    <option value='0'>Cantrip</option>
+                    <option value='1'>1st</option>
+                    <option value='2'>2nd</option>
+                    <option value='3'>3rd</option>
+                    <option value='4'>4th</option>
+                    <option value='5'>5th</option>
+                    <option value='6'>6th</option>
+                    <option value='7'>7th</option>
+                    <option value='8'>8th</option>
+                    <option value='9'>9th</option>
+                  </select>
+                  <span class="form-label">Max</span>
+                </label>
+              </div>
             </div>
             <div class="form-piece">
-              <label for="filter-min-level">Spell Level</label>
-              <select id="filter-min-level" class="split-form">
-                <option selected value=''>Min</option>
-                <option value='0'>Cantrip</option>
-                <option value='1'>1st</option>
-                <option value='2'>2nd</option>
-                <option value='3'>3rd</option>
-                <option value='4'>4th</option>
-                <option value='5'>5th</option>
-                <option value='6'>6th</option>
-                <option value='7'>7th</option>
-                <option value='8'>8th</option>
-                <option value='9'>9th</option>
-              </select>
-              <p>-</p>
-              <select id="filter-max-level" class="split-form">
-                <option selected value=''>Max</option>
-                <option value='0'>Cantrip</option>
-                <option value='1'>1st</option>
-                <option value='2'>2nd</option>
-                <option value='3'>3rd</option>
-                <option value='4'>4th</option>
-                <option value='5'>5th</option>
-                <option value='6'>6th</option>
-                <option value='7'>7th</option>
-                <option value='8'>8th</option>
-                <option value='9'>9th</option>
-              </select>
-            </div>
-            <div class="form-piece">
-              <label for="filter-class">Class</label>
-              <select id="filter-class" class="full-form">
-                <option selected value=''>Select Class</option>
-                <option>Wizard</option>
-                <option>Sorcerer</option>
-                <option>Cleric</option>
-                <option>Paladin</option>
-                <option>Ranger</option>
-                <option>Bard</option>
-                <option>Druid</option>
-                <option>Warlock</option>
-              </select>
+              <label class="form-piece-filled">
+                <select class="form-input">
+                  <option selected value=''>Select Class</option>
+                  <option>Wizard</option>
+                  <option>Sorcerer</option>
+                  <option>Cleric</option>
+                  <option>Paladin</option>
+                  <option>Ranger</option>
+                  <option>Bard</option>
+                  <option>Druid</option>
+                  <option>Warlock</option>
+                </select>
+                <span class="form-label">Class</span>
+              </label>
             </div>
             <button class="btn btn-type-2 btn-color-1" type='submit'>Filter</button>
             <button class='btn btn-type-2 btn-color-1' type='reset'>Clear Filters</button>
           </form>
   
           <table class='guide-results'>
-            <!-- <p class="title-3">Results</p> -->
             <thead>
               <tr class="guide-result" id="guide-result-head">
                 <th class="result-name">Name</th>

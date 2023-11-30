@@ -1,6 +1,5 @@
 import axios from 'axios'
 import http from 'node:http'
-import { BaseError } from 'sequelize';
 
 function fail(reason = "fail was called in a test.") {
   throw new Error(reason);

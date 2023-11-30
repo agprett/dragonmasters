@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #1E4E73, #3C9EE8, #286A9C);
+  background: linear-gradient(-45deg, #1E4E73, #3385C4, #286A9C);
 	background-size: 300% 300%;
 	animation: gradient 12s ease infinite;
 }
@@ -37,16 +37,14 @@
 #login-form {
   height: 100%;
   width: 50%;
-  padding: 5%;
+  padding: 3%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  color: #B8B8B8;
+  color: #EBEBEB;
   background-color: #577993;
 }
-
-
 
 .login-image {
   height: 100%;
@@ -56,7 +54,7 @@
   font-weight: 700;
   line-height: 70px;
   text-align: center;
-  color: #B8B8B8;
+  color: #EBEBEB;
   background-image: url('../../client/images/login-img.jpg');
   background-position: center;
   background-size: cover;

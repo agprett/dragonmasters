@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../nav.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../stuff-nav.css">
+    <title>DragonMasters Static</title>
+  </head>
+  <body>
+    <div id="app">
+
+      <nav id="main-nav">
+        <div class="main-nav-divs" id="main-nav-left">
+          <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
+          <a class="nav-links" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links" href="/static/guide/guide.html">Guide</a>
+          <a class="nav-links active" href="/static/stuff/stuff.html">My Stuff</a>
+        </div>
+
+        <div class='main-nav-divs' id='nav-right'>
+          <p>Welcome, Rogue</p>
+          <a
+            href="/static/users/login.html"
+            class='nav-links login-logout'
+          >Logout</a>
+        </div>
+      </nav>
+
+      <nav id='stuff-nav'>
+        <a class='stuff-nav-links nav-links' href="/static/stuff/stuff.html" end>My Stuff</a>
+        <a class='stuff-nav-links nav-links active' href="/static/campaigns/campaigns.html">My Campaigns</a>
+        <a class='stuff-nav-links nav-links' href="/static/encounters/encounters.html">My Encounters</a>
+      </nav>
+
+      <div class="page-layout-2">
+        <a class="btn btn-type-1 btn-color-1 back-btn" href="/static/campaigns/campaigns.html">Cancel</a>
+        <h2 class="title-2">Create new campaign</h2>
+        <a class="btn btn-type-1 btn-color-3 create-btn" href="/static/campaigns/campaigns.html">Create</a>
+
+        <div class="new-sections">
+          <h3 class="dashboard-head">Details</h3>
+          <form class="horizontal-form">
+            <div class="form-piece">
+              <label class="form-piece-filled">
+                <input class='form-input' required/>
+                <span class="form-label">Name</span>
+              </label>
+            </div>
+            <div class="form-piece form-piece-textarea">
+              <label class="form-piece-filled">
+                <textarea class='form-input' required></textarea>
+                <span class="form-label">Description</span>
+              </label>
+            </div>
+            <div class="form-piece">
+              <label class="form-piece-filled">
+                <select class="form-input">
+                  <option selected disabled>Select length</option>
+                  <option>One-shot</option>
+                  <option>Short</option>
+                  <option>Medium</option>
+                  <option>Long</option>
+                </select>
+                <span class="form-label">School</span>
+              </label>
+            </div>
+            <div class="form-piece">
+              <label class="form-piece-filled">
+                <input class='form-input' required/>
+                <span class="form-label">World</span>
+              </label>
+            </div>
+            <div class="form-piece">
+              <label class="form-piece-filled">
+                <input class='form-input' required/>
+                <span class="form-label">Start Level</span>
+              </label>
+            </div>
+          </form>
+        </div>
+
+        <div class="new-sections">
+          <h3 class="dashboard-head">Players</h3>
+          <div class="add-players-display">
+            <div></div>
+          </div>
+        </div>
+        
+        <div class="new-sections">
+          <h3 class="dashboard-head">Encounters</h3>
+          <div class="add-encounters-display">
+  
+          </div>
+        </div>
+        
+      </div>
+
+      <footer id="main-footer">
+        <div id="copyright-stuff">
+          <img class="small-logo" src="../../client/images/logo.png" alt="logo" />
+          <h3>DragonMasters</h3>
+          <p>&copy2023 DragonMasters</p>
+        </div>
+
+        <div id="social-stuff">
+          <a class="social-link">
+            <img class="social-img" src="../../client/images/github-mark.png" alt="Github"/>
+            <p>Github</p>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

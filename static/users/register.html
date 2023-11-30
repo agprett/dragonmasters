@@ -16,23 +16,29 @@
 
       <div class="login-register-page">
         <div class="login-form-container">
-          <form id="login-form">
+          <form id="login-form" class="vertical-form">
             <img class="large-logo" src="../../client/images/logo.png" alt="logo"/>
             <h1 class="title-1">DragonMasters</h1>
             <p class="form-header">Create a new account</p>
             <div class="form-piece">
-              <label>Username</label>
-              <input class='full-form'/>
+              <label class="form-piece-underlined">
+                <input class='form-input' required/>
+                <span class="form-label">Username</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label>Password</label>
-              <input class='full-form'/>
+              <label class="form-piece-underlined">
+                <input class='form-input' required/>
+                <span class="form-label">Password</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label>Confirm Password</label>
-              <input class='full-form'/>
+              <label class="form-piece-underlined">
+                <input class='form-input' required/>
+                <span class="form-label">Confirm Password</span>
+              </label>
             </div>
-            <a href="/static/stuff/stuff.html" class="btn btn-type-1 btn-color-1">Sign In</a>
+            <a href="/static/stuff/stuff.html" class="btn btn-type-1 btn-color-1">Sign Up</a>
             <p>Already have an account? <a href="/static/users/login.html">Log in here!</a></p>
           </form>
           <div class="login-image">Start your next adventure now</div>
