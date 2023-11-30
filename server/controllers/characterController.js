@@ -21,6 +21,18 @@ const characterFunctions = {
     }
   },
 
+  getCharacter: async (req, res) => {
+    const {id} = req.params
+
+    let character = await Character.findOne({where: {character_id: id}, attributes: ['character_id', 'player', 'name', 'hit_points', 'level', 'race', 'armor_class', 'char_class']})
+
+    if(character !== null) {
+      res.status(200).send(character)
+    } else {
+      res.status(404).send('Character was not found')
+    }
+  },
+
   createCharacter: async (req, res) => {
     const {name, player, level, hit_points, race, char_class, armor_class} = req.body
 
@@ -36,18 +48,6 @@ const characterFunctions = {
       }
     } else {
       res.status(401).send('You must be signed in to create a character!')
-    }
-  },
-
-  getCharacter: async (req, res) => {
-    const {id} = req.params
-
-    let character = await Character.findOne({where: {character_id: id}, attributes: ['character_id', 'player', 'name', 'hit_points', 'level', 'race', 'armor_class', 'char_class']})
-
-    if(character !== null) {
-      res.status(200).send(character)
-    } else {
-      res.status(404).send('Character was not found')
     }
   },
 

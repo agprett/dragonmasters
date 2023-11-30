@@ -277,17 +277,14 @@ EncounterCharacter.init({
 User.hasMany(Character, {foreignKey: 'user_id'})
 Character.belongsTo(User, {foreignKey: 'user_id'})
 
-User.hasMany(Campaign, {foreignKey: 'user_id'})
-Campaign.belongsTo(User, {foreignKey: 'dungeon_master'})
+User.hasMany(Campaign, {foreignKey: 'dungeon_master'})
+Campaign.belongsTo(User, {foreignKey: 'user_id'})
 
 Campaign.hasMany(CampaignNote, {foreignKey: 'campaign_id'})
 CampaignNote.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Campaign.hasMany(CampaignCharacter, {foreignKey: 'campaign_id'})
-CampaignCharacter.belongsTo(Campaign, {foreignKey: 'campaign_id'})
-
-Character.hasMany(CampaignCharacter, {foreignKey : 'character_id'})
-CampaignCharacter.belongsTo(Character, {foreignKey: 'character_id'})
+Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id'})
+Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id'})
 
 User.hasMany(Encounter, {foreignKey: 'user_id'})
 Encounter.belongsTo(User, {foreignKey: 'user_id'})

@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-import { Campaign, CampaignNote } from '../db/models.js'
+import { Campaign, CampaignNote, Character } from '../db/models.js'
 const {CONNECTION_STRING} = process.env
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
@@ -12,7 +12,7 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
 })
 
 const campaignFunctions = {
-  getCampaign: (req, res) => {
+  getCampaigns: (req, res) => {
     if(req.session.user) {
       const {user_id} = req.session.user
   
@@ -27,6 +27,27 @@ const campaignFunctions = {
     } else {
       res.sendStatus(400)
     }
+  },
+
+  getCampaign: async (req, res) => {
+    const {id} = req.params
+
+    let campaign = (await Campaign.findOne({
+      where: {campaign_id: id},
+      attributes: ['campaign_id', 'name', 'length', 'description'],
+      include: {
+        model: Character,
+        attributes: ['name', 'player', 'char_class']
+      }
+    })).toJSON()
+
+    let {Characters: characters} = campaign
+
+    let names = characters.map(char => char.name)
+
+    delete campaign.Characters
+
+    res.status(200).send({...campaign, characters: names})
   },
 
   createCampaign: (req, res) => {
@@ -60,6 +81,24 @@ const campaignFunctions = {
     }
   },
 
+  deleteCampaign: async (req, res) => {
+    const {id} = req.params
+
+    let campaign = await Campaign.findByPk(id)
+
+    if(campaign !== null) {
+      if(req.session.user && req.session.user.user_id === campaign.dungeon_master) {
+        await CampaignNote.destroy({where: {campaign_id: id}})
+        await Campaign.destroy({where: {campaign_id: id}})
+        res.status(200).send('Deleted campaign')
+      } else {
+        res.status(403).send('You must be signed in as the creator to delete this character')
+      }
+    } else {
+      res.status(404).send('Campaign was not found')
+    }
+  },
+
   addCampaignNote: async (req, res) => {
     const {user_id} = req.session.user
     const {campaign_id, note} = req.body
@@ -76,7 +115,20 @@ const campaignFunctions = {
     } else {
       res.status(400).send('Note must be tied to valid campaign!')
     }
-  }      
+  },
+
+  deleteCampaignNote: async (req, res) => {
+    const {id} = req.params
+
+    let note = await CampaignNote.findByPk(id)
+
+    if(note !== null) {
+      await CampaignNote.destroy({where: {note_id: id}})
+      res.status(200).send('Note deleted')
+    } else {
+      res.status(404).send('The selected note was not found')
+    }
+  },
 }
 
 export default campaignFunctions 

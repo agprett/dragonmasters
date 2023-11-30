@@ -24,7 +24,7 @@ import userFunctions from './controllers/userController.js'
 const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
 
 import campaignFunctions from './controllers/campaignController.js'
-const {createCampaign, addCampaignNote} = campaignFunctions
+const {getCampaigns, getCampaign, createCampaign, addCampaignNote} = campaignFunctions
 
 import encounterFunctions from './controllers/encounterController.js'
 const {getEncounters, getEncounter, createEncounter} = encounterFunctions
@@ -44,7 +44,8 @@ app.post('/api/user/login', loginUser)
 app.post('/api/user/logout', logoutUser)
 app.post('/api/user/delete', deleteUser)
 
-// app.get('/api/campaign', getCampaign)
+app.get('/api/campaign', getCampaigns)
+// app.get('/api/campaign/:id', getCampaign)
 app.post('/api/campaigns', createCampaign)
 
 app.post('/api/campaigns/note', addCampaignNote)
