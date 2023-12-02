@@ -295,7 +295,7 @@
   
   & textarea.form-input  {
     min-height: 40px;
-    max-height: 70px;
+    max-height: 100px;
     max-width: 100%;
     min-width: 100%;
   }

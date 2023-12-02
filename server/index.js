@@ -38,26 +38,34 @@ const {getAllMonsters, getMonster} = monsterFunctions
 import spellFunctions from './controllers/spellController.js'
 const {getAllSpells, getSpell} = spellFunctions
 
+const loginCheck = (req, res) => {
+  if(req.session.user) {
+    next()
+  } else {
+    res.status(403).send('Please login')
+  }
+}
+
 app.get('/api/user', getUser)
 app.post('/api/user/register', registerUser)
 app.post('/api/user/login', loginUser)
 app.post('/api/user/logout', logoutUser)
 app.post('/api/user/delete', deleteUser)
 
-app.get('/api/campaign', getCampaigns)
-// app.get('/api/campaign/:id', getCampaign)
-app.post('/api/campaigns', createCampaign)
+app.get('/api/campaigns', loginCheck, getCampaigns)
+app.get('/api/campaigns/:id', loginCheck, getCampaign)
+app.post('/api/campaigns', loginCheck, createCampaign)
 
-app.post('/api/campaigns/note', addCampaignNote)
+app.post('/api/campaigns/note', loginCheck, addCampaignNote)
 
-app.get('/api/encounters', getEncounters)
-app.get('/api/encounters/:id', getEncounter)
-app.post('/api/encounters', createEncounter)
+app.get('/api/encounters', loginCheck, getEncounters)
+app.get('/api/encounters/:id', loginCheck, getEncounter)
+app.post('/api/encounters', loginCheck, createEncounter)
 
-app.get('/api/characters', getCharacters)
-app.get('/api/characters/:id', getCharacter)
-app.post('/api/characters', createCharacter)
-app.delete('/api/characters/:id', deleteCharacter)
+app.get('/api/characters', loginCheck, getCharacters)
+app.get('/api/characters/:id', loginCheck, getCharacter)
+app.post('/api/characters', loginCheck, createCharacter)
+app.delete('/api/characters/:id', loginCheck, deleteCharacter)
 
 app.get('/api/monsters/:index', getMonster)
 app.get('/api/monsters', getAllMonsters)

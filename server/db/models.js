@@ -121,7 +121,7 @@ class CampaignNote extends Model {
 }
 
 CampaignNote.init({
-  id: {
+  note_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
@@ -278,13 +278,13 @@ User.hasMany(Character, {foreignKey: 'user_id'})
 Character.belongsTo(User, {foreignKey: 'user_id'})
 
 User.hasMany(Campaign, {foreignKey: 'dungeon_master'})
-Campaign.belongsTo(User, {foreignKey: 'user_id'})
+Campaign.belongsTo(User, {foreignKey: 'dungeon_master'})
 
 Campaign.hasMany(CampaignNote, {foreignKey: 'campaign_id'})
 CampaignNote.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id'})
-Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id'})
+Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id', as: 'characters'})
+Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id', as: 'characters'})
 
 User.hasMany(Encounter, {foreignKey: 'user_id'})
 Encounter.belongsTo(User, {foreignKey: 'user_id'})

@@ -2,23 +2,19 @@ import { Character } from '../db/models.js'
 
 const characterFunctions = {
   getCharacters: async (req, res) => {
-    if(req.session.user) {
-      const {user_id} = req.session.user
+    const {user_id} = req.session.user
+    
+    let data = await Character.findAll({where: {user_id}, attributes: ['character_id', 'name', 'player', 'level', 'hit_points']})
+
+    let characters = data.map(character => {
+      character.character_id = +character.character_id
+      character.level = +character.level
+      character.hit_points = +character.hit_points
       
-      let data = await Character.findAll({where: {user_id}, attributes: ['character_id', 'name', 'player', 'level', 'hit_points']})
+      return character
+    })
 
-      let characters = data.map(character => {
-        character.character_id = +character.character_id
-        character.level = +character.level
-        character.hit_points = +character.hit_points
-        
-        return character
-      })
-
-      res.status(200).send(characters)
-    } else {
-      res.status(400).send('You must be signed in to view your characters!')
-    }
+    res.status(200).send(characters)
   },
 
   getCharacter: async (req, res) => {
@@ -36,18 +32,14 @@ const characterFunctions = {
   createCharacter: async (req, res) => {
     const {name, player, level, hit_points, race, char_class, armor_class} = req.body
 
-    if(req.session.user) {
-      if(!name || !player || !hit_points) {
-        res.status(400).send('You must provide all required info to create a character')
-      } else {
-        const {user_id} = req.session.user
-  
-        let newChar = await Character.create({name, player, level, hit_points, race, char_class, armor_class, user_id}, {fields: ['name', 'player', 'hit_points', 'level', 'race', 'char_class', 'armor_class', 'user_id']})
-
-        res.status(200).send(`New character, ${newChar.name}, created!`)
-      }
+    if(!name || !player || !hit_points) {
+      res.status(400).send('You must provide all required info to create a character')
     } else {
-      res.status(401).send('You must be signed in to create a character!')
+      const {user_id} = req.session.user
+
+      let newChar = await Character.create({name, player, level, hit_points, race, char_class, armor_class, user_id}, {fields: ['name', 'player', 'hit_points', 'level', 'race', 'char_class', 'armor_class', 'user_id']})
+
+      res.status(200).send(`New character, ${newChar.name}, created!`)
     }
   },
 
