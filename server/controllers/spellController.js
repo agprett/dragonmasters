@@ -6,7 +6,6 @@ const quickDB = spellsDb.map(spell => {
   return {index, name, desc, casting_time, range, level, school, classes, dc, url}
 })
 
-
 const spellFunctions = {
   getAllSpells: (req, res) => {
     const {name, casting_time, school, minLevel, maxLevel, classSelect} = req.query

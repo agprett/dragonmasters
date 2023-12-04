@@ -18,56 +18,56 @@
       <nav id="main-nav">
         <div class="main-nav-divs" id="main-nav-left">
           <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
-          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
-          <a class="nav-links btn-type-1-hover" href="/static/guide/guide.html">Guide</a>
-          <a class="nav-links btn-type-1-hover active" href="/static/stuff/stuff.html">My Stuff</a>
+          <a class="nav-links" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links" href="/static/guide/guide.html">Guide</a>
+          <a class="nav-links active" href="/static/stuff/stuff.html">My Stuff</a>
         </div>
 
         <div class='main-nav-divs' id='nav-right'>
           <p>Welcome, Rogue</p>
-          <button
-            class='nav-links btn-type-1-hover login-logout'
+          <a
             href="/static/users/login.html"
-          >Logout</button>
+            class='nav-links login-logout'
+          >Logout</a>
         </div>
       </nav>
 
       <!-- Stuff nav shows when on stuff pages(ie. campaigns, encounters, characters, etc.) -->
       <nav id='stuff-nav'>
-        <a class='stuff-nav-links btn-type-1-hover nav-links active' href="/stuff.html" end>My Stuff</a>
-        <a class='stuff-nav-links btn-type-1-hover nav-links' href="../campaigns/campaigns.html">My Campaigns</a>
-        <a class='stuff-nav-links btn-type-1-hover nav-links' href="../encounters/encounters.html">My Encounters</a>
+        <a class='stuff-nav-links nav-links active' href="/stuff.html" end>My Stuff</a>
+        <a class='stuff-nav-links nav-links' href="../campaigns/campaigns.html">My Campaigns</a>
+        <a class='stuff-nav-links nav-links' href="../encounters/encounters.html">My Encounters</a>
       </nav>
 
       <section class='page-layout-2' id='my-stuff'>
         <h2>DM Stuff</h2>
         <div class='collections-display'>
           <div class='collections'>
-            <h2>My Campaigns</h2>
+            <h3>My Campaigns</h3>
             <h4>2 saved Campaigns</h4>
-            <a class="btn-type-2 btn-type-2-hover" href="/static/campaigns/campaigns.html">View All Campaigns</a>
-            <a class="btn-type-3 btn-type-3-hover" >+ Create New</a>
+            <a class="btn btn-type-1 btn-color-1" href="/static/campaigns/campaigns.html">View All Campaigns</a>
+            <a class="btn btn-type-2 btn-color-3"  href="/static/campaigns/new-campiagn.html">+ Create New</a>
           </div>
           <div class='collections'>
-            <h2>My Encounters</h2>
+            <h3>My Encounters</h3>
             <h4>5 saved Encounters</h4>
-            <a class="btn-type-2 btn-type-2-hover" href="/static/encounters/encounters.html">View All Encounters</a>
-            <a class="btn-type-3 btn-type-3-hover" >+ Create New</a>
+            <a class="btn btn-type-1 btn-color-1" href="/static/encounters/encounters.html">View All Encounters</a>
+            <a class="btn btn-type-2 btn-color-3" >+ Create New</a>
           </div>
         </div>
         <h2>Other Stuff</h2>
         <div class='collections-display'>
           <div class='collections'>
-            <h2>My Characters</h2>
+            <h3>My Characters</h3>
             <h4>4 saved Characters</h4>
-            <a class="btn-type-2 btn-type-2-hover" href="/static/characters/characters.html">View All campaigns</a>
-            <a class="btn-type-3 btn-type-3-hover" >+ Create New</a>
+            <a class="btn btn-type-1 btn-color-1" href="/static/characters/characters.html">View All campaigns</a>
+            <a class="btn btn-type-2 btn-color-3" >+ Create New</a>
           </div>
           <div class='collections'>
-            <h2>My Spells</h2>
+            <h3>My Spells</h3>
             <h4>7 saved Spells</h4>
-            <a class="btn-type-2 btn-type-2-hover" href="/static/spells/spells.html">View All Spells</a>
-            <a class="btn-type-3 btn-type-3-hover" >+ Create New</a>
+            <a class="btn btn-type-1 btn-color-1" href="/static/spells/spells.html">View All Spells</a>
+            <a class="btn btn-type-2 btn-color-3" >+ Create New</a>
           </div>
         </div>
       </section>

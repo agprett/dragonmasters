@@ -1,71 +1,119 @@
-import Sequelize from 'sequelize'
-const {CONNECTION_STRING} = process.env
-
-const sequelize = new Sequelize(CONNECTION_STRING, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-        rejectUnauthorized: false
-    }
-  }
-})
+import { Campaign, CampaignCharacter, CampaignNote, Character } from '../db/models.js'
 
 const campaignFunctions = {
-  getCampaign: (req, res) => {
-    if(req.session.user) {
-      const {user_id} = req.session.user
-  
-      sequelize.query(`SELECT name, description, length, world_name FROM campaigns WHERE user_id = '${user_id}';`)
-        .then(dbRes => {
-          const campaigns = dbRes[0]
-          res.status(200).send(campaigns)
-        })
-        .catch(() => {
-          res.sendStatus(500)
-        })
-    } else {
-      res.sendStatus(400)
-    }
+  getCampaigns: async (req, res) => {
+    const {user_id} = req.session.user
+
+    let campaigns = await Campaign.findAll({
+      where: {dungeon_master: user_id},
+      attributes: ['campaign_id', 'name', 'length', 'description'],
+      include: {
+        model: Character,
+        attributes: ['name'],
+        through: {
+          attributes: []
+        },
+        as: 'characters'
+      }
+    })
+
+    res.status(200).send(campaigns)
   },
 
-  createCampaign: (req, res) => {
-    if(req.session.user) {
-      const {user_id} = req.session.user
-      const {name, description, length, dungeon_master, world_name, note} = req.body
+  getCampaign: async (req, res) => {
+    const {id} = req.params
 
-      sequelize.query(`
-        INSERT INTO campaigns (user_id, name, description, length, dungeon_master, world_name)
-        VALUES ('${user_id}', '${name}', '${description}', '${length}', '${dungeon_master}', '${world_name}')
-        RETRUNING campaign_id;
-      `)
-      .then(dbRes => {
-        console.log(dbRes)
-
-        if(note) {
-          sequelize.query(`
-            INSERT INTO campaign_notes (campaign_id, user_id, note)
-            VALUES (${dbRes[0][0].campaign_id}, '${user_id}', '${note}')
-          `)
+    try {
+      let campaign = await Campaign.findOne({
+        where: {campaign_id: id},
+        attributes: ['campaign_id', 'name', 'length', 'description'],
+        include: {
+          model: Character,
+          attributes: ['name', 'player', 'char_class'],
+          through: {
+            attributes: []
+          },
+          as: 'characters'
         }
-
-        res.status(200).send('Campaign created!')
       })
-
-    } else {
-      res.status(400).send('Unable to create campaign. Try again later.')
+  
+      if(campaign.dungeon_master === req.session.user.user_id) {
+        res.status(200).send(campaign)
+      } else {
+        res.status(403).send('You must be signed in to view this campaign.')
+      }
+    }
+    catch {
+      res.status(500).send('Unable to retrieve campaign.')
     }
   },
 
-  addCampaignNote: (req, res) => {
+  createCampaign: async (req, res) => {
+    const {user_id} = req.session.user
+    const {name, description, length, world_name, note} = req.body
+
+    if(!name) {
+      res.status(401).send('You must provide all required info to create a campaign')
+    } else {
+      await Campaign.create({name, description, length, dungeon_master: user_id, world_name})
+
+      res.status(200).send('New campaign created!')
+    }
+  },
+
+  updateCampaign: async (req, res) => {
+    
+  },
+
+  deleteCampaign: async (req, res) => {
+    const {id} = req.params
+
+    let campaign = await Campaign.findByPk(id)
+
+    if(campaign !== null) {
+      if(req.session.user && req.session.user.user_id === campaign.dungeon_master) {
+        await CampaignNote.destroy({where: {campaign_id: id}})
+        await CampaignCharacter.destroy({where: {campaign_id: id}})
+        await Campaign.destroy({where: {campaign_id: id}})
+        res.status(200).send('Deleted campaign')
+      } else {
+        res.status(403).send('You must be signed in as the creator to delete this character')
+      }
+    } else {
+      res.status(404).send('Campaign was not found')
+    }
+  },
+
+  addCampaignNote: async (req, res) => {
+    const {user_id} = req.session.user
     const {campaign_id, note} = req.body
 
+    const campaignInfo = await Campaign.findOne({attributes: ['dungeon_master'], where: {campaign_id}})
+
     if(campaign_id) {
-      console.log('working')
-      res.status(200).send('Note(s) added')
+      if(user_id === campaignInfo.dungeon_master) {
+        await CampaignNote.create({campaign_id, note})
+        res.status(200).send('Note(s) added')
+      } else {
+        res.status(401).send('Must be signed in as the owner of this campaign to add a note!')
+      }
     } else {
       res.status(400).send('Note must be tied to valid campaign!')
     }
-  }      
+  },
+
+  deleteCampaignNote: async (req, res) => {
+    const {id} = req.params
+
+    let note = await CampaignNote.findByPk(id)
+
+    if(note !== null) {
+      await CampaignNote.destroy({where: {note_id: id}})
+      res.status(200).send('Note deleted')
+    } else {
+      res.status(404).send('The selected note was not found')
+    }
+  },
 }
 
-export default campaignFunctions
+export default campaignFunctions 

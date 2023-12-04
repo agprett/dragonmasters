@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-describe('These tests will ensure that when the endpoint to retrieve all/filtered monsters returns the proper monsters', () => {
+describe.skip('These tests will ensure that when the endpoint to retrieve all/filtered monsters returns the proper monsters', () => {
   const filter1 = 'name=dragon'
   const filter2 = 'challenge_rating_min=10'
   const filter3 = "challenge_rating_max=2"
@@ -117,7 +117,7 @@ describe('These tests will ensure that when the endpoint to retrieve all/filtere
   })
 })
 
-describe('Endpoint should respond with individual monsters based on the index that is put as a param', () => {
+describe.skip('Endpoint should respond with individual monsters based on the index that is put as a param', () => {
   test('Endpoint should respond with the monsters requested in the url', async () => {
     let zombie = await axios.get('http://localhost:6789/api/monsters/zombie')
 

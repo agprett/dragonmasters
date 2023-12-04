@@ -114,14 +114,14 @@ Campaign.init({
 })
 
 // Campaign Note is a table that has notes about the campaign and who can view them
-class Campaign_Note extends Model {
+class CampaignNote extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
 }
 
-Campaign_Note.init({
-  id: {
+CampaignNote.init({
+  note_id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
@@ -143,13 +143,13 @@ Campaign_Note.init({
 })
 
 // This table links a specific character to the campaigns they're participating in
-class Campaign_Character extends Model {
+class CampaignCharacter extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
 }
 
-Campaign_Character.init({
+CampaignCharacter.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -216,13 +216,13 @@ Encounter.init({
 })
 
 // This table links encounters to the monsters added to them and how many there are of each monster
-class Encounter_Monster extends Model {
+class EncounterMonster extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
 }
 
-Encounter_Monster.init({
+EncounterMonster.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -249,13 +249,13 @@ Encounter_Monster.init({
 })
 
 // This table links the characters to the encounters they're participating in
-class Encounter_Character extends Model {
+class EncounterCharacter extends Model {
   [util.inspect.custom]() {
     return this.toJSON();
   }
 }
 
-Encounter_Character.init({
+EncounterCharacter.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -277,17 +277,14 @@ Encounter_Character.init({
 User.hasMany(Character, {foreignKey: 'user_id'})
 Character.belongsTo(User, {foreignKey: 'user_id'})
 
-User.hasMany(Campaign, {foreignKey: 'user_id'})
+User.hasMany(Campaign, {foreignKey: 'dungeon_master'})
 Campaign.belongsTo(User, {foreignKey: 'dungeon_master'})
 
-Campaign.hasMany(Campaign_Note, {foreignKey: 'campaign_id'})
-Campaign_Note.belongsTo(Campaign, {foreignKey: 'campaign_id'})
+Campaign.hasMany(CampaignNote, {foreignKey: 'campaign_id'})
+CampaignNote.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Campaign.hasMany(Campaign_Character, {foreignKey: 'campaign_id'})
-Campaign_Character.belongsTo(Campaign, {foreignKey: 'campaign_id'})
-
-Character.hasMany(Campaign_Character, {foreignKey : 'character_id'})
-Campaign_Character.belongsTo(Character, {foreignKey: 'character_id'})
+Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id', as: 'characters'})
+Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id', as: 'characters'})
 
 User.hasMany(Encounter, {foreignKey: 'user_id'})
 Encounter.belongsTo(User, {foreignKey: 'user_id'})
@@ -295,11 +292,11 @@ Encounter.belongsTo(User, {foreignKey: 'user_id'})
 Campaign.hasMany(Encounter, {foreignKey: 'campaign_id'})
 Encounter.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Encounter.hasMany(Encounter_Monster, {foreignKey: 'encounter_id'})
-Encounter_Monster.belongsTo(Encounter, {foreignKey: 'encounter_id'})
+Encounter.hasMany(EncounterMonster, {foreignKey: 'encounter_id'})
+EncounterMonster.belongsTo(Encounter, {foreignKey: 'encounter_id'})
 
-Encounter.hasMany(Encounter_Character, {foreignKey: 'encounter_id'})
-Encounter_Character.belongsTo(Encounter, {foreignKey: 'encounter_id'})
+Encounter.hasMany(EncounterCharacter, {foreignKey: 'encounter_id'})
+EncounterCharacter.belongsTo(Encounter, {foreignKey: 'encounter_id'})
 
 export default db
-export { User, Character, Campaign, Encounter, Campaign_Note, Campaign_Character, Encounter_Monster, Encounter_Character }
+export { User, Character, Campaign, Encounter, CampaignNote, CampaignCharacter, EncounterMonster, EncounterCharacter }

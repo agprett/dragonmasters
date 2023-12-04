@@ -18,173 +18,171 @@
       <nav id="main-nav">
         <div class="main-nav-divs" id="main-nav-left">
           <img class="medium-logo" src="../../client/images/logo.png" alt="small-logo"/>
-          <a class="nav-links btn-type-1-hover" href="/static/home.html"><h3>DragonMasters</h3></a>
-          <a class="nav-links btn-type-1-hover active" href="/static/guide/guide.html">Guide</a>
+          <a class="nav-links" href="/static/home.html"><h3>DragonMasters</h3></a>
+          <a class="nav-links active" href="/static/guide/guide.html">Guide</a>
         </div>
 
         <div class='main-nav-divs' id='nav-right'>
           <a
-            class='nav-links btn-type-1-hover login-logout'
+            href="/static/users/login.html"
+            class='nav-links login-logout'
           >Log in/Sign up</a>
         </div>
       </nav>
 
       <section class='page-layout-2'>
         <header class='guide-title'>
-          <a class='btn-type-2 btn-type-2-hover guide-back-btn' href='/static/guide/guide.html'>&lt Back</a>
+          <a class='btn btn-type-1 btn-color-1 back-btn' href='/static/guide/guide.html'>&lt Back</a>
           <h1 class="title-2">Monsters</h1>
         </header>
   
         <section class='guide-body'>
   
-          <form id="guide-filters">
+          <form id="guide-filters" class="vertical-form">
             <p class="form-header">Filters</p>
+            <button id='clear-btn' class='btn btn-color-1' type='reset'>Clear Filters</button>
             <div class="form-piece">
-              <label for="filter-name">Name</label>
-              <input id="filter-name" placeholder='ex: Dragon'/>
+              <label class="form-piece-filled">
+                <input class='form-input' required/>
+                <span class="form-label">Name</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label for="filter-cr-min">Challenge Rating Min</label>
-              <input
-              id="filter-cr-min"
-              placeholder='ex: 2'
-              type='number'
-              min='0'
-              max='30'
-              />
+              <label class="form-piece-filled">
+                <select class="form-input">
+                  <option selected value="">Select Size</option>
+                  <option>Tiny</option>
+                  <option>Small</option>
+                  <option>Medium</option>
+                  <option>Large</option>
+                  <option>Huge</option>
+                  <option>Gargantuan</option>
+                </select>
+                <span class="form-label">Size</span>
+              </label>
             </div>
-            <div class="form-piece">
-              <label for="filter-cr-max">Challenge Rating Max</label>
-              <input
-                id="filter-cr-max"
-                placeholder='ex: 14'
-                type='number'
-                min='0'
-                max='30'
-              />
+            <p>Challenge Rating</p>
+            <div class="form-piece form-piece-split">
+              <div class="form-input-split">
+                <label class="form-piece-filled">
+                  <input class='form-input' required/>
+                  <span class="form-label">Min</span>
+                </label>
+              </div>
+              <div class="form-dash"></div>
+              <div class="form-input-split">
+                <label class="form-piece-filled">
+                  <input class='form-input' required/>
+                  <span class="form-label">Max</span>
+                </label>
+              </div>
             </div>
-            <div class="form-piece">
-              <label for="filter-size">Size</label>
-              <select id="filter-size">
-                <option selected value=''>Select Size</option>
-                <option>Tiny</option>
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-                <option>Huge</option>
-                <option>Gargantuan</option>
-              </select>
-            </div>
-            <button class="btn-type-2 btn-type-2-hover" type='submit'>Filter</button>
-            <button class='btn-type-2 btn-type-2-hover' type='reset'>Clear Filters</button>
           </form>
-          <!-- {viewPopup ? renderPopup() : ''} -->
   
-          <!-- <GuideFilter type={type} setGuideData={setGuideData} /> -->
-  
-          <section class='guide-results'>
-            <!-- <p class="title-3">Results</p> -->
-            <div class="guide-result" id="guide-result-head">
-              <h2>Name</h2>
-              <p>Size</p>
-              <p>HP</p>
-              <p>AC</p>
-              <p>CR</p>
-              <p>XP</p>
-            </div>
+          <table class='guide-results'>
+            <thead>
+              <tr class="guide-result" id="guide-result-head">
+                <th class="result-name">Name</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>HP</th>
+                <th>AC</th>
+                <th>CR / XP</th>
+              </tr>
+            </thead>
 
-            <!-- Actual monster data will be displayed here, for the static page this is just one repeated for ease of use -->
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-            <div class='guide-result'>
-              <h2>Frost Giant</h2>
-              <p>Huge</p>
-              <p>138</p>
-              <p>15</p>
-              <p>8</p>
-              <p>3900</p>
-            </div>
-
+            <tbody>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+              <tr class='guide-result'>
+                <td class="result-name">Frost Giant</td>
+                <td>Monstrosity</td>
+                <td>Huge</td>
+                <td>138</td>
+                <td>15</td>
+                <td>8 / 3900</td>
+              </tr>
+            </tbody>
             
-          </section>
+          </table>
   
         </section>
       </section>

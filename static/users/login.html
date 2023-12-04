@@ -12,30 +12,34 @@
     <title>DragonMasters Static</title>
   </head>
   <body>
-    <div id="app">
+    <!-- <div id="app"> -->
 
       <div class="login-register-page">
         <div class="login-form-container">
-          <form id="login-form">
+          <form id="login-form" class="vertical-form">
             <img class="large-logo" src="../../client/images/logo.png" alt="logo"/>
             <h1>DragonMasters</h1>
             <p class="form-header">Login</p>
             <div class="form-piece">
-              <label>Username</label>
-              <input />
+              <label class="form-piece-underlined">
+                <input class='form-input' required/>
+                <span class="form-label">Username</span>
+              </label>
             </div>
             <div class="form-piece">
-              <label>Password</label>
-              <input />
+              <label class="form-piece-underlined">
+                <input class='form-input' required/>
+                <span class="form-label">Password</span>
+              </label>
             </div>
-            <button class="btn-type-2 btn-type-2-hover">Login</button>
+            <a href="/static/stuff/stuff.html" class="btn btn-type-1 btn-color-1">Login</a>
             <p>New to the site? <a href="/static/users/register.html">Sign up here!</a></p>
           </form>
           <div class="login-image">Start your next adventure now</div>
         </div>
       </div>
 
-    </div>
+    <!-- </div> -->
 
   </body>
 </html>

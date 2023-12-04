@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import axios from 'axios'
 
 import Nav from './Components/Nav/Nav.js'
 import Home from './Components/Home/Home.js'
@@ -52,6 +53,11 @@ const router = createBrowserRouter([
           },
           {
             path: ':guide_type',
+            loader: async ({params}) => {
+              let {data} = await axios.get(`/api/${params.guide_type}`)
+              
+              return data
+            },
             element: <Guide />,
           }
         ]

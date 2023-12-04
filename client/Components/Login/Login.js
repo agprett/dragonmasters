@@ -13,7 +13,7 @@ function Login(props) {
     event.preventDefault()
 
     if(userInfo.username && userInfo.password) {
-      axios.post('/api/login', {username: userInfo.username, password: userInfo.password})
+      axios.post('/api/user/login', {username: userInfo.username, password: userInfo.password})
         .then(res => {
           props.loginUser(res.data.username)
           navigate('/')

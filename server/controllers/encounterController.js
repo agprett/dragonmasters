@@ -69,7 +69,7 @@ const encounterFunctions = {
   },
 
   createEncounter: (req, res) => {
-    let {name, shortDesc, desc, characters,  monsters} = req.body
+    let {name, shortDesc, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
     if(req.session.user && name && shortDesc && characters[0] && Object.keys(monsters).length) {
       const {user_id} = req.session.user
 
