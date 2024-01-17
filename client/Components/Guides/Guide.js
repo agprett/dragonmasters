@@ -60,7 +60,7 @@ function Guide () {
   return (
     <section className='page-layout-2'>
       <header className='guide-title'>
-        <Link to='../' className='btn btn-type-2 btn-type-2-hover guide-back-btn'>{'< Back'}</Link>
+        <Link to='../' className='btn btn-type-1 btn-color-1 back-btn'>{'< Back'}</Link>
         <h1 className='title-2'>{capFirst(type)}</h1>
       </header>
 

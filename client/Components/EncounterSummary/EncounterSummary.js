@@ -59,8 +59,8 @@ function EncounterSummary(props) {
       <div key={i} className='encounter-monster-short'>
         <div className='monster-base-info'>
           <h2>{element.name}</h2>
-          <p>Alignment: {element.info.alignment}</p>
-          <p>Challenge: {element.info.challenge_rating} ({element.xp} XP)</p>
+          {/* <p>Alignment: {element.info.alignment}</p>
+          <p>Challenge: {element.info.challenge_rating} ({element.xp} XP)</p> */}
         </div>
         <h3>Amount: {element.count}</h3>
       </div>
@@ -68,13 +68,13 @@ function EncounterSummary(props) {
   })
 
   return (
-    <section className='encounter-summary'>
+    <section className='page-layout-2'>
 
       <section className='summary-top'>
         <Link
-          className='encounter-run-link'
+          className='btn btn-type-1 btn-color-1 back-btn'
           to={`/stuff/encounters`}
-        >{'<'} Back to Encounters</Link>
+        >{'<'} Back</Link>
 
         <div className='encounter-base-info'>
           <h3>{encounterInfo.name}</h3>
@@ -83,13 +83,13 @@ function EncounterSummary(props) {
 
         <div className='summary-top-buttons'>
           <Link
-            className='encounter-run-link'
+            className='btn btn-type-1 btn-color-2'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
-          <button
-            className='encounter-run-link'
+          {/* <button
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
-          >Edit</button>
+          >Edit</button> */}
         </div>
       </section>
 

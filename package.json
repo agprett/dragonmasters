@@ -12,6 +12,11 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --silent=false",
     "build": "rm -rf dist/* .parcel-cache/* && parcel build ./client/index.html"
   },
+  "@parcel/transformer-css": {
+    "drafts": {
+      "nesting": true
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

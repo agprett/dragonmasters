@@ -3,8 +3,6 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import './Encounters.css'
-
 import { clearEncounter } from '../../ducks/reducer'
 
 function Encounters(props) {
@@ -30,23 +28,24 @@ function Encounters(props) {
 
   const allEncounters = encounters.map((element, i) => {
     return (
-      <div className='encounter-display' key={i}>
-        <h2>{element.name}</h2>
+      <div className='dashboard-item' key={i}>
+        <h3 className='dashboard-head'>{element.name}</h3>
+        {element.campaign && <p>{element.campaign}</p>}
         <p>{element.short_description}</p>
-        <button className='view-encounter-btn' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
+        {element.location && <p>{element.location}</p>}
+        <button className='btn btn-type-2 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
       </div>
     )
   })
 
   return (
-    <section id='encounters-comp'>
-      <div id="build-encounter-button-wrap">
-        <button
-          id="build-encounter-button"
-          onClick={() => viewNewEncounter()}
-        >Build Encounter</button>
-      </div>
-      <section id="all-encounters">
+    <section className='page-layout-2'>
+      <h2 className='title-2'>My Encounters</h2>
+      <button
+        className='btn btn-type-2 btn-color-3 create-btn'
+        onClick={() => viewNewEncounter()}
+      >+ Create New</button>
+      <div className='dashboard'>
         {
           encounters[0] ? (
             allEncounters
@@ -54,7 +53,7 @@ function Encounters(props) {
             <p>Add an encounter to view</p>
           )
         }
-      </section>
+      </div>
     </section>
   )
 }

@@ -1,4 +1,3 @@
-import './Footer.css'
 import logo from '../../images/logo.png'
 import githubImg from '../../images/github-mark.png'
 
