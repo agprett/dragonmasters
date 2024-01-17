@@ -38,7 +38,7 @@ const {getAllMonsters, getMonster} = monsterFunctions
 import spellFunctions from './controllers/spellController.js'
 const {getAllSpells, getSpell} = spellFunctions
 
-const loginCheck = (req, res) => {
+const loginCheck = (req, res, next) => {
   if(req.session.user) {
     next()
   } else {

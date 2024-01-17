@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
-import monstersDB from '../json/SRD_data/monsters.json' assert {type: "json"}
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: 'postgres',
@@ -49,14 +48,7 @@ const encounterFunctions = {
         .then(dbRes => {
           const encounter = dbRes[1][0].rows[0]
 
-          encounter.monsters = dbRes[1][1].rows.map(monster => {
-            monster.count = +monster.count
-            const index = monstersDB.findIndex(element => element.name === monster.name)
-
-            let monsterInfo = monstersDB[index]
-
-            return {...monster, info: monsterInfo}
-          });
+          encounter.monsters = dbRes[1][1].rows
 
           encounter.players = dbRes[1][2].rows
 
@@ -69,44 +61,57 @@ const encounterFunctions = {
   },
 
   createEncounter: (req, res) => {
-    let {name, shortDesc, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
-    if(req.session.user && name && shortDesc && characters[0] && Object.keys(monsters).length) {
-      const {user_id} = req.session.user
+    let {name, short_description, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
 
+    if(req.session.user && name && short_description) {
+      const {user_id} = req.session.user
+      
       desc = desc ? desc : 'None'
       
       sequelize.query(`INSERT INTO encounters (user_id, name, short_description, description)
-      VALUES ('${user_id}', $$${name}$$, $$${shortDesc}$$, $$${desc}$$)
+      VALUES ('${user_id}', $$${name}$$, $$${short_description}$$, $$${desc}$$)
       RETURNING encounter_id;`)
         .then((dbRes) => {
           const {encounter_id} = dbRes[0][0]
-          let monstersValues = []
-          
-          for(let monster in monsters) {
-              const {name, url, amount} = monsters[monster]
-              monstersValues.push(`($$${name}$$, $$${url}$$, ${amount}, ${encounter_id})`)
-            }
-            
-          let characterValues = characters.map(char => {
-            return `(${encounter_id}, ${char.character_id})`
-          })
-          
-          console.log(monstersValues.join(', '))
-          console.log(characterValues.join(', '))
-          
-          sequelize.query(`
-            INSERT INTO encounter_characters (encounter_id, character_id)
-            VALUES ${characterValues.join(', ')};
 
-            INSERT INTO encounter_monsters (name, url, count, encounter_id)
-            VALUES ${monstersValues.join(', ')};
-          `)
+          console.log(dbRes[0][0].encounter_id)
+          let query = ''
+          if(monsters) {
+            let monstersValues = monsters.map(mon => {
+              return `($$${mon.name}$$, $$${mon.url}$$, ${mon.count}, ${encounter_id})`
+            })
+            
+            console.log(monstersValues.join(', '))
+              
+            query += `
+              INSERT INTO encounter_monsters (name, url, count, encounter_id)
+              VALUES ${monstersValues.join(', ')};
+            `
+          }
+
+          if(characters) {
+            let characterValues = characters.map(char => {
+              return `(${encounter_id}, $$${char.characterId}$$)`
+            })
+            
+            console.log(characterValues.join(', '))
+  
+            query += `
+              INSERT INTO encounter_characters (encounter_id, character_id)
+              VALUES ${characterValues.join(', ')};
+            `
+          }
+          
+          sequelize.query(query)
             .then(() => {
-              res.sendStatus(200)
+              res.status(200).send('New encounter created!')
             })
         })
+        .catch(err => {
+          console.log(err)
+        })
     } else {
-      res.status(400).send('Must send all required data')
+      res.status(400).send('Must send all required data to create a new encounter')
     }
   },
 
