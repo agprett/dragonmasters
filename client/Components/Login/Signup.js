@@ -43,8 +43,10 @@ function Signup(props) {
     <div className="login-register-page">
       <div className="login-form-container">
         <form id="login-form" className="vertical-form" onSubmit={createNewUser}>
-          <img className="large-logo" src={logoImg} alt="logo"/>
-          <h1 className="title-1">DragonMasters</h1>
+          <Link to='/' className='logo-wrap'>
+            <img className="large-logo" src={logoImg} alt="logo"/>
+            <h1 className="title-1">DragonMasters</h1>
+          </Link>
           <p className="form-header">Create a new account</p>
           <div className="form-piece">
             <label className="form-piece-underlined">

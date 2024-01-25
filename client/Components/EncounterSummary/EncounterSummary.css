@@ -52,23 +52,27 @@
 
 .encounter-added {
   width: 45%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0;
+  position: relative;
+  padding: 60px 0 5px;
   gap: 10px;
-  background-color: blue;
 }
 
 .encounter-monster-short {
-  height: 100px;
-  width: 90%;
+  min-height: 50px;
+  width: 100%;
   margin: 5px 0;
   padding: 0 20px;
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
   align-items: center;
   justify-content: space-between;
-  background-color: beige;
+  border-bottom: 3px solid #286A9C;
 }
 
 .monster-base-info {

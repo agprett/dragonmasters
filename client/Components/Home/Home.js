@@ -34,7 +34,7 @@ function Home() {
             <Link to="/guide" className="btn btn-type-1 btn-color-1">View</Link>
           </div>
   
-          <div class="collections">
+          <div className="collections">
             <p>My Stuff<br/>(Must be signed in)</p>
             <Link to="/stuff" className="btn btn-type-1 btn-color-1">View</Link>
           </div>

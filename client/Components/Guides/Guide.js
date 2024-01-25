@@ -3,9 +3,8 @@ import { useParams, Link, useLoaderData } from 'react-router-dom'
 
 import GuideFilter from './GuideFilter'
 import GuideResult from './GuideResult'
-import MonsterPopup from './MonsterPopup'
-import SpellPopup from './SpellPopup'
-import './Guide.css'
+import MonsterPopup from '../Popout/MonsterPopup'
+import SpellPopup from '../Popout/SpellPopup'
 
 const capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
@@ -17,7 +16,7 @@ function Guide () {
   const [popupData, setPopupData] = useState({})
   const [guideData, setGuideData] = useState(data)
 
-  const viewGuides = guideData.map(data => <GuideResult data={data} setViewPopup={setViewPopup} setPopupData={setPopupData} type={type} />)
+  const viewGuides = guideData.map(data => <GuideResult key={data.index} data={data} setViewPopup={setViewPopup} setPopupData={setPopupData} type={type} />)
 
   const renderPopup = () => {
     switch(type) {
@@ -33,7 +32,7 @@ function Guide () {
     switch(type) {
       case 'monsters':
         return (
-          <tr class="guide-result" id="guide-result-head">
+          <tr className="guide-result" id="guide-result-head">
             <th className='result-name'>Name</th>
             <th>Size</th>
             <th>HP</th>
@@ -45,7 +44,7 @@ function Guide () {
       
       case 'spells':
         return (
-          <tr class="guide-result" id="guide-result-head">
+          <tr className="guide-result" id="guide-result-head">
             <th className='result-name'>Name</th>
             <th>Casting Time</th>
             <th>Range</th>
@@ -71,8 +70,12 @@ function Guide () {
         <GuideFilter type={type} setGuideData={setGuideData} />
 
         <table className='guide-results'>
-          {resultsHead()}
-          {guideData[0] ? viewGuides : <tr className='guide-result'>No Data to Show</tr>}
+          <thead>
+            {resultsHead()}
+          </thead>
+          <tbody>
+            {guideData[0] ? viewGuides : <tr className='guide-result'>No Data to Show</tr>}
+          </tbody>
         </table>
 
       </section>

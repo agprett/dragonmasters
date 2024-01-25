@@ -8,6 +8,17 @@
   background-color: #DCEBF9;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .page-layout-1 {
   width: 100%;
   padding-bottom: 100px;
@@ -29,6 +40,10 @@
   align-items: center;
   gap: 5px;
   background-color: #DCEBF9;
+}
+
+.hide-scroll {
+  overflow-y: hidden;
 }
 
 .title-1 {
@@ -78,6 +93,13 @@
   margin: 5px;
 }
 
+.btn-type-3 {
+  font-size: 12pt;
+  font-weight: 500;
+  padding: 3px 10px;
+  margin: 5px;
+}
+
 .btn-color-1 {
   background-color: #3385C4;
 }
@@ -88,6 +110,10 @@
 
 .btn-color-3 {
   background-color: #08A045;
+}
+
+.btn-color-4 {
+  background-color: red;
 }
 
 .back-btn {
@@ -125,6 +151,31 @@
   height: 90px;
 }
 
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #EBEBEB;
+}
+
+/* base input styling */
+.base-input {
+  border: none;
+  border-bottom: 0.125rem solid #13324A;
+  background-color: inherit;
+  font-family: inherit;
+  color: #13324A;
+}
+
+
+.medium-input {
+  width: 50px;
+  font-size: large;
+  font-weight: 700;
+  text-align: center;
+}
 
 /* Form stylings */
 .vertical-form {
@@ -214,7 +265,7 @@
   color: #3C9EE8;
 }
 .form-input:focus + .form-label,
-.form-input:valid + .form-label {
+.form-input:valid:not(.empty-input) + .form-label {
   top: 0;
   font-size: 0.9375rem;
 }
@@ -352,6 +403,7 @@
   justify-content: space-evenly;
   text-align: center;
   font-size: 16pt;
+  border-bottom: 3px solid #286A9C;
   border-radius: 3px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   background-color: #EBEBEB;
@@ -371,15 +423,15 @@
 
 .new-sections {
   width: 75%;
-  padding: 65px 20px 0;
-  margin: 10px 0;
+  padding: 65px 20px 15px;
+  margin: 10px 0 25px;
   position: relative;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
   font-size: 16pt;
+  border-bottom: 3px solid #286A9C;
   border-radius: 3px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   background-color: #EBEBEB;

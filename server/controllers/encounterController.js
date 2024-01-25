@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
+import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: 'postgres',
@@ -36,10 +37,10 @@ const encounterFunctions = {
         SELECT encounter_id, name, short_description, description FROM encounters
         WHERE user_id = '${user_id}' AND encounter_id = ${+id};
 
-        SELECT id, name, count, encounter_id FROM encounter_monsters
+        SELECT id, name, count, pointer, encounter_id FROM encounter_monsters
         WHERE encounter_id = ${+id};
 
-        SELECT c.character_id, c.name, c.player, c.level, c.hit_points
+        SELECT c.character_id, c.name, c.player, c.armor_class, c.hit_points
         FROM encounter_characters e
         JOIN characters c
         ON e.character_id = c.character_id
@@ -48,7 +49,11 @@ const encounterFunctions = {
         .then(dbRes => {
           const encounter = dbRes[1][0].rows[0]
 
-          encounter.monsters = dbRes[1][1].rows
+          let monsters = dbRes[1][1].rows
+
+          encounter.monsters = monsters.map(monster => {
+            return {id: monster.id, ...monstersDB[monster.pointer], count: monster.count}
+          })
 
           encounter.players = dbRes[1][2].rows
 
@@ -61,7 +66,7 @@ const encounterFunctions = {
   },
 
   createEncounter: (req, res) => {
-    let {name, short_description, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
+    let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
 
     if(req.session.user && name && short_description) {
       const {user_id} = req.session.user
@@ -74,27 +79,22 @@ const encounterFunctions = {
         .then((dbRes) => {
           const {encounter_id} = dbRes[0][0]
 
-          console.log(dbRes[0][0].encounter_id)
           let query = ''
           if(monsters) {
             let monstersValues = monsters.map(mon => {
-              return `($$${mon.name}$$, $$${mon.url}$$, ${mon.count}, ${encounter_id})`
+              return `($$${mon.name}$$, $$${mon.url}$$, ${mon.count}, ${mon.pointer}, ${encounter_id})`
             })
-            
-            console.log(monstersValues.join(', '))
               
             query += `
-              INSERT INTO encounter_monsters (name, url, count, encounter_id)
+              INSERT INTO encounter_monsters (name, url, count, pointer, encounter_id)
               VALUES ${monstersValues.join(', ')};
             `
           }
 
           if(characters) {
             let characterValues = characters.map(char => {
-              return `(${encounter_id}, $$${char.characterId}$$)`
+              return `(${encounter_id}, $$${char.character_id}$$)`
             })
-            
-            console.log(characterValues.join(', '))
   
             query += `
               INSERT INTO encounter_characters (encounter_id, character_id)

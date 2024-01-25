@@ -1,68 +1,75 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function PlayersSelection(props) {
-  const {encounterCharacters, setEncounterCharacters, players} = props
+  const {encounterPlayers, setEncounterPlayers, players} = props
 
   console.log('character reset')
 
   const selectPlayer = (player) => {
-    setEncounterCharacters([...encounterCharacters, player])
+    setEncounterPlayers([...encounterPlayers, player])
   }
 
   const removePlayer = (player) => {
-    let index = encounterCharacters.findIndex(char => player.character_id === char.character_id)
-    let removalArr = [...encounterCharacters]
+    let index = encounterPlayers.findIndex(char => player.character_id === char.character_id)
+    let removalArr = [...encounterPlayers]
 
     removalArr.splice(index, 1)
 
-    setEncounterCharacters([...removalArr])
+    setEncounterPlayers([...removalArr])
   }
 
   const playersDisplay = players.map((player, i) => {
-    let index = encounterCharacters.findIndex(char => +player.character_id === +char.character_id)
+    let index = encounterPlayers.findIndex(char => +player.character_id === +char.character_id)
     if(index === -1) {
       const {name, player: playerName, hit_points, level} = player
       return (
-        <div className='new-encounter-player-card' key={i}>
-          <h2>{name}</h2>
-          <h3>{playerName}</h3>
-          <p>{hit_points}</p>
-          <p>{level}</p>
-          <button onClick={() => selectPlayer(player)}>Add</button>
-        </div>
+        <tr className='ne-character-row' key={i}>
+          <td><h3>{name}</h3></td>
+          <td>{playerName}</td>
+          <td>{hit_points}</td>
+          <td>{level}</td>
+          <td><button className='btn btn-type-3 btn-color-2' onClick={() => selectPlayer(player)}>Add</button></td>
+        </tr>
       )
     }
   })
 
-  const addedPlayers = encounterCharacters.map((player, i) => {
+  const addedPlayers = encounterPlayers.map((player, i) => {
     return (
-      <div className='new-add-player-card' key={i}>
-        <h2>{player.name}</h2>
-        <h3>{player.player}</h3>
-        <p>{player.hit_points}</p>
-        <button onClick={() => removePlayer(player)}>Remove</button>
-      </div>
+      <tr className='new-added-row' key={i}>
+        <td><h3>{player.name}</h3></td>
+        <td>{player.player}</td>
+        <td><button className='btn btn-type-3 btn-color-1' onClick={() => removePlayer(player)}>Remove</button></td>
+      </tr>
     )
   })
   
   return (
-    <section class="new-encounter-selections" id="players-selection">
-      <div className='new-displayed-characters'>
-        <div className='new-encounter-player-card'>
-          <h2>Name</h2>
-          <h3>Player</h3>
-          <p>HP</p>
-          <p>Level</p>
-          <div></div>
-        </div>
-        {playersDisplay}
-      </div>
+    <div className="new-encounter-selections">
+      <table className='ne-player-table'>
+        <thead>
+            <tr className='ne-character-row' id='ne-character-head'>
+            <th><h3>Name</h3></th>
+            <th>Player</th>
+            <th>HP</th>
+            <th>Level</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>{playersDisplay}</tbody>
+      </table>
       
-      <div className='new-added'>
-        <h2>Added Players</h2>
-        {addedPlayers}
-      </div>
-    </section>
+      <table className='new-added'>
+        <thead>
+          <tr className='new-added-head new-added-row'>
+            <th><h2>Added Players</h2></th>
+          </tr>
+        </thead>
+        <tbody>
+          {encounterPlayers[0] ? addedPlayers : <tr className='none-added-row'><td>No Players Currently Added</td></tr>}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

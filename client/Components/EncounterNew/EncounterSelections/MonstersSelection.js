@@ -1,97 +1,101 @@
 import React from 'react';
 
 function MonstersSelection(props) {
-  const {encounterCharacters, setEncounterCharacters, monsters, filters, setFilters} = props
-
-  const filterMonsters = (event) => {
-    const value = event.target.value
-
-    setFilters({...filters, name: value})
-  }
+  const {encounterMonsters, setEncounterMonsters, monsters, filter, setFilter} = props
 
   const addMonster = (monster) => {
     const {name, index, url} = monster
 
-    if(!encounterCharacters[index]){
-      let tempChars = encounterCharacters
+    if(!encounterMonsters[index]){
+      let tempChars = encounterMonsters
       tempChars[index] = {name, url, info: monster, amount: 1}
 
-      setEncounterCharacters({...tempChars})
-    } else if(encounterCharacters[index]) {
-      let updateCountChar = encounterCharacters[index]
+      setEncounterMonsters({...tempChars})
+    } else if(encounterMonsters[index]) {
+      let updateCountChar = encounterMonsters[index]
 
       updateCountChar.amount++
 
-      let tempChars = encounterCharacters
+      let tempChars = encounterMonsters
 
       tempChars[index] = updateCountChar
 
-      setEncounterCharacters({...tempChars})
+      setEncounterMonsters({...tempChars})
     }
   }
 
   const increaseCount = (index, event) => {
-    let updatedChar = encounterCharacters[index]
+    let updatedChar = encounterMonsters[index]
 
-    updatedChar.amount = +event.target.value
+    let newNum = event.target.value.split('')
+    
+    if(newNum[0] === '0' && newNum.length !== 1){
+      newNum.shift()
+    }
 
-    let tempChars = encounterCharacters
+    let amount = newNum.join('')
+
+    if(amount === '') {
+      updatedChar.amount = 0
+    } else {
+      updatedChar.amount = +amount
+    }
+
+    let tempChars = encounterMonsters
     tempChars[index] = updatedChar
 
-    setEncounterCharacters({...tempChars})
+    setEncounterMonsters({...tempChars})
   }
 
   const removeMonster = (index) => {
-    let tempChars = encounterCharacters
+    let tempChars = encounterMonsters
 
     delete tempChars[index]
 
-    setEncounterCharacters({...tempChars})
+    setEncounterMonsters({...tempChars})
   }
 
   const monstersDisplay = monsters
   .filter((monster) => {
-    return monster.name.toLowerCase().includes(filters.name.toLowerCase())
+    return monster.name.toLowerCase().includes(filter.toLowerCase())
   })
   .map((monster, i) => {
     const {name, size, hit_points, armor_class, challenge_rating, xp} = monster
     return (
-      <div className='new-encounter-monster-card' key={i}>
-        <h2>{name}</h2>
-        <h3>{size}</h3>
-        <p>{hit_points}</p>
-        <p>{armor_class}</p>
-        <p>{challenge_rating}</p>
-        <p>{xp}</p>
-        <button onClick={() => addMonster(monster)}>Add</button>
-      </div>
+      <tr className='ne-character-row' key={monster.name + '-' + i}>
+        <td><h3>{name}</h3></td>
+        <td>{size}</td>
+        <td>{hit_points}</td>
+        <td>{armor_class}</td>
+        <td>{challenge_rating}/{xp}</td>
+        <td><button className='btn btn-type-3 btn-color-2' onClick={() => addMonster(monster)}>Add</button></td>
+      </tr>
     )
   })
 
   const addedMonsters = () => {
     let monsterDivs = []
 
-    for(let monster in encounterCharacters){
-      const {info, amount} = encounterCharacters[monster]
+    for(let monster in encounterMonsters){
+      const {info, amount} = encounterMonsters[monster]
 
       let monsterDiv = (
-        <div className='new-add-monster-card'>
-          <h2>{info.name}</h2>
-          <p>Challenge: {info.challenge_rating}</p>
-          <p>XP: {info.xp}</p>
-          <label for='monster-amount'>Amount</label>
-          <input
-            id='monster-amount'
-            type='number'
-            min='0'
-            value={amount}
-            onChange={(event) => {
-              event.preventDefault()
-              increaseCount(monster, event)
-            }}
-          />
-          <button onClick={() => removeMonster(monster)}>Remove</button>
-        </div>
+        <tr className='new-added-row' key={info.name}>
+          <td><h3>{info.name}</h3></td>
+          <td>
+            <input
+              className='base-input medium-input'
+              type='number'
+
+              value={amount}
+              onChange={(event) => {
+                event.preventDefault()
+                increaseCount(monster, event)
+              }}
+            />
+          </td>
+          <td><button className='btn btn-type-3 btn-color-2' onClick={() => removeMonster(monster)}>Remove</button></td>
+        </tr>
       )
 
       monsterDivs.push(monsterDiv)
@@ -101,19 +105,45 @@ function MonstersSelection(props) {
   }
 
   return (
-    <section class="new-encounter-selections" id="monsters-selection">
-      <form name="search-monsters" id="search-monsters">
-        <input placeholder="Search name" id="search-monsters-input" onChange={filterMonsters}/>
-      </form>
+    <section className="new-encounter-selections">
+      <div className='ne-monster-display'>
+        <form id="search-monsters" className='horizontal-form'>
+          <h3>Search: </h3>
+          <div className='form-piece'>
+            <label className='form-piece-filled'>
+              <input
+                className={'form-input' + (filter ? '' : ' empty-input')}
+                value={filter}
+                onChange={e => setFilter(e.target.value)}
+              />
+              <span className='form-label'>Name</span>
+            </label>
+          </div>
+        </form>
 
-      <div className="new-displayed-characters">{monstersDisplay}</div>
-
-      <div className='new-added'>
-        <h2>Added Monsters</h2>
-        <div id='added-monster-display'>{addedMonsters()}</div>
-
-        <div id='encounter-diff-stats'></div>
+        <table className="ne-monster-table">
+          <thead>
+            <tr className='ne-character-row'  id='ne-character-head'>
+              <th><h3>Name</h3></th>
+              <th>Size</th>
+              <th>HP</th>
+              <th>AC</th>
+              <th>CR/XP</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{monstersDisplay}</tbody>
+        </table>
       </div>
+
+      <table className='new-added'>
+        <thead>
+          <tr className='new-added-head new-added-row'>
+            <th><h2>Added Monsters</h2></th>
+          </tr>
+        </thead>
+        <tbody id='added-monster-display'>{Object.keys(encounterMonsters).length ? addedMonsters(): <tr className='none-added-row'><td>No Monsters Currently Added</td></tr>}</tbody>
+      </table>
     </section>
   )
 }

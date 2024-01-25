@@ -39,10 +39,10 @@ function GuideFilter(props) {
       case "monsters":
         return (
           <>
-            <div class="form-piece">
-              <label class="form-piece-filled">
-                <select class="form-input">
-                  <option selected value="">
+            <div className="form-piece">
+              <label className="form-piece-filled">
+                <select className="form-input">
+                  <option defaultValue={true} value="">
                     Select Size
                   </option>
                   <option>Tiny</option>
@@ -52,22 +52,22 @@ function GuideFilter(props) {
                   <option>Huge</option>
                   <option>Gargantuan</option>
                 </select>
-                <span class="form-label">Size</span>
+                <span className="form-label">Size</span>
               </label>
             </div>
             <p>Challenge Rating</p>
-            <div class="form-piece form-piece-split">
-              <div class="form-input-split">
-                <label class="form-piece-filled">
-                  <input class="form-input" required />
-                  <span class="form-label">Min</span>
+            <div className="form-piece form-piece-split">
+              <div className="form-input-split">
+                <label className="form-piece-filled">
+                  <input className="form-input" required />
+                  <span className="form-label">Min</span>
                 </label>
               </div>
-              <div class="form-dash"></div>
-              <div class="form-input-split">
-                <label class="form-piece-filled">
-                  <input class="form-input" required />
-                  <span class="form-label">Max</span>
+              <div className="form-dash"></div>
+              <div className="form-input-split">
+                <label className="form-piece-filled">
+                  <input className="form-input" required />
+                  <span className="form-label">Max</span>
                 </label>
               </div>
             </div>
@@ -77,10 +77,10 @@ function GuideFilter(props) {
       case "spells":
         return (
           <>
-            <div class="form-piece">
-              <label class="form-piece-filled">
-                <select class="form-input">
-                  <option selected value=''>Select Casting Time</option>
+            <div className="form-piece">
+              <label className="form-piece-filled">
+                <select className="form-input">
+                  <option defaultValue={true} value=''>Select Casting Time</option>
                   <option>1 action</option>
                   <option>1 bonus action</option>
                   <option>1 reaction</option>
@@ -91,13 +91,13 @@ function GuideFilter(props) {
                   <option>12 hours</option>
                   <option>24 hours</option>
                 </select>
-                <span class="form-label">Casting Time</span>
+                <span className="form-label">Casting Time</span>
               </label>
             </div>
-            <div class="form-piece">
-              <label class="form-piece-filled">
-                <select class="form-input">
-                  <option selected value=''>Select School</option>
+            <div className="form-piece">
+              <label className="form-piece-filled">
+                <select className="form-input">
+                  <option defaultValue={true} value=''>Select School</option>
                   <option>Evocation</option>
                   <option>Conjuration</option>
                   <option>Abjuration</option>
@@ -107,15 +107,15 @@ function GuideFilter(props) {
                   <option>Divination</option>
                   <option>Illusion</option>
                 </select>
-                <span class="form-label">School</span>
+                <span className="form-label">School</span>
               </label>
             </div>
             <p>Spell Level</p>
-            <div class="form-piece form-piece-split">
-              <div class="form-input-split">
-                <label class="form-piece-filled">
-                  <select class="form-input">
-                    <option selected value=''>Select Level</option>
+            <div className="form-piece form-piece-split">
+              <div className="form-input-split">
+                <label className="form-piece-filled">
+                  <select className="form-input">
+                    <option defaultValue={true} value=''>Select Level</option>
                     <option value='0'>Cantrip</option>
                     <option value='1'>1st</option>
                     <option value='2'>2nd</option>
@@ -127,14 +127,14 @@ function GuideFilter(props) {
                     <option value='8'>8th</option>
                     <option value='9'>9th</option>
                   </select>
-                  <span class="form-label">Min</span>
+                  <span className="form-label">Min</span>
                 </label>
               </div>
-              <div class="form-dash"></div>
-              <div class="form-input-split">
-                <label class="form-piece-filled">
-                  <select class="form-input">
-                    <option selected value=''>Select Level</option>
+              <div className="form-dash"></div>
+              <div className="form-input-split">
+                <label className="form-piece-filled">
+                  <select className="form-input">
+                    <option defaultValue={true} value=''>Select Level</option>
                     <option value='0'>Cantrip</option>
                     <option value='1'>1st</option>
                     <option value='2'>2nd</option>
@@ -146,14 +146,14 @@ function GuideFilter(props) {
                     <option value='8'>8th</option>
                     <option value='9'>9th</option>
                   </select>
-                  <span class="form-label">Max</span>
+                  <span className="form-label">Max</span>
                 </label>
               </div>
             </div>
-            <div class="form-piece">
-              <label class="form-piece-filled">
-                <select class="form-input">
-                  <option selected value=''>Select Class</option>
+            <div className="form-piece">
+              <label className="form-piece-filled">
+                <select className="form-input">
+                  <option defaultValue={true} value=''>Select Class</option>
                   <option>Wizard</option>
                   <option>Sorcerer</option>
                   <option>Cleric</option>
@@ -163,7 +163,7 @@ function GuideFilter(props) {
                   <option>Druid</option>
                   <option>Warlock</option>
                 </select>
-                <span class="form-label">Class</span>
+                <span className="form-label">Class</span>
               </label>
             </div>
           </>

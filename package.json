@@ -10,6 +10,8 @@
   "type": "module",
   "scripts": {
     "test": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --silent=false",
+    "start": "parcel",
+    "watch": "parcel watch",
     "build": "rm -rf dist/* .parcel-cache/* && parcel build ./client/index.html"
   },
   "@parcel/transformer-css": {
@@ -28,6 +30,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.20",
     "parcel": "^2.8.2",
     "pg": "^8.8.0",
