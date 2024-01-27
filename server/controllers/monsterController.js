@@ -10,10 +10,17 @@ const quickDB = monstersDB.map(monster => {
 
 const monsterFunctions = {
   getAllMonsters: (req, res) => {
-    const {name, size, challenge_rating_min, challenge_rating_max, alignment} = req.query
+    const {name, size, challenge_rating_min, challenge_rating_max, alignment, full} = req.query
+
+    let data = quickDB
+    console.log('hit')
+
+    if(full) {
+      data = monstersDB
+    }
     
     if(name || size || challenge_rating_min || challenge_rating_max || alignment) {  
-      let filtered = quickDB.filter(monster => {
+      let filtered = data.filter(monster => {
         let keep = true
         
         if(name && !monster.name.toLowerCase().includes(name.toLowerCase())) {

@@ -7,7 +7,8 @@ import MonsterPopup from "../Popout/MonsterPopup.js";
 
 
 function EncounterRun() {
-  const {combatants, name, encounter_id} = useLoaderData()
+  const {combatants: initialList, name, encounter_id} = useLoaderData()
+  const [combatants, setCombatants] = useState(initialList)
   const [popupInfo, setPopupInfo] = useState(false)
 
   return (
@@ -20,7 +21,7 @@ function EncounterRun() {
         <h2 className="title-2">{name}</h2>
       </div>
       
-      <TrackersDisplay combatants={combatants} setPopupInfo={setPopupInfo}/>
+      <TrackersDisplay combatants={combatants} setPopupInfo={setPopupInfo} />
       
       {popupInfo && <MonsterPopup specs={popupInfo} setViewPopup={setPopupInfo}/>}
       

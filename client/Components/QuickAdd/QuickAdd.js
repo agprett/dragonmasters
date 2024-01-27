@@ -1,11 +1,36 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import QuickMonster from "./QuickMonster.js"
 import QuickPlayer from "./QuickPlayer.js"
 
-function QuickAdd({combatants, setAddPopup}) {
+function QuickAdd({combatants, setAddPopup, addCombatant}) {
   const [type, setType] = useState('none')
-  console.log(combatants)
+  const [players, setPlayers] = useState([])
+  const [monsters, setMonsters] = useState([])
+  
+  useEffect(() => {
+    const tempPlayers = []
+    const tempMonsters = []
+
+    combatants.forEach(element => {
+      if(element.type === 'player') {
+        tempPlayers.push(element.name)
+      } else {
+        if(tempMonsters[element.index]) {
+          tempMonsters[element.index].count++
+        } else {
+          tempMonsters[element.index] = {
+            ...element,
+            name: element.name.split(' - ')[0],
+            count: 1
+          }
+        }
+      }
+    });
+
+    setPlayers(tempPlayers)
+    setMonsters(Object.values(tempMonsters))
+  }, [])
 
   const closePopup = () => {
     setType('none')
@@ -29,8 +54,8 @@ function QuickAdd({combatants, setAddPopup}) {
           </div>
         </div>
       )}
-      {type === 'player' && <QuickPlayer closePopup={closePopup} />}
-      {type === 'monster' && <QuickMonster closePopup={closePopup} />}
+      {type === 'player' && <QuickPlayer players={players} closePopup={closePopup} addCombatant={addCombatant} />}
+      {type === 'monster' && <QuickMonster monsters={monsters} closePopup={closePopup} addCombatant={addCombatant} />}
     </div>
   )
 }

@@ -6,13 +6,26 @@ import QuickAdd from '../QuickAdd/QuickAdd.js'
 
 function TrackersDisplay({combatants, setPopupInfo}) {
   const [mapCombatants, setMapCombatants] = useState([])
-  const [addPopup, setAddPopup] =  useState(true)
+  const [addPopup, setAddPopup] =  useState(false)
 
   useEffect(() => {
     setMapCombatants(combatants.map((ind, i) => {
       return {...ind, i, initiative: 0, type: (ind.player ? 'player' : 'monster')}
     }))
   }, [])
+
+  const addCombatant = (info, type, one) => {
+    console.log(info)
+
+    if(one) {
+      mapCombatants[one].name += ' - 1'
+    }
+
+    let newCombatant = {...info, type, initiative: 0, i: info.i ? mapCombatants.length + info.i : mapCombatants.length}
+
+    console.log(newCombatant)
+    setMapCombatants(mapCombatants => [...mapCombatants, newCombatant])
+  }
 
   const setInitiative = (initiative, i) => {
     let arr = [...mapCombatants]
@@ -50,7 +63,7 @@ function TrackersDisplay({combatants, setPopupInfo}) {
 
   return (
     <div className='tracker-display'>
-      {addPopup && <QuickAdd combatants={combatants} setAddPopup={setAddPopup} />}
+      {addPopup && <QuickAdd combatants={mapCombatants} setAddPopup={setAddPopup} addCombatant={addCombatant} />}
       <button className='btn btn-type-2 btn-color-3 create-btn' onClick={() => setAddPopup(true)}>+ Quick Add</button>
       <button className='btn btn-type-2 btn-color-1' onClick={orderCombatants}>Order by Initiative</button>
       <table className='tracker-table'>
