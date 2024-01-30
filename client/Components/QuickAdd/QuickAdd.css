@@ -19,12 +19,6 @@
 
 }
 
-.close-btn {
-  position: absolute;
-  top: 50px;
-  right: 10px;
-}
-
 .quick-options {
   height: 100px;
   display: flex;

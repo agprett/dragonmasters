@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import CreateCharacter from './CreateChar.js';
 
 function PlayersSelection(props) {
-  const {encounterPlayers, setEncounterPlayers, players} = props
+  const {encounterPlayers, setEncounterPlayers, players, setPlayers} = props
+
+  const [showNew, setShowNew] = useState(false)
 
   console.log('character reset')
 
@@ -53,7 +57,7 @@ function PlayersSelection(props) {
             <th>Player</th>
             <th>HP</th>
             <th>Level</th>
-            <th></th>
+            <th className='center'><button className='btn btn-type-3 btn-color-3 enable-pointer' onClick={() => setShowNew(true)}>New</button></th>
           </tr>
         </thead>
         <tbody>{playersDisplay}</tbody>
@@ -69,6 +73,8 @@ function PlayersSelection(props) {
           {encounterPlayers[0] ? addedPlayers : <tr className='none-added-row'><td>No Players Currently Added</td></tr>}
         </tbody>
       </table>
+
+      {showNew && <CreateCharacter setShowNew={setShowNew} setPlayers={setPlayers} />}
     </div>
   )
 }

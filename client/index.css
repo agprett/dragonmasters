@@ -122,6 +122,16 @@
   top: 15px;
 }
 
+.close-btn {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+}
+
+.enable-pointer {
+  pointer-events: auto;
+}
+
 .create-btn {
   position: absolute;
   right: 40px;

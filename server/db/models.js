@@ -243,6 +243,10 @@ EncounterMonster.init({
   count: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  pointer: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, {
   sequelize: db

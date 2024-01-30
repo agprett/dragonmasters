@@ -71,19 +71,19 @@ function EncounterSummary(props) {
         >{'<'} Back</Link>
 
         <div className='encounter-base-info'>
-          <h3>{encounterInfo.name}</h3>
-          <p>{encounterInfo.short_description}</p>
+          <h2 className='title-1'>{encounterInfo.name}</h2>
+          <h2>{encounterInfo.short_description}</h2>
         </div>
 
         <div className='summary-top-buttons'>
           <Link
-            className='btn btn-type-1 btn-color-2'
+            className='btn btn-type-1 btn-color-3'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
-          {/* <button
+          <button
             className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
-          >Edit</button> */}
+          >Edit</button>
         </div>
       </section>
 
@@ -107,22 +107,3 @@ const mapStateToProps = state => state
 const functions = {addEncounter}
 
 export default connect(mapStateToProps, functions)(EncounterSummary)
-
-
-{/* <>
-  {monster.name ? (
-    <div className='monster-tracker-display'>
-      <h2 className='monster-tp-name'>{monster.name}</h2>
-      <button
-        className='info-button'
-        onClick={() => {
-          displayPopup(monster.info)
-        }}
-      >i</button>
-      
-      {trackerBuilder(monster.count)}
-    </div>
-  ) : (
-    <p>x</p>
-  )}
-</> */}

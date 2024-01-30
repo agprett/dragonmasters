@@ -6,11 +6,11 @@
   flex-direction: column;
   align-items: center;
   gap: 25px;
-  background-color: orange;
 }
 
 .summary-top {
   width: 90%;
+  padding-left: 130px;
   display: flex;
   align-items: center;
   gap: 25px;
@@ -23,19 +23,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: pink;
-}
-
-.encounter-run-link {
-  height: 40px;
-  font-size: 20px;
-  padding: 0 25px;
-  text-align: center;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: #B8B8B8;
-  background-color: #E94445;
 }
 
 .summary-top-buttons {
@@ -73,11 +60,4 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 3px solid #286A9C;
-}
-
-.monster-base-info {
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }

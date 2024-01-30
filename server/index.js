@@ -78,4 +78,4 @@ app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 })
 
-app.listen(SERVER_PORT, console.log(`Listening on port ${SERVER_PORT}`))
+app.listen(SERVER_PORT, console.log(`Listening on port http://localhost:${SERVER_PORT}`))

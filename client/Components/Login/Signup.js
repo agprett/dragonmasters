@@ -28,7 +28,7 @@ function Signup(props) {
     event.preventDefault()
 
     if(userInfo.password === userInfo.checkedPassword){
-      axios.post('/api/signup', {username: userInfo.username, password: userInfo.password})
+      axios.post('/api/user/register', {username: userInfo.username, password: userInfo.password})
         .then(res => {
           props.loginUser(res.data.username)
           navigate('/')
