@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import logoImg from '../../images/logo.png'
 
-import { loginUser } from '../../ducks/reducer'
+import { loginUser } from '../../ducks/userSlice.js'
 
-function Signup(props) {
+function Signup() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [userInfo, setUserInfo] = useState({username: '', password: '', checkedPassword: ''})
+
   // const [checkPasswordStuff, setCheckPasswordStuff] = useState({text: '', inputStyle: '', textStyle: ''})
 
   // const checkPassword = (event) => {
@@ -30,7 +33,7 @@ function Signup(props) {
     if(userInfo.password === userInfo.checkedPassword){
       axios.post('/api/user/register', {username: userInfo.username, password: userInfo.password})
         .then(res => {
-          props.loginUser(res.data.username)
+          dispatch(loginUser(res.data.username))
           navigate('/')
         })
         .catch(() => alert('Username already in use.'))
@@ -95,8 +98,4 @@ function Signup(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {loginUser}
-
-export default connect(mapStateToProps, functions)(Signup)
+export default Signup

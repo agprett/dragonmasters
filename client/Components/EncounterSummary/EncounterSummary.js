@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { addEncounter } from '../../ducks/reducer'
+import { addEncounter } from '../../ducks/encounterSlice.js'
 
 import './EncounterSummary.css'
 
-function EncounterSummary(props) {
+function EncounterSummary() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const {encounter_id} = useParams()
   const [encounterInfo, setEncounterInfo] = useState({players: [], monsters: []})
 
@@ -16,29 +18,30 @@ function EncounterSummary(props) {
     axios.get(`/api/encounters/${encounter_id}`)
       .then(res => {
         setEncounterInfo(res.data)
-        console.log(res.data)
       })
   }, [])
 
   const updateEncounter = () => {
-    alert('This functionality is currenlty out of order')
-    // let updatedMonsters = {}
+    const {name, short_description, description, encounter_id, location, terrain, rewards, players, monsters} = encounterInfo
+    let updatedMonsters = {}
 
-    // encounterInfo.monsters.forEach(monster => {
-    //   let obj = {
-    //     name: monster.name,
-    //     info: monster.info,
-    //     amount: monster.count,
-    //     url: monster.url
-    //   }
+    monsters.forEach(monster => {
+      let obj = {
+        name: monster.name,
+        info: monster,
+        amount: +monster.count,
+        url: monster.url
+      }
 
-    //   updatedMonsters[monster.info.index] = obj
-    // })
+      updatedMonsters[monster.index] = {...obj}
+    })
 
-    // let info = {...encounterInfo, monsters: updatedMonsters}
+    console.log(updatedMonsters)
 
-    // props.addEncounter(info)
-    // navigate('/stuff/encounters/new')
+    let info = {id: encounter_id, name, shortDesc: short_description, desc: description, location, terrain, rewards, players, monsters: updatedMonsters}
+
+    dispatch(addEncounter(info))
+    navigate('/stuff/encounters/new')
   }
 
   const charShorts = encounterInfo.players.map((char, i) => {
@@ -55,7 +58,7 @@ function EncounterSummary(props) {
   const monsterShorts = encounterInfo.monsters.map((element, i) => {
     return (
       <div key={i} className='encounter-monster-short'>
-          <h2>{element.name}</h2>
+        <h2>{element.name}</h2>
         <h3>Amount: {element.count}</h3>
       </div>
     )
@@ -63,12 +66,12 @@ function EncounterSummary(props) {
 
   return (
     <section className='page-layout-2'>
+      <Link
+        className='btn btn-type-1 btn-color-1 back-btn'
+        to={`/stuff/encounters`}
+      >{'<'} Back</Link>
 
       <section className='summary-top'>
-        <Link
-          className='btn btn-type-1 btn-color-1 back-btn'
-          to={`/stuff/encounters`}
-        >{'<'} Back</Link>
 
         <div className='encounter-base-info'>
           <h2 className='title-1'>{encounterInfo.name}</h2>
@@ -98,12 +101,16 @@ function EncounterSummary(props) {
           {encounterInfo.monsters[0] ? monsterShorts : <p>No added monsters</p>}
         </section>
       </section>
+
+      <section className='breakdown'>
+        <h2 className='dashboard-head'>Other Information</h2>
+        <p className='large-breakdown-piece'>Description: {encounterInfo.description || 'None'}</p>
+        <p>Terrain: {encounterInfo.terrain || 'None'}</p>
+        <p>Location: {encounterInfo.location || 'None'}</p>
+        <p className='large-breakdown-piece'>Rewards: {encounterInfo.rewards || 'None'}</p>
+      </section>
     </section>
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {addEncounter}
-
-export default connect(mapStateToProps, functions)(EncounterSummary)
+export default EncounterSummary

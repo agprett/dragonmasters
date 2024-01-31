@@ -27,7 +27,7 @@ import campaignFunctions from './controllers/campaignController.js'
 const {getCampaigns, getCampaign, createCampaign, addCampaignNote} = campaignFunctions
 
 import encounterFunctions from './controllers/encounterController.js'
-const {getEncounters, getEncounter, createEncounter} = encounterFunctions
+const {getEncounters, getEncounter, createEncounter, updateEncounter} = encounterFunctions
 
 import characterFunctions from './controllers/characterController.js'
 const {getCharacters, getCharacter, createCharacter, deleteCharacter} = characterFunctions
@@ -61,6 +61,7 @@ app.post('/api/campaigns/note', loginCheck, addCampaignNote)
 app.get('/api/encounters', loginCheck, getEncounters)
 app.get('/api/encounters/:id', loginCheck, getEncounter)
 app.post('/api/encounters', loginCheck, createEncounter)
+app.put('/api/encounters', loginCheck, updateEncounter)
 
 app.get('/api/characters', loginCheck, getCharacters)
 app.get('/api/characters/:id', loginCheck, getCharacter)

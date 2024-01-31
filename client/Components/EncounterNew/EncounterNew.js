@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { clearEncounter } from '../../ducks/encounterSlice';
 
 import InfoSelection from './EncounterSelections/InfoSelection';
 import MonstersSelection from './EncounterSelections/MonstersSelection';
@@ -9,16 +12,27 @@ import NewEncounterSummary from './EncounterSelections/NewEncounterSummary';
 
 import './EncounterNew.css';
 
+const setEditEnc = (info) => {
+  const data = {...info}
+  delete data.players
+  delete data.monsters
+
+  return data
+}
+
 function NewEncounter() {
   let navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const editEnc = useSelector(state => state.encounter.info)
 
   const xpThresholds = {1: [25, 50, 75, 100], 2: [50, 100, 150, 200], 3: [75, 150, 225, 400]}
 
   const [display, setDisplay] = useState(0)
-  const [encounterInfo, setEncounterInfo] = useState({name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: ''})
+  const [encounterInfo, setEncounterInfo] = useState(editEnc.name ? setEditEnc(editEnc) : {name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: ''})
   // const [campaigns, setCampaigns] = useState([])
-  const [encounterPlayers, setEncounterPlayers] = useState([])
-  const [encounterMonsters, setEncounterMonsters] = useState({})
+  const [encounterPlayers, setEncounterPlayers] = useState(editEnc.players ? editEnc.players : [])
+  const [encounterMonsters, setEncounterMonsters] = useState(editEnc.monsters ? editEnc.monsters : {})
   const [confirmed, setConfirmed] = useState(false)
   const [players, setPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
@@ -58,15 +72,27 @@ function NewEncounter() {
 
       console.log(body)
 
-      axios.post('/api/encounters', body)
-        .then(res => {
-          console.log(res.data)
-          alert('Encounter created!')
-          navigate('/stuff/encounters')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      if(body.id) {
+        axios.put('/api/encounters', body)
+          .then(res => {
+            console.log(res.data)
+            alert('Encounter updated!')
+            navigate('/stuff/encounters')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        axios.post('/api/encounters', body)
+          .then(res => {
+            console.log(res.data)
+            alert('Encounter created!')
+            navigate('/stuff/encounters')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     } else {
       alert("Please fill in all required data and confirm it's correct before creating an encounter!")
     }
@@ -83,6 +109,7 @@ function NewEncounter() {
       if(display > 0) {
         setDisplay(display - 1)
       } else {
+        dispatch(clearEncounter())
         navigate('/stuff/encounters')
       }
     }

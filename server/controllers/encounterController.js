@@ -2,6 +2,8 @@ import Sequelize from 'sequelize'
 const {CONNECTION_STRING} = process.env
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
+import { Encounter, EncounterMonster, EncounterCharacter } from '../db/models.js'
+
 const sequelize = new Sequelize(CONNECTION_STRING, {
   dialect: 'postgres',
   dialectOptions: {
@@ -18,7 +20,8 @@ const encounterFunctions = {
 
       sequelize.query(`
         SELECT name, encounter_id, short_description FROM encounters
-        WHERE user_id = '${user_id}';
+        WHERE user_id = '${user_id}'
+        ORDER BY encounter_id;
       `)
         .then(dbRes => {
           res.status(200).send(dbRes[0])
@@ -34,7 +37,7 @@ const encounterFunctions = {
       const {id} = req.params
   
       sequelize.query(`
-        SELECT encounter_id, name, short_description, description FROM encounters
+        SELECT encounter_id, name, short_description, description, terrain, location, rewards FROM encounters
         WHERE user_id = '${user_id}' AND encounter_id = ${+id};
 
         SELECT id, name, count, pointer, encounter_id FROM encounter_monsters
@@ -115,8 +118,24 @@ const encounterFunctions = {
     }
   },
 
-  updateEncounter: (req, res) => {
-    res.status(200).send('test')
+  updateEncounter: async (req, res) => {
+    let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
+
+    if(req.name && short_description && req.session.user, id) {
+      let encounterInfo = {name, short_description, desc, terrain, location, rewards}
+
+      await Encounter.update(encounterInfo, {where: {encounter_id: id}})
+
+      await EncounterMonster.destroy({where: {encounter_id: id}})
+      await EncounterCharacter.destroy({where: {encounter_id: id}})
+
+      await EncounterMonster.bulkCreate(monsters.map(monster => {return {...monster, encounter_id: id}}))
+      await EncounterCharacter.bulkCreate(characters.map(character => {return {...character, encounter_id: id}}))
+
+      res.status(200).send('Encounter updated')
+    } else {
+      res.status(400).send('Please provide all required information to update the encounter.')
+    }
   }
 }
 

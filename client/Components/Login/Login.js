@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import logoImg from '../../images/logo.png'
 
-import { loginUser } from '../../ducks/reducer'
+import { loginUser } from '../../ducks/userSlice.js'
 
-function Login(props) {
+function Login() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [userInfo, setUserInfo] = useState({username: '', password: ''})
 
   const loginHandler = (event) => {
@@ -17,7 +19,7 @@ function Login(props) {
     if(userInfo.username && userInfo.password) {
       axios.post('/api/user/login', {username: userInfo.username, password: userInfo.password})
         .then(res => {
-          props.loginUser(res.data.username)
+          dispatch(loginUser(res.data.username))
           navigate('/')
         })
         .catch(err => {
@@ -70,8 +72,4 @@ function Login(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {loginUser}
-
-export default connect(mapStateToProps, functions)(Login)
+export default Login

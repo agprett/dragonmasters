@@ -39,11 +39,14 @@ function NewEncounterSummary(props) {
         onClick={() => setConfirmed(!confirmed)}
       >{confirmed ? 'Cancel Confirm' : 'Confirm'}</button>
 
-      <section className='new-sections'>
+      <section className='breakdown'>
         <h2 className='dashboard-head'>Base Info</h2>
         <p>Name: {name || 'None'}</p>
         <p>Short Description: {shortDesc || 'None'}</p>
-        <p>Description: {desc || 'None'}</p>
+        <p className='large-breakdown-piece'>Description: {desc || 'None'}</p>
+        <p>Terrain: {terrain || 'None'}</p>
+        <p>Location: {location || 'None'}</p>
+        <p className='large-breakdown-piece'>Rewards: {rewards || 'None'}</p>
       </section>
 
       <section className='summary-added'>

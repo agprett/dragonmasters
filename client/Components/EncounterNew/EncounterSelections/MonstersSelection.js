@@ -5,15 +5,17 @@ function MonstersSelection(props) {
 
   const addMonster = (monster) => {
     const {name, index, url} = monster
-
+    
+    console.log('hit')
+    
     if(!encounterMonsters[index]){
-      let tempChars = encounterMonsters
+      let tempChars = {...encounterMonsters}
       tempChars[index] = {name, url, info: monster, amount: 1}
-
+      
       setEncounterMonsters({...tempChars})
     } else if(encounterMonsters[index]) {
-      let updateCountChar = encounterMonsters[index]
-
+      let updateCountChar = {...encounterMonsters[index]}
+      
       updateCountChar.amount++
 
       let tempChars = encounterMonsters
@@ -25,11 +27,11 @@ function MonstersSelection(props) {
   }
 
   const increaseCount = (index, event) => {
-    let updatedChar = encounterMonsters[index]
+    let updatedChar = {...encounterMonsters[index]}
 
     let newNum = event.target.value.split('')
     
-    if(newNum[0] === '0' && newNum.length !== 1){
+    if(newNum[0] === 0 && newNum.length !== 1){
       newNum.shift()
     }
 
@@ -41,14 +43,14 @@ function MonstersSelection(props) {
       updatedChar.amount = +amount
     }
 
-    let tempChars = encounterMonsters
+    let tempChars = {...encounterMonsters}
     tempChars[index] = updatedChar
 
     setEncounterMonsters({...tempChars})
   }
 
   const removeMonster = (index) => {
-    let tempChars = encounterMonsters
+    let tempChars = {...encounterMonsters}
 
     delete tempChars[index]
 
@@ -86,7 +88,6 @@ function MonstersSelection(props) {
             <input
               className='base-input medium-input'
               type='number'
-
               value={amount}
               onChange={(event) => {
                 event.preventDefault()

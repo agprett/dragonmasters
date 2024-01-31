@@ -1,40 +1,43 @@
 import React, {useEffect, useState} from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Footer from './Footer'
 import logo from '../../images/logo.png'
 
-import { getUser, logoutUser } from '../../ducks/reducer'
+import { loginUser, logoutUser } from '../../ducks/userSlice.js'
 
-function Nav(props) {
+function Nav() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const username = useSelector(state => state.user.username)
+
   const [userInfo, setUserInfo] = useState({})
 
   useEffect(() => {
-    console.log('nav refresh', props.username)
-    if(!props.username) {
+    console.log('nav refresh', username)
+    if(!username) {
       axios.get('/api/user')
         .then(res => {
           console.log(res.data)
           const {username} = res.data
-          props.getUser({username})
+          dispatch(loginUser(username))
           setUserInfo({username})
         })
         .catch(() => {
           console.log('Not signed in.')
         })
     } else if (!userInfo.username) {
-      setUserInfo({username: props.username})
+      setUserInfo({username: username})
     }
   }, [!userInfo.username])
 
   const logoutHandler = () => {
-    props.logoutUser()
-    setUserInfo({})
     axios.post('/api/user/logout')
-      .then(res => {
+    .then(res => {
+        dispatch(logoutUser())
+        setUserInfo({})
         alert('Sucessfully logged out.')
         navigate('/')
       })
@@ -52,7 +55,7 @@ function Nav(props) {
             <h3>DragonMasters</h3>
           </NavLink>
           <NavLink className='nav-links' to="/guide">Guide</NavLink>
-          {props.username ? (
+          {username ? (
             <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
           ) : null}
         </div>
@@ -79,8 +82,4 @@ function Nav(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {getUser, logoutUser}
-
-export default connect(mapStateToProps, functions)(Nav)
+export default Nav

@@ -10,7 +10,7 @@ function InfoSelection(props) {
   // })
 
   return (
-    <section className="new-sections">
+    <section className="breakdown">
       <h2 className='dashboard-head'>Base Info</h2>
 
       <form onSubmit={e => e.preventDefault()} className="horizontal-form">
@@ -40,7 +40,7 @@ function InfoSelection(props) {
             <span className='form-label'>Short Description</span>
           </label>
         </div>
-        <div className='form-piece form-piece-textarea'>
+        <div className='form-piece large-input'>
           <label className='form-piece-filled'>
             <textarea
               className={'form-input' + (encounterInfo.desc ? '' : ' empty-input')}
@@ -76,7 +76,7 @@ function InfoSelection(props) {
             <span className='form-label'>Terrain</span>
           </label>
         </div>
-        <div className='form-piece form-piece-textarea'>
+        <div className='form-piece large-input'>
           <label className='form-piece-filled'>
             <textarea
               className={'form-input' + (encounterInfo.rewards ? '' : ' empty-input')}
