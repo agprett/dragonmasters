@@ -4,7 +4,6 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 
 import Footer from './Footer'
-import './Nav.css'
 import logo from '../../images/logo.png'
 
 import { getUser, logoutUser } from '../../ducks/reducer'
@@ -48,13 +47,13 @@ function Nav(props) {
     <>
       <nav id='main-nav'>
         <div className='main-nav-divs' id='main-nav-left'>
-          <img src={logo} alt="small-logo" className="medium-logo"/>
-          <NavLink className='nav-links btn-type-1-hover' to="/">
+          <img src={logo} alt="small=-logo" className="medium-logo"/>
+          <NavLink className='nav-links' to="/">
             <h3>DragonMasters</h3>
           </NavLink>
-          <NavLink className='nav-links btn-type-1-hover' to="/guide">Guide</NavLink>
+          <NavLink className='nav-links' to="/guide">Guide</NavLink>
           {props.username ? (
-            <NavLink className='nav-links btn-type-1-hover' to="/stuff">My stuff</NavLink>
+            <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
           ) : null}
         </div>
         {
@@ -62,13 +61,13 @@ function Nav(props) {
             <div className='main-nav-divs' id='nav-right'>
               <p>Welcome, {userInfo.username}</p>
               <button
-                className='nav-links btn btn-type-1-hover login-logout'
+                className='btn nav-links login-logout'
                 onClick={logoutHandler}
               >Logout</button>
             </div>
           ) : (
-            <div className='nav-divs' id='nav-right'>
-              <Link className='nav-links btn btn-type-1-hover login-logout' to='/login'>Log in/Sign up</Link>
+            <div className='main-nav-divs' id='nav-right'>
+              <Link className='btn nav-links login-logout' to='/login'>Log in/Sign up</Link>
             </div>
           )
         }

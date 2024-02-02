@@ -17,7 +17,7 @@ import CampaignView from './Components/Campaigns/CampaignView.js'
 import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/EncounterNew/EncounterNew.js'
 import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
-import EncounterRun from './Components/EncounterRun/EncounterRun.js'
+import EncounterRun from './Components/Encounters/EncounterRun.js'
 
 import Login from './Components/Login/Login.js'
 import Signin from './Components/Login/Signup.js'
@@ -103,7 +103,33 @@ const router = createBrowserRouter([
                   },
                   {
                     path: 'run',
-                    element: <EncounterRun /> 
+                    element: <EncounterRun />, 
+                    loader: async ({params}) => {
+                      const {encounter_id} = params
+
+                      let res = await axios.get(`/api/encounters/${encounter_id}`)
+
+                      let {monsters, players, name} = res.data
+                      
+                      let combatants = [...players]
+
+                      monsters.forEach(monster => {
+                        let i = 1
+                        while(i <= monster.count) {
+                          let info = {...monster}
+
+                          if(monster.count > 1) {
+                            info.name = monster.name + ' - ' + i
+                          }
+
+                          delete info.count
+                          combatants.push(info)
+                          i++
+                        }
+                      });
+
+                      return {combatants, name, encounter_id}
+                    }
                   }
                 ]
               }

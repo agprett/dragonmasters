@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 function SpellPopup (props) {
   const {specs, setViewPopup} = props
 
@@ -33,7 +34,7 @@ function SpellPopup (props) {
   }
 
   return (
-    <div className='monster-popup'>
+    <div className='popup'>
 
       <Link className='view-specs' to={`../specs/spells/${specs.index}`} target='_blank' rel="noopener noreferrer">View in Seperate Page</Link>
 

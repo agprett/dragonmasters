@@ -15,7 +15,7 @@ function Home() {
 
       <section id='home-site-description'>
         <p>
-          This application is meant to be an assisstant for Dungeon Masters as they run campaigns. There are two main pieces to this site: a guide section and a "stuff" section. Both have links further down as well as in the nav bar at the top.
+          This application is meant to be an assisstant for Dungeon Masters as they run campaigns. There are two main pieces to this site: a guide section and a "stuff" section.
         </p>
         <p>
           The guide contains all available <a href='https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf' target='_blank'>OGL data</a> as well as any user creations! The data is sectioned into related sets of data for ease of viewing(monsters, spells, etc.). There are is a search/filter section for each of the sections. The goal of this section is to provide quick access to the stats and info of different things for players and dm's for in-game reference and study.
@@ -31,12 +31,20 @@ function Home() {
       <section className='collections-display'>
         <div className="collections">
             <p>Guides</p>
+<<<<<<< HEAD
             <Link to="/guide" className="btn btn-type-2 btn-type-2-hover">View</Link>
+=======
+            <Link to="/guide" className="btn btn-type-1 btn-color-1">View</Link>
+>>>>>>> dev
           </div>
   
           <div className="collections">
             <p>My Stuff<br/>(Must be signed in)</p>
+<<<<<<< HEAD
             <Link to="/stuff" className="btn btn-type-2 btn-type-2-hover">View</Link>
+=======
+            <Link to="/stuff" className="btn btn-type-1 btn-color-1">View</Link>
+>>>>>>> dev
           </div>
       </section>
     </div>

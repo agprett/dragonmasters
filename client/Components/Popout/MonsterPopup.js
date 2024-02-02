@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './Guide.css'
 
 function MonsterPopup (props) {
   console.log('Popup reload')
@@ -55,9 +54,9 @@ function MonsterPopup (props) {
   const createSpecials = specs.special_abilities ? (
     specs.special_abilities.map(ability => {
       return (
-        <div>
+        <div key={ability.name}>
           <h3>{ability.name}</h3>
-          {ability.desc.split('\n- ').map(sentence => <p>{sentence}: {ability.desc}</p>)}
+          {ability.desc.split('\n- ').map((sentence, i) => <p key={`${i}`}>{sentence}</p>)}
         </div>
       )
     })
@@ -66,13 +65,13 @@ function MonsterPopup (props) {
   const createSpellStuff = specs.spellcasting ? (
     <div>
       <h2>Spellcasting</h2>
-      {specs.spellcasting.desc.split('\n').map(str => <p>{str}</p>)}
+      {specs.spellcasting.desc.split('\n').map((str, i) => <p key={`${i}`}>{str}</p>)}
     </div>
   ) : <></>
 
   const createActions = specs.actions.map(action => {
     return (
-      <div>
+      <div key={action.name}>
         <h3>{action.name}</h3>
         <p>{action.desc}</p>
         {action.usage ? <p>Usage info needed</p> : ''}
@@ -83,7 +82,7 @@ function MonsterPopup (props) {
   const createLegendary = specs.legendary_actions ? (
     specs.legendary_actions.map(action => {
       return (
-        <div>
+        <div key={action.name}>
           <h3>{action.name}</h3>
           <p>{action.desc}</p>
         </div>
@@ -92,7 +91,7 @@ function MonsterPopup (props) {
   ) : <></>
 
   return (
-    <div className='monster-popup'>
+    <div className='popup'>
 
       <Link className='view-specs' to={`/guide/specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
             

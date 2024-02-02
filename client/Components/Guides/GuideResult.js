@@ -16,6 +16,7 @@ function GuideResult (props) {
             <td>{data.armor_class}</td>
             <td>{data.challenge_rating}</td>
             <td>{data.xp}</td>
+            <td><button className='btn btn-type-3 btn-color-2'>Test</button></td>
           </>
         )
       
@@ -42,7 +43,7 @@ function GuideResult (props) {
   }
 
   return (
-    <tr className='guide-result' key={index} onClick={getData}>
+    <tr className='guide-result' onClick={getData}>
       <td className='result-name'>{name}</td>
       {displayResults()}
     </tr>

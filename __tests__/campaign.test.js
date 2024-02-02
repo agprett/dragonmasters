@@ -59,7 +59,7 @@ describe.skip('Users can create campaigns when providing all required infomation
   })
 
   test('Users will not be able to create a new campaign when missing required information', async () => {
-    let missingInfo ={
+    let missingInfo = {
       description: 'Not working',
       world_name: 'This one',
       start_level: 5
@@ -91,11 +91,28 @@ describe.skip('User can add new notes to created campaigns', () => {
       })
   })
 
-  test('Users will not be able to add notes to campaigns they did not create', async () => {
+  test('Users will not be able to edit or add notes to campaigns they did not create', async () => {
+    let updateCamp = {
+      name: 'BlackFang',
+      description: 'Testing',
+      length: 'Medium',
+      world_name: 'Earth',
+      start_level: 3,
+      note: 'This is a test note'
+    }
+
     let newNote = {
       campaign_id: 1,
       note: 'Should not be added'
     }
+
+    await signedIn.put(`${baseURL}`, updateCamp)
+      .then(() => {
+        fail('Should not have added, not correct user')
+      })
+      .catch(err => {
+        expect(err.response.data).toBe('Must be signed in as the owner of this campaign to edit information!')
+      })
 
     await signedIn.post(`${baseURL}/note`, newNote)
       .then(() => {

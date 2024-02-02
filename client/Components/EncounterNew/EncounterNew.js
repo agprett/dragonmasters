@@ -1,40 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { connect } from 'react-redux';
 
 import InfoSelection from './EncounterSelections/InfoSelection';
-import CharacterSelection from './EncounterSelections/CharacterSelection';
+import MonstersSelection from './EncounterSelections/MonstersSelection';
+import PlayersSelection from './EncounterSelections/PlayerSelection';
 import NewEncounterSummary from './EncounterSelections/NewEncounterSummary';
 
 import './EncounterNew.css';
 
-function NewEncounter(props) {
+function NewEncounter() {
   let navigate = useNavigate()
 
-  const possibleDisplays = ['Info', 'Players', 'Monsters', 'Summary']
   const xpThresholds = {1: [25, 50, 75, 100], 2: [50, 100, 150, 200], 3: [75, 150, 225, 400]}
 
   const [display, setDisplay] = useState(0)
   const [encounterInfo, setEncounterInfo] = useState({name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: ''})
-  const [encounterStats, setEncounterStats] = useState({difficulty: 'Unset', totalXP: 0, adjustedXP: 0})
   // const [campaigns, setCampaigns] = useState([])
   const [encounterPlayers, setEncounterPlayers] = useState([])
   const [encounterMonsters, setEncounterMonsters] = useState({})
   const [confirmed, setConfirmed] = useState(false)
   const [players, setPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
-  const [filters, setFilters] = useState({name: ''})
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    const {name, short_description: shortDesc, description: desc, monsters: preMonsters, players: prePlayers} = props.encounterData
-
-    console.log('Reset new encounter')
-
-    setEncounterInfo({...encounterInfo, name, shortDesc, desc})
-    setEncounterMonsters({...preMonsters})
-    setEncounterPlayers([...prePlayers])
-    
     axios.get('/api/characters')
       .then(res => {
         setPlayers(res.data)
@@ -52,24 +42,34 @@ function NewEncounter(props) {
   }, [])
 
   const postNewEncounter = () => {
-    const {name, shortDesc, desc} = encounterInfo
+    if(encounterInfo.name && encounterInfo.shortDesc && encounterPlayers[0] && Object.keys(encounterMonsters).length && confirmed) {
+      let structuredMonsters = []
 
-    const body = {
-      name,
-      shortDesc,
-      desc,
-      characters: encounterPlayers,
-      monsters: encounterMonsters
+      for(mon in encounterMonsters) {
+        const {name, amount, url, info} = encounterMonsters[mon]
+        structuredMonsters.push({name, count: amount, url, pointer: info.pointer})
+      }
+
+      const body = {
+        ...encounterInfo,
+        characters: encounterPlayers,
+        monsters: structuredMonsters
+      }
+
+      console.log(body)
+
+      axios.post('/api/encounters', body)
+        .then(res => {
+          console.log(res.data)
+          alert('Encounter created!')
+          navigate('/stuff/encounters')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else {
+      alert("Please fill in all required data and confirm it's correct before creating an encounter!")
     }
-
-    console.log(body)
-    axios.post('/api/encounters', body)
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 
   const displayChange = (direction) => {
@@ -78,7 +78,6 @@ function NewEncounter(props) {
         setDisplay(display + 1)
       } else {
         postNewEncounter()
-        // confirmed ? postNewEncounter : (event) => event.preventDefault()
       }
     } else if(direction === 'back') {
       if(display > 0) {
@@ -90,58 +89,50 @@ function NewEncounter(props) {
   }
 
   return (
-    <section id='new-encounter'>
+    <div className='page-layout-2'>
       <div id='new-encounter-nav'>
         <div id="selection-progress-div">
           <div className='progress-bar'></div>
           <div 
-            className={`progress-bar ${display === 0 ? 'empty' : display === 1 ? 'third' : display === 2 ? 'two-third' : 'complete'}`}
+            className={`progress-bar ${display === 0 ? 'empty' : display === 1 ? 'third' : display === 2 ? 'two-third' : 'end'}`}
             id='progress-bar'
           ></div>
           <div className='checkpoint' onClick={() => setDisplay(0)}>
-            <div className={encounterInfo.name && encounterInfo.shortDesc ? 'circle active' : 'circle'}>✓</div>
+            <div id={display === 0 ? 'current' : null} className={encounterInfo.name && encounterInfo.shortDesc ? 'circle complete' : 'circle'}>✓</div>
             <p>Info</p>
           </div>
           <div className='checkpoint' onClick={() => setDisplay(1)}>
-            <div className={encounterPlayers[0] || encounterPlayers === 'skipped' ? 'circle active' : 'circle'}>✓</div>
+            <div id={display === 1 ? 'current' : null} className={encounterPlayers[0] || encounterPlayers === 'skipped' ? 'circle complete' : 'circle'}>✓</div>
             <p>Players</p>
           </div>
           <div className='checkpoint' onClick={() => setDisplay(2)}>
-            <div className={Object.keys(encounterMonsters).length ? 'circle active' : 'circle'}>✓</div>
+            <div id={display === 2 ? 'current' : null} className={Object.keys(encounterMonsters).length ? 'circle complete' : 'circle'}>✓</div>
             <p>Monsters</p>
           </div>
           <div className='checkpoint' onClick={() => setDisplay(3)}>
-            <div className={confirmed ? 'circle active' : 'circle'}>✓</div>
+            <div id={display === 3 ? 'current' : null} className={confirmed ? 'circle complete' : 'circle'}>✓</div>
             <p>Summary</p>
           </div>
         </div>
         <div className='new-encounter-manuever-btns'>
           <button
-            className='ne-buttons'
+            className='btn btn-type-2 btn-color-2'
             onClick={() => displayChange('back')}
             >{display > 0 ? 'Back' : 'Cancel'}</button>
           <button
-            className='ne-buttons'
+            className='btn btn-type-2 btn-color-2'
             onClick={() => displayChange('forward')}
           >{display < 3 ? 'Next' : 'Finish'}</button>
         </div>
       </div>
 
-      {/* <section id="selection-display"> */}
-        {display === 0 ? (
-            InfoSelection({encounterInfo, setEncounterInfo})
-          ) : display === 1 ? (
-            CharacterSelection({display, encounterCharacters: encounterPlayers, setEncounterCharacters: setEncounterPlayers, players})
-          ) : display === 2 ? (
-            CharacterSelection({display, encounterCharacters: encounterMonsters, setEncounterCharacters: setEncounterMonsters, monsters, filters, setFilters})
-          ): NewEncounterSummary({display, confirmed, setConfirmed, encounterInfo, encounterPlayers, encounterMonsters})
-        }
-      {/* </section> */}
+      {display === 0 && <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} />}
+      {display === 1 && <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} />}
+      {display === 2 && <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />} 
+      {display === 3 && <NewEncounterSummary display={display} confirmed={confirmed} setConfirmed={setConfirmed} encounterInfo={encounterInfo} encounterPlayers={encounterPlayers} encounterMonsters={encounterMonsters} />}
 
-    </section>
+    </div>
   )
 };
 
-const mapStateToProps = state => state
-
-export default connect(mapStateToProps, {})(NewEncounter)
+export default NewEncounter

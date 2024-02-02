@@ -44,9 +44,9 @@ const monsterFunctions = {
   },
 
   getMonster: (req, res) => {
-    const {index} = req.params
+    const {index} = req.params 
 
-    const monster = monstersDB[monstersDB.findIndex(e => e.index === index)]
+    const monster = monstersDB[pointers[index]]
 
     res.status(200).send(monster)
   }

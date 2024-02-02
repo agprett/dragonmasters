@@ -2,8 +2,6 @@ import React, {useEffect} from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-import './StuffNav.css'
-
 function StuffNav () {
   const navigate = useNavigate()
 

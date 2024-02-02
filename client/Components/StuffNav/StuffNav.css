@@ -1,16 +1,12 @@
 #stuff-nav {
-  height: 50px;
+  height: 40px;
   padding: 0 15px;
   display: flex;
   align-items: center;
-  background-color: #4F5E69;
+  background-color: #286A9C;
 }
 
 .stuff-nav-links {
   padding: 0 10px;
-}
-
-.stuff-nav-links:hover, .stuff-nav-links:active {
-  color: #1E4E73;
-  background-color: #E8413C;
+  border-radius: 0 0 2px;
 }

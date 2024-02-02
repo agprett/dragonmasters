@@ -1,42 +1,72 @@
-import React from 'react'
-import axios from 'axios'
+import React, {useEffect, useState} from 'react'
 
 import './TrackersDisplay.css'
 import Tracker from './Tracker.js'
+import QuickAdd from '../QuickAdd/QuickAdd.js'
 
-function TrackersDisplay(props) {
-  const {type, monster, displayPopup} = props
+function TrackersDisplay({combatants, setPopupInfo}) {
+  const [mapCombatants, setMapCombatants] = useState([])
+  const [addPopup, setAddPopup] =  useState(true)
 
-  const trackerBuilder = (count) => {
-    const trackerArray = []
+  useEffect(() => {
+    setMapCombatants(combatants.map((ind, i) => {
+      return {...ind, i, initiative: 0, type: (ind.player ? 'player' : 'monster')}
+    }))
+  }, [])
 
-    for(let i = 1; i <= count; i++){
-      let newTracker = <Tracker monster={monster.info} i={i} />
+  const setInitiative = (initiative, i) => {
+    let arr = [...mapCombatants]
 
-      trackerArray.push(newTracker)
-    }
+    arr[i].initiative = initiative
 
-    return trackerArray
+    setMapCombatants(arr)
   }
 
+  const orderCombatants = () => {
+    let arr = [...mapCombatants]
+
+    arr.sort((a, b) => {
+      if(a.initiative === b.initiative) {
+        if(a.type === b.type) {
+          return 1
+        } else if(a.type === 'player') {
+          return -1
+        } else {
+          return 1
+        }
+      } else {
+        return b.initiative - a.initiative
+      }
+    })
+
+    let newI = arr.map((e, i) => {return {...e, i}})
+
+    setMapCombatants(newI)
+  }
+
+  const trackers = mapCombatants.map(ind => {
+    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopupInfo={setPopupInfo} />
+  })
+
   return (
-    <>
-      {monster.name ? (
-        <div className='monster-tracker-display'>
-          <h2 className='monster-tp-name'>{monster.name}</h2>
-          <button
-            className='info-button'
-            onClick={() => {
-              displayPopup(monster.info)
-            }}
-          >i</button>
-          
-          {trackerBuilder(monster.count)}
-        </div>
-      ) : (
-        <p>x</p>
-      )}
-    </>
+    <div className='tracker-display'>
+      {addPopup && <QuickAdd combatants={combatants} setAddPopup={setAddPopup} />}
+      <button className='btn btn-type-2 btn-color-3 create-btn' onClick={() => setAddPopup(true)}>+ Quick Add</button>
+      <button className='btn btn-type-2 btn-color-1' onClick={orderCombatants}>Order by Initiative</button>
+      <table className='tracker-table'>
+        <thead>
+          <tr className='tracker' id='tracker-head'>
+            <th>Initiative</th>
+            <th>Name</th>
+            <th>HP</th>
+            <th>AC</th>
+          </tr>
+        </thead>
+        <tbody>
+          {trackers}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

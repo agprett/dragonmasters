@@ -44,12 +44,10 @@ function EncounterSummary(props) {
   const charShorts = encounterInfo.players.map((char, i) => {
     return (
       <div key={i} className='encounter-monster-short'>
-        <div className='monster-base-info'>
-          <h2>{char.name}</h2>
-          <h3>{char.player}</h3>
-          <p>Level: {char.level}</p>
-          <p>HP: {char.hit_points}</p>
-        </div>
+        <h2>{char.name}</h2>
+        <h3>{char.player}</h3>
+        <p>AC: {char.armor_class}</p>
+        <p>HP: {char.hit_points}</p>
       </div>
     )
   })
@@ -57,24 +55,22 @@ function EncounterSummary(props) {
   const monsterShorts = encounterInfo.monsters.map((element, i) => {
     return (
       <div key={i} className='encounter-monster-short'>
-        <div className='monster-base-info'>
           <h2>{element.name}</h2>
           {/* <p>Alignment: {element.info.alignment}</p>
           <p>Challenge: {element.info.challenge_rating} ({element.xp} XP)</p> */}
-        </div>
         <h3>Amount: {element.count}</h3>
       </div>
     )
   })
 
   return (
-    <section className='encounter-summary'>
+    <section className='page-layout-2'>
 
       <section className='summary-top'>
         <Link
-          className='encounter-run-link'
+          className='btn btn-type-1 btn-color-1 back-btn'
           to={`/stuff/encounters`}
-        >{'<'} Back to Encounters</Link>
+        >{'<'} Back</Link>
 
         <div className='encounter-base-info'>
           <h3>{encounterInfo.name}</h3>
@@ -83,24 +79,24 @@ function EncounterSummary(props) {
 
         <div className='summary-top-buttons'>
           <Link
-            className='encounter-run-link'
+            className='btn btn-type-1 btn-color-2'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
-          <button
-            className='encounter-run-link'
+          {/* <button
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
-          >Edit</button>
+          >Edit</button> */}
         </div>
       </section>
 
       <section className='summary-added'>
         <section className='encounter-added'>
-          <h3>Players:</h3>
+          <h2 className='dashboard-head'>Players:</h2>
           {encounterInfo.players[0] ? charShorts : <p>No added characters</p>}
         </section>
 
         <section className='encounter-added'>
-          <h2>Monsters:</h2>
+          <h2 className='dashboard-head'>Monsters:</h2>
           {encounterInfo.monsters[0] ? monsterShorts : <p>No added monsters</p>}
         </section>
       </section>
@@ -113,3 +109,22 @@ const mapStateToProps = state => state
 const functions = {addEncounter}
 
 export default connect(mapStateToProps, functions)(EncounterSummary)
+
+
+{/* <>
+  {monster.name ? (
+    <div className='monster-tracker-display'>
+      <h2 className='monster-tp-name'>{monster.name}</h2>
+      <button
+        className='info-button'
+        onClick={() => {
+          displayPopup(monster.info)
+        }}
+      >i</button>
+      
+      {trackerBuilder(monster.count)}
+    </div>
+  ) : (
+    <p>x</p>
+  )}
+</> */}
