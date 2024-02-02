@@ -31,20 +31,12 @@ function Home() {
       <section className='collections-display'>
         <div className="collections">
             <p>Guides</p>
-<<<<<<< HEAD
-            <Link to="/guide" className="btn btn-type-2 btn-type-2-hover">View</Link>
-=======
             <Link to="/guide" className="btn btn-type-1 btn-color-1">View</Link>
->>>>>>> dev
           </div>
   
           <div className="collections">
             <p>My Stuff<br/>(Must be signed in)</p>
-<<<<<<< HEAD
-            <Link to="/stuff" className="btn btn-type-2 btn-type-2-hover">View</Link>
-=======
             <Link to="/stuff" className="btn btn-type-1 btn-color-1">View</Link>
->>>>>>> dev
           </div>
       </section>
     </div>

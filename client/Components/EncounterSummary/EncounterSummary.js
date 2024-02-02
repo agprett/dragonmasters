@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { addEncounter } from '../../ducks/reducer'
+import { addEncounter } from '../../ducks/encounterSlice.js'
 
 import './EncounterSummary.css'
 
-function EncounterSummary(props) {
+function EncounterSummary() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const {encounter_id} = useParams()
   const [encounterInfo, setEncounterInfo] = useState({players: [], monsters: []})
 
@@ -21,24 +23,26 @@ function EncounterSummary(props) {
   }, [])
 
   const updateEncounter = () => {
-    alert('This functionality is currenlty out of order')
-    // let updatedMonsters = {}
+    const {name, short_description, description, encounter_id, location, terrain, rewards, players, monsters} = encounterInfo
+    let updatedMonsters = {}
 
-    // encounterInfo.monsters.forEach(monster => {
-    //   let obj = {
-    //     name: monster.name,
-    //     info: monster.info,
-    //     amount: monster.count,
-    //     url: monster.url
-    //   }
+    monsters.forEach(monster => {
+      let obj = {
+        name: monster.name,
+        info: monster,
+        amount: +monster.count,
+        url: monster.url
+      }
 
-    //   updatedMonsters[monster.info.index] = obj
-    // })
+      updatedMonsters[monster.index] = {...obj}
+    })
 
-    // let info = {...encounterInfo, monsters: updatedMonsters}
+    console.log(updatedMonsters)
 
-    // props.addEncounter(info)
-    // navigate('/stuff/encounters/new')
+    let info = {id: encounter_id, name, shortDesc: short_description, desc: description, location, terrain, rewards, players, monsters: updatedMonsters}
+
+    dispatch(addEncounter(info))
+    navigate('/stuff/encounters/new')
   }
 
   const charShorts = encounterInfo.players.map((char, i) => {
@@ -82,10 +86,10 @@ function EncounterSummary(props) {
             className='btn btn-type-1 btn-color-2'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
-          {/* <button
+          <button
             className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
-          >Edit</button> */}
+          >Edit</button>
         </div>
       </section>
 
@@ -104,11 +108,7 @@ function EncounterSummary(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {addEncounter}
-
-export default connect(mapStateToProps, functions)(EncounterSummary)
+export default EncounterSummary
 
 
 {/* <>

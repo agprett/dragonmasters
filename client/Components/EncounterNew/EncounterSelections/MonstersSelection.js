@@ -105,12 +105,6 @@ function MonstersSelection(props) {
   }
 
   return (
-<<<<<<< HEAD
-    <section className="new-encounter-selections" id="monsters-selection">
-      <form name="search-monsters" id="search-monsters">
-        <input placeholder="Search name" id="search-monsters-input" onChange={filterMonsters}/>
-      </form>
-=======
     <section className="new-encounter-selections">
       <div className='ne-monster-display'>
         <form id="search-monsters" className='horizontal-form'>
@@ -126,7 +120,6 @@ function MonstersSelection(props) {
             </label>
           </div>
         </form>
->>>>>>> dev
 
         <table className="ne-monster-table">
           <thead>

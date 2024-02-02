@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { clearEncounter } from '../../ducks/reducer'
+import { clearEncounter } from '../../ducks/encounterSlice.js'
 
-function Encounters(props) {
+function Encounters() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [encounters, setEncounters] = useState([])
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function Encounters(props) {
   }
 
   const viewNewEncounter = () => {
-    props.clearEncounter()
+    dispatch(clearEncounter())
     navigate('/stuff/encounters/new')
   }
 
@@ -58,8 +60,4 @@ function Encounters(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {clearEncounter}
-
-export default connect(mapStateToProps, functions)(Encounters)
+export default Encounters

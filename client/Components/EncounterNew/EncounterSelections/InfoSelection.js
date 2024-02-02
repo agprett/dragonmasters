@@ -10,13 +10,8 @@ function InfoSelection(props) {
   // })
 
   return (
-<<<<<<< HEAD
-    <section className="encounter-selection" id="info-selection">
-      <h2 className='new-encounter-title'>Encounter Info</h2>
-=======
     <section className="new-sections">
       <h2 className='dashboard-head'>Base Info</h2>
->>>>>>> dev
 
       <form onSubmit={e => e.preventDefault()} className="horizontal-form">
         <div className='form-piece'>

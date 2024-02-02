@@ -33,16 +33,11 @@ function NewEncounterSummary(props) {
   
 
   return (
-<<<<<<< HEAD
-    <section className="encounter-selection" id="encounter-summary">
-      <h2 className='new-encounter-title'>{name} Summary</h2>
-=======
     <section className="ne-summary">
       <button
         className={'btn btn-type-2 ' + (confirmed ? 'btn-color-4' : 'btn-color-3')}
         onClick={() => setConfirmed(!confirmed)}
       >{confirmed ? 'Cancel Confirm' : 'Confirm'}</button>
->>>>>>> dev
 
       <section className='new-sections'>
         <h2 className='dashboard-head'>Base Info</h2>

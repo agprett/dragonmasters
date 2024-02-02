@@ -45,19 +45,6 @@ function PlayersSelection(props) {
   })
   
   return (
-<<<<<<< HEAD
-    <section className="new-encounter-selections" id="players-selection">
-      <div className='new-displayed-characters'>
-        <div className='new-encounter-player-card'>
-          <h2>Name</h2>
-          <h3>Player</h3>
-          <p>HP</p>
-          <p>Level</p>
-          <div></div>
-        </div>
-        {playersDisplay}
-      </div>
-=======
     <div className="new-encounter-selections">
       <table className='ne-player-table'>
         <thead>
@@ -71,7 +58,6 @@ function PlayersSelection(props) {
         </thead>
         <tbody>{playersDisplay}</tbody>
       </table>
->>>>>>> dev
       
       <table className='new-added'>
         <thead>
