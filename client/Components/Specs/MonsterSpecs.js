@@ -105,14 +105,14 @@ function MonsterSpecs () {
   return (
     <div className='monster-specs'>
       <div className='monster-header'>
-        <h2 class="monster-name">{specs.name}</h2>
+        <h2 className="monster-name">{specs.name}</h2>
         <p>&nbsp;-&nbsp;</p>
         <p>{specs.size} {specs.type} {specs.subtype ? ` (${specs.subtype})` : ''}, {specs.alignment}</p>
       </div>
 
-      {specs.desc ? <p class="monster-desc"> {specs.desc}</p> : ''}
+      {specs.desc ? <p className="monster-desc"> {specs.desc}</p> : ''}
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-base-info'>
         <p>AC: {specs.armor_class}</p>
@@ -120,13 +120,13 @@ function MonsterSpecs () {
         <p>{createSpeedStr()}</p>
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-main-skills'>
         {statsBlock()}
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-sub-skills'>
         {createSubSkills()}
@@ -134,7 +134,7 @@ function MonsterSpecs () {
 
       {specs.special_abilities ? (
         <>
-          <div class="splitter"></div>
+          <div className="splitter"></div>
 
           <div className='monster-specials'>
             <h2>Special Abilities</h2>
@@ -145,13 +145,13 @@ function MonsterSpecs () {
 
       {specs.spellcasting ? (
         <>
-          <div class="splitter"></div>
+          <div className="splitter"></div>
 
           {createSpellStuff}
         </>
       ) : <></>}
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-actions'>
         <h2>Actions</h2>

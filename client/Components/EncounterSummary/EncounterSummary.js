@@ -59,8 +59,8 @@ function EncounterSummary(props) {
       <div key={i} className='encounter-monster-short'>
         <div className='monster-base-info'>
           <h2>{element.name}</h2>
-          <p>Alignment: {element.info.alignment}</p>
-          <p>Challenge: {element.info.challenge_rating} ({element.xp} XP)</p>
+          {/* <p>Alignment: {element.info.alignment}</p>
+          <p>Challenge: {element.info.challenge_rating} ({element.xp} XP)</p> */}
         </div>
         <h3>Amount: {element.count}</h3>
       </div>

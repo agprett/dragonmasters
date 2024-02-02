@@ -39,16 +39,16 @@ function CharacterTracker(props) {
      ) : (
       <div className='tracker' id={`${characterInfo.name}`}>
         <h2>{characterInfo.name}</h2>
-        <div class="health-display">
-          <h3 class="tracker-health" id={`${characterInfo.name}-hp`}>Health: {characterInfo.hit_points}</h3>
-          <div class="health-updater">
+        <div className="health-display">
+          <h3 className="tracker-health" id={`${characterInfo.name}-hp`}>Health: {characterInfo.hit_points}</h3>
+          <div className="health-updater">
             <button onClick={() => updateHealth('down')}>-</button>
-            <input id={`${characterInfo.name}-hp-input`} class="health-updater-input" type="number" min="0" value={healthInput} onChange={updateNumInput}/>
+            <input id={`${characterInfo.name}-hp-input`} className="health-updater-input" type="number" min="0" value={healthInput} onChange={updateNumInput}/>
             <button onClick={() => updateHealth('up')}>+</button>
           </div>
         </div>
         <p>Initiative:</p>
-        <input id={`${characterInfo.name}-initiative`} class='tracker-initiative'/>
+        <input id={`${characterInfo.name}-initiative`} className='tracker-initiative'/>
       </div>
     )}</>
   )

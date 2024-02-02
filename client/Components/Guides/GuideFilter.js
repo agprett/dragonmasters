@@ -42,7 +42,7 @@ function GuideFilter (props) {
 
         return (
           <>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-cr-min">Challenge Rating Min</label>
               <input
               id="filter-cr-min"
@@ -52,7 +52,7 @@ function GuideFilter (props) {
               max='30'
               />
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-cr-max">Challenge Rating Max</label>
               <input
                 id="filter-cr-max"
@@ -62,7 +62,7 @@ function GuideFilter (props) {
                 max='30'
               />
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-size">Size</label>
               <select id="filter-size">
                 <option selected value=''>Select Size</option>
@@ -81,7 +81,7 @@ function GuideFilter (props) {
 
         return (
           <>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-casting-time">Casting Time</label>
               <select id="filter-casting-time">
                 <option selected value=''>Select Casting Time</option>
@@ -96,7 +96,7 @@ function GuideFilter (props) {
                 <option>24 hours</option>
               </select>
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-school">School</label>
               <select id="filter-school">
                 <option selected value=''>Select School</option>
@@ -110,7 +110,7 @@ function GuideFilter (props) {
                 <option>Illusion</option>
               </select>
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-min-level">Min Level</label>
               <select id="filter-min-level">
                 <option selected value=''>Select Min Level</option>
@@ -126,7 +126,7 @@ function GuideFilter (props) {
                 <option value='9'>9th</option>
               </select>
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-max-level">Max Level</label>
               <select id="filter-max-level">
                 <option selected value=''>Select Max Level</option>
@@ -142,7 +142,7 @@ function GuideFilter (props) {
                 <option value='9'>9th</option>
               </select>
             </div>
-            <div class="form-piece">
+            <div className="form-piece">
               <label for="filter-class">Class</label>
               <select id="filter-class">
                 <option selected value=''>Select Class</option>
@@ -164,13 +164,13 @@ function GuideFilter (props) {
   return (
     <form id='guide-filters' onSubmit={sendFilters} onReset={resetFilters}>
       <p className='form-header'>Filters</p>
-      <div class="form-piece">
+      <div className="form-piece">
         <label for="filter-name">Name</label>
         <input id="filter-name" placeholder='ex: Dragon'/>
       </div>
       {createForm()}
-      <button class="btn btn-type-2 btn-type-2-hover" type='submit'>Filter</button>
-      <button class='btn btn-type-2 btn-type-2-hover' type='reset'>Clear Filters</button>
+      <button className="btn btn-type-2 btn-type-2-hover" type='submit'>Filter</button>
+      <button className='btn btn-type-2 btn-type-2-hover' type='reset'>Clear Filters</button>
     </form>
   )
 }

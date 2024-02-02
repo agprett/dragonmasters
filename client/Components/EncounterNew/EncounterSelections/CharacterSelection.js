@@ -11,7 +11,7 @@ function CharactersSelection(props) {
   })
 
   return (
-    <section class="encounter-selection" id="player-selection">
+    <section className="encounter-selection" id="player-selection">
       <h2 className='new-encounter-title'>{display === 1 ? 'Players' : 'Monsters'}</h2>
 
       {display === 1 ? (

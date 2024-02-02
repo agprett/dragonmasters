@@ -53,7 +53,7 @@ function SpellSpecs () {
         <h3>{convertLevel()}</h3>
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div>
         {specs.desc ? specs.desc.map(para => <p>{para}</p>): <></>}
@@ -61,7 +61,7 @@ function SpellSpecs () {
         {specs.material ? <p>Materials: {specs.material}</p> : <></>}
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div>
         <p>Range: {specs.range}</p>

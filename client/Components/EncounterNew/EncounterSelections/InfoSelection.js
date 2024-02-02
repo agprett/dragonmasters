@@ -14,7 +14,7 @@ function InfoSelection(props) {
   // })
 
   return (
-    <section class="encounter-selection" id="info-selection">
+    <section className="encounter-selection" id="info-selection">
       <h2 className='new-encounter-title'>Encounter Info</h2>
 
       <section className="new-encounter-info">

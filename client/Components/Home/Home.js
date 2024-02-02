@@ -29,14 +29,14 @@ function Home() {
       </section>
 
       <section className='collections-display'>
-        <div class="collections">
+        <div className="collections">
             <p>Guides</p>
-            <Link to="/guide" class="btn btn-type-2 btn-type-2-hover">View</Link>
+            <Link to="/guide" className="btn btn-type-2 btn-type-2-hover">View</Link>
           </div>
   
-          <div class="collections">
+          <div className="collections">
             <p>My Stuff<br/>(Must be signed in)</p>
-            <Link to="/stuff" class="btn btn-type-2 btn-type-2-hover">View</Link>
+            <Link to="/stuff" className="btn btn-type-2 btn-type-2-hover">View</Link>
           </div>
       </section>
     </div>

@@ -46,7 +46,7 @@ function PlayersSelection(props) {
   })
   
   return (
-    <section class="new-encounter-selections" id="players-selection">
+    <section className="new-encounter-selections" id="players-selection">
       <div className='new-displayed-characters'>
         <div className='new-encounter-player-card'>
           <h2>Name</h2>

@@ -1,9 +1,9 @@
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
 const quickDB = monstersDB.map(monster => {
-  const {index, name, size, hit_points, armor_class, challenge_rating, xp, url} = monster
+  const {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url} = monster
 
-  return {index, name, size, hit_points, armor_class, challenge_rating, xp, url}
+  return {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url}
 })
 
 const monsterFunctions = {

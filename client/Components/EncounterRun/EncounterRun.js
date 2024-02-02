@@ -66,7 +66,7 @@ function EncounterRun() {
         </div>
       </div>
       <div id="encounter-monsters">
-        <h2 class="character-view-title">Monsters:</h2>
+        <h2 className="character-view-title">Monsters:</h2>
         <div id="monster-view">
           {encounterInfo.monsters ? (
             monsterTrackers(encounterInfo.monsters)

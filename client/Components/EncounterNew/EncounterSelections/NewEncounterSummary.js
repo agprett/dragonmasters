@@ -45,7 +45,7 @@ function NewEncounterSummary(props) {
   
 
   return (
-    <section class="encounter-selection" id="encounter-summary">
+    <section className="encounter-selection" id="encounter-summary">
       <h2 className='new-encounter-title'>{name} Summary</h2>
 
       <section className='summary-top'>

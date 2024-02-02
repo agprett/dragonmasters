@@ -33,7 +33,7 @@ function Guide () {
     switch(type) {
       case 'monsters':
         return (
-          <tr class="guide-result" id="guide-result-head">
+          <tr className="guide-result" id="guide-result-head">
             <th className='result-name'>Name</th>
             <th>Size</th>
             <th>HP</th>
@@ -45,7 +45,7 @@ function Guide () {
       
       case 'spells':
         return (
-          <tr class="guide-result" id="guide-result-head">
+          <tr className="guide-result" id="guide-result-head">
             <th className='result-name'>Name</th>
             <th>Casting Time</th>
             <th>Range</th>

@@ -101,7 +101,7 @@ function MonstersSelection(props) {
   }
 
   return (
-    <section class="new-encounter-selections" id="monsters-selection">
+    <section className="new-encounter-selections" id="monsters-selection">
       <form name="search-monsters" id="search-monsters">
         <input placeholder="Search name" id="search-monsters-input" onChange={filterMonsters}/>
       </form>

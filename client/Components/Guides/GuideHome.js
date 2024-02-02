@@ -13,13 +13,13 @@ function GuideHome () {
         <button type='submit'>Search</button>
       </form> */}
       <section className='collections-display'>
-        <div class="collections">
+        <div className="collections">
           <h3>Monsters</h3>
-          <Link class='btn btn-type-2 btn-type-2-hover' to='monsters'>View</Link>
+          <Link className='btn btn-type-2 btn-type-2-hover' to='monsters'>View</Link>
         </div> 
-        <div class="collections">
+        <div className="collections">
           <h3>Spells</h3>
-          <Link class='btn btn-type-2 btn-type-2-hover' to='spells'>View</Link>
+          <Link className='btn btn-type-2 btn-type-2-hover' to='spells'>View</Link>
         </div>
       </section>
     </section>

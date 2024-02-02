@@ -38,16 +38,16 @@ function Tracker(props) {
      ) : (
       <div className='tracker' id={`${monsterInfo.index}-${i}`}>
         <h2>{monsterInfo.name} - {i}</h2>
-        <div class="health-display">
-          <h3 class="tracker-health" id={`${monsterInfo.index}-${i}-hp`}>Health: {monsterInfo.hit_points}</h3>
-          <div class="health-updater">
+        <div className="health-display">
+          <h3 className="tracker-health" id={`${monsterInfo.index}-${i}-hp`}>Health: {monsterInfo.hit_points}</h3>
+          <div className="health-updater">
             <button onClick={() => updateHealth('down')}>-</button>
-            <input id={`${monsterInfo.index}-${i}-hp-input`} class="health-updater-input" type="number" min='0'  onChange={updateNumInput} value={healthInput}/>
+            <input id={`${monsterInfo.index}-${i}-hp-input`} className="health-updater-input" type="number" min='0'  onChange={updateNumInput} value={healthInput}/>
             <button onClick={() => updateHealth('up')}>+</button>
           </div>
         </div>
         <p>Initiative:</p>
-        <input id={`${monsterInfo.index}-${i}-initiative`} class='tracker-initiative'/>
+        <input id={`${monsterInfo.index}-${i}-initiative`} className='tracker-initiative'/>
       </div>
     )}</>
   )
