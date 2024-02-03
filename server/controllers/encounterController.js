@@ -82,7 +82,7 @@ const encounterFunctions = {
       if(newEncounter.name) {
         res.status(200).send('New encounter created!')
       } else {
-        res.status(500).send('Unable to proccess request.')
+        res.status(500).send('Unable to process request.')
       }
     } else {
       res.status(400).send('Must send all required data to create a new encounter')

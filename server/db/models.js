@@ -304,6 +304,10 @@ CampaignNote.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
 Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id', as: 'characters'})
 Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id', as: 'characters'})
+Campaign.hasMany(CampaignCharacter, {as: 'characters', foreignKey: 'campaign_id'})
+CampaignCharacter.belongsTo(Campaign, {as: 'characters', foreignKey: 'campaign_id'})
+Character.hasMany(CampaignCharacter, {foreignKey: 'character_id'})
+CampaignCharacter.belongsTo(Character, {foreignKey: 'character_id'})
 
 User.hasMany(Encounter, {foreignKey: 'user_id'})
 Encounter.belongsTo(User, {foreignKey: 'user_id'})

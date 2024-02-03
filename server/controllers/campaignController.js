@@ -1,4 +1,4 @@
-import { Campaign, CampaignCharacter, CampaignNote, Character } from '../db/models.js'
+import { Campaign, CampaignCharacter, CampaignNote, Character, Encounter } from '../db/models.js'
 
 const campaignFunctions = {
   getCampaigns: async (req, res) => {
@@ -52,12 +52,33 @@ const campaignFunctions = {
     const {user_id} = req.session.user
     const {name, description, length, world_name, note} = req.body
 
-    if(!name) {
-      res.status(401).send('You must provide all required info to create a campaign')
+    if(name && req.session.user) {
+      let newCampaign = await Campaign.create({
+        name,
+        description,
+        length,
+        dungeon_master: user_id,
+        world_name
+      },
+      {
+        include: [
+          {
+            model: Encounter
+          },
+          {
+            model: CampaignCharacter,
+            as: 'characters'
+          }
+        ]
+      })
+      
+      if(newCampaign.name) {
+        res.status(200).send('New campaign created!')
+      } else {
+        res.status(500).send('Unable to process request.')
+      }
     } else {
-      await Campaign.create({name, description, length, dungeon_master: user_id, world_name})
-
-      res.status(200).send('New campaign created!')
+      res.status(401).send('You must provide all required info to create a campaign')
     }
   },
 
