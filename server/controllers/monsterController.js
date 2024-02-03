@@ -1,9 +1,7 @@
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
-const pointers = {}
 const quickDB = monstersDB.map(monster => {
   const {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url} = monster
-  pointers[index] = pointer
 
   return {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url}
 })

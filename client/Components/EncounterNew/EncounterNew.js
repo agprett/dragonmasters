@@ -10,8 +10,6 @@ import MonstersSelection from './EncounterSelections/MonstersSelection';
 import PlayersSelection from './EncounterSelections/PlayerSelection';
 import NewEncounterSummary from './EncounterSelections/NewEncounterSummary';
 
-import './EncounterNew.css';
-
 const setEditEnc = (info) => {
   const data = {...info}
   delete data.players
@@ -74,14 +72,14 @@ function NewEncounter() {
 
       if(body.id) {
         axios.put('/api/encounters', body)
-          .then(res => {
-            console.log(res.data)
-            alert('Encounter updated!')
-            navigate('/stuff/encounters')
-          })
-          .catch(err => {
-            console.log(err)
-          })
+        .then(res => {
+          console.log(res.data)
+          alert('Encounter updated!')
+          navigate('/stuff/encounters')
+        })
+        .catch(err => {
+          console.log(err)
+        })
       } else {
         axios.post('/api/encounters', body)
           .then(res => {

@@ -17,12 +17,12 @@ function Nav() {
 
   useEffect(() => {
     console.log('nav refresh', username)
-    if(!username) {
+    if(username) {
       axios.get('/api/user')
         .then(res => {
           console.log(res.data)
           const {username} = res.data
-          dispatch(loginUser(username))
+          dispatch(loginUser({username}))
           setUserInfo({username})
         })
         .catch(() => {

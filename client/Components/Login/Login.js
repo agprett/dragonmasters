@@ -10,7 +10,7 @@ import { loginUser } from '../../ducks/userSlice.js'
 function Login() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  
   const [userInfo, setUserInfo] = useState({username: '', password: ''})
 
   const loginHandler = (event) => {
