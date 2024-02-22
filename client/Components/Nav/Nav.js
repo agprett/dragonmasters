@@ -22,7 +22,7 @@ function Nav() {
         .then(res => {
           console.log(res.data)
           const {username} = res.data
-          dispatch(loginUser(username))
+          dispatch(loginUser({username}))
           setUserInfo({username})
         })
         .catch(() => {

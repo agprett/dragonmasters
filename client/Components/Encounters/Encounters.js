@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { clearEncounter } from '../../ducks/reducer'
+import { clearEncounter } from '../../ducks/encounterSlice.js'
 
 function Encounters() {
   const navigate = useNavigate()

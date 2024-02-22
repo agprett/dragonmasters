@@ -114,3 +114,22 @@ function EncounterSummary() {
 }
 
 export default EncounterSummary
+
+
+{/* <>
+  {monster.name ? (
+    <div className='monster-tracker-display'>
+      <h2 className='monster-tp-name'>{monster.name}</h2>
+      <button
+        className='info-button'
+        onClick={() => {
+          displayPopup(monster.info)
+        }}
+      >i</button>
+      
+      {trackerBuilder(monster.count)}
+    </div>
+  ) : (
+    <p>x</p>
+  )}
+</> */}

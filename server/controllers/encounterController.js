@@ -1,118 +1,89 @@
-import Sequelize from 'sequelize'
-const {CONNECTION_STRING} = process.env
-import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
-
-import { Encounter, EncounterMonster, EncounterCharacter } from '../db/models.js'
-
-const sequelize = new Sequelize(CONNECTION_STRING, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-        rejectUnauthorized: false
-    }
-  }
-})
+import { Encounter, EncounterMonster, EncounterCharacter, Character } from '../db/models.js'
 
 const encounterFunctions = {
-  getEncounters: (req, res) => {
+  getEncounters: async (req, res) => {
     if(req.session.user){
       const {user_id} = req.session.user
 
-      sequelize.query(`
-        SELECT name, encounter_id, short_description FROM encounters
-        WHERE user_id = '${user_id}'
-        ORDER BY encounter_id;
-      `)
-        .then(dbRes => {
-          res.status(200).send(dbRes[0])
-        })
+      let data = await Encounter.findAll({where: {user_id}})
+
+      if(data) {
+        res.status(200).send(data)
+      } else {
+        res.sendStatus(400)
+      }
+
     } else {
       res.sendStatus(400)
     }
   },
 
-  getEncounter: (req, res) => {
+  getEncounter: async (req, res) => {
     if(req.session.user){
       const {user_id} = req.session.user
       const {id} = req.params
   
-      sequelize.query(`
-        SELECT encounter_id, name, short_description, description, terrain, location, rewards FROM encounters
-        WHERE user_id = '${user_id}' AND encounter_id = ${+id};
+      let encounter = await Encounter.findOne({where: {encounter_id: id, user_id}, include: [
+        {
+          model: EncounterMonster,
+          as: 'monsters'
+        },
+        {
+          model: Character,
+          as: 'players'
+        }
+      ]})
+      console.log(encounter)
 
-        SELECT id, name, count, pointer, encounter_id FROM encounter_monsters
-        WHERE encounter_id = ${+id};
-
-        SELECT c.character_id, c.name, c.player, c.armor_class, c.hit_points
-        FROM encounter_characters e
-        JOIN characters c
-        ON e.character_id = c.character_id
-        WHERE e.encounter_id = ${+id};
-      `)
-        .then(dbRes => {
-          const encounter = dbRes[1][0].rows[0]
-
-          let monsters = dbRes[1][1].rows
-
-          encounter.monsters = monsters.map(monster => {
-            return {id: monster.id, ...monstersDB[monster.pointer], count: monster.count}
-          })
-
-          encounter.players = dbRes[1][2].rows
-
-          res.status(200).send(encounter)
-        })
+      if(encounter.name) {
+        res.status(200).send(encounter)
+      } else {
+        res.sendStatus(400)
+      }
     } else {
       res.sendStatus(400)
     }
 
   },
 
-  createEncounter: (req, res) => {
+  createEncounter: async (req, res) => {
     let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
 
     if(req.session.user && name && short_description) {
       const {user_id} = req.session.user
       
-      desc = desc ? desc : 'None'
-      
-      sequelize.query(`INSERT INTO encounters (user_id, name, short_description, description)
-      VALUES ('${user_id}', $$${name}$$, $$${short_description}$$, $$${desc}$$)
-      RETURNING encounter_id;`)
-        .then((dbRes) => {
-          const {encounter_id} = dbRes[0][0]
+      let otherMonsters = []
 
-          let query = ''
-          if(monsters) {
-            let monstersValues = monsters.map(mon => {
-              return `($$${mon.name}$$, $$${mon.url}$$, ${mon.count}, ${mon.pointer}, ${encounter_id})`
-            })
-              
-            query += `
-              INSERT INTO encounter_monsters (name, url, count, pointer, encounter_id)
-              VALUES ${monstersValues.join(', ')};
-            `
-          }
+      for(let monster in monsters) {
+        let {name, amount, url, info} = monsters[monster]
+        otherMonsters.push({name, count: amount, url, pointer: info.pointer})
+      }
 
-          if(characters) {
-            let characterValues = characters.map(char => {
-              return `(${encounter_id}, $$${char.character_id}$$)`
-            })
-  
-            query += `
-              INSERT INTO encounter_characters (encounter_id, character_id)
-              VALUES ${characterValues.join(', ')};
-            `
-          }
-          
-          sequelize.query(query)
-            .then(() => {
-              res.status(200).send('New encounter created!')
-            })
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      let newEncounter = await Encounter.create({
+        user_id,
+        name,
+        description: desc,
+        short_description,
+        terrain,
+        location,
+        rewards,
+        monsters: otherMonsters,
+        characters: characters.map(char => {return {character_id: char.character_id}})
+      }, {
+        include: [{
+          model: EncounterMonster,
+          as: 'monsters'
+        }, {
+          model: EncounterCharacter,
+          as: 'characters'
+        }]
+      })
+
+      if(newEncounter.name) {
+        res.status(200).send('New encounter created!')
+      } else {
+        res.status(500).send('Unable to proccess request.')
+      }
     } else {
       res.status(400).send('Must send all required data to create a new encounter')
     }
