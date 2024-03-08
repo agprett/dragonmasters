@@ -1,7 +1,9 @@
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
+let pointers = {}
 const quickDB = monstersDB.map(monster => {
   const {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url} = monster
+  pointers[index] = pointer
 
   return {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url}
 })
@@ -11,8 +13,7 @@ const monsterFunctions = {
     const {name, size, challenge_rating_min, challenge_rating_max, alignment, full} = req.query
 
     let data = quickDB
-    console.log('hit')
-
+    
     if(full) {
       data = monstersDB
     }

@@ -20,7 +20,7 @@ function StuffNav () {
     <>
       <nav id='stuff-nav'>
         <NavLink className='stuff-nav-links nav-links' to="/stuff" end>My Stuff</NavLink>
-        {/* <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink> */}
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink>
         <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
       </nav>
       <Outlet/>

@@ -22,7 +22,7 @@ const spellFunctions = {
           keep = false
         }
 
-        if(school && school !== spell.school) {
+        if(school && school !== spell.school.name) {
           keep = false
         }
 

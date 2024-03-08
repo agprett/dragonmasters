@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { clearEncounter } from '../../ducks/encounterSlice.js'
@@ -51,7 +51,7 @@ function Encounters() {
           encounters[0] ? (
             allEncounters
           ) : (
-            <p>Add an encounter to view</p>
+            <p>No Encounters to Display</p>
           )
         }
       </div>

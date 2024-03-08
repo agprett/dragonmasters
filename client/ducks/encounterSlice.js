@@ -11,6 +11,8 @@ export const encounterSlice = createSlice({
       location: '',
       terrain: '',
       rewards: '',
+      campaign_id: '',
+      campaignName: '',
       monsters: {},
       players: []
     }

@@ -1,9 +1,17 @@
-import { Encounter, EncounterMonster, EncounterCharacter, Character } from '../db/models.js'
+import { Encounter, EncounterMonster, EncounterCharacter, Character, Campaign } from '../db/models.js'
+
+import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
 const encounterFunctions = {
   getEncounters: async (req, res) => {
     if(req.session.user){
+      const {filter} = req.query
       const {user_id} = req.session.user
+
+      // let clauses = {user_id}
+      // if(filter) {
+      //   clauses.campaign_id = {[Op.is]: null}
+      // }
 
       let data = await Encounter.findAll({where: {user_id}})
 
@@ -23,17 +31,34 @@ const encounterFunctions = {
       const {user_id} = req.session.user
       const {id} = req.params
   
-      let encounter = await Encounter.findOne({where: {encounter_id: id, user_id}, include: [
-        {
-          model: EncounterMonster,
-          as: 'monsters'
-        },
-        {
-          model: Character,
-          as: 'players'
-        }
-      ]})
-      console.log(encounter)
+      let encounterData = await Encounter.findOne({
+        where: {encounter_id: id, user_id},
+        include: [
+          {
+            model: EncounterMonster,
+            as: 'monsters'
+          },
+          {
+            model: Character,
+            as: 'players'
+          },
+          {
+            model: Campaign,
+            attributes: ['name', 'campaign_id'],
+            required: false
+          }
+        ]
+      })
+
+      // console.log(encounterData)
+
+      const {encounter_id, name, description, short_description, terrain, location, rewards, players} = encounterData
+      
+      const monsters = encounterData.monsters.map(monster => {
+        return {id: monster.id, ...monstersDB[monster.pointer], count: monster.count}
+      })
+      
+      const encounter = {encounter_id, name, description, short_description, terrain, location, rewards, campaign: encounterData.Campaign || {campaign_id: '', name: ''}, players, monsters}
 
       if(encounter.name) {
         res.status(200).send(encounter)
@@ -55,8 +80,8 @@ const encounterFunctions = {
       let otherMonsters = []
 
       for(let monster in monsters) {
-        let {name, amount, url, info} = monsters[monster]
-        otherMonsters.push({name, count: amount, url, pointer: info.pointer})
+        let {name, count, url, pointer} = monsters[monster]
+        otherMonsters.push({name, count, url, pointer})
       }
 
       let newEncounter = await Encounter.create({
@@ -67,6 +92,7 @@ const encounterFunctions = {
         terrain,
         location,
         rewards,
+        campaign_id: campaign_id || null,
         monsters: otherMonsters,
         characters: characters.map(char => {return {character_id: char.character_id}})
       }, {
@@ -80,7 +106,7 @@ const encounterFunctions = {
       })
 
       if(newEncounter.name) {
-        res.status(200).send('New encounter created!')
+        res.status(200).send({message: 'New encounter created!', id: newEncounter.encounter_id})
       } else {
         res.status(500).send('Unable to process request.')
       }
@@ -93,7 +119,7 @@ const encounterFunctions = {
     let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
 
     if(req.name && short_description && req.session.user, id) {
-      let encounterInfo = {name, short_description, desc, terrain, location, rewards}
+      let encounterInfo = {name, short_description, desc, terrain, location, rewards, campaign_id}
 
       await Encounter.update(encounterInfo, {where: {encounter_id: id}})
 
@@ -103,9 +129,27 @@ const encounterFunctions = {
       await EncounterMonster.bulkCreate(monsters.map(monster => {return {...monster, encounter_id: id}}))
       await EncounterCharacter.bulkCreate(characters.map(character => {return {...character, encounter_id: id}}))
 
-      res.status(200).send('Encounter updated')
+      res.status(200).send({message: 'Encounter updated', id})
     } else {
       res.status(400).send('Please provide all required information to update the encounter.')
+    }
+  },
+  
+  deleteEncounter: async (req, res) => {
+    const {id} = req.params
+
+    let encounter = await Encounter.findByPk(id, {
+      attributes: ['user_id']
+    })
+
+    if(encounter !== null) {
+      if(req.session.user && req.session.user.user_id === encounter.user_id) {
+        await EncounterCharacter.destroy({where: {encounter_id: id}})
+        await EncounterMonster.destroy({where: {encounter_id: id}})
+        await Encounter.destroy({where: {encounter_id: id}})
+
+        res.status(200).send('Deleted encounter')
+      }
     }
   }
 }

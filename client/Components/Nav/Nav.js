@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,33 +11,26 @@ import { loginUser, logoutUser } from '../../ducks/userSlice.js'
 function Nav() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const username = useSelector(state => state.user.username)
-
-  const [userInfo, setUserInfo] = useState({})
+  const {username} = useSelector(state => state.user.info)
 
   useEffect(() => {
     console.log('nav refresh', username)
-    if(username) {
+    if(!username) {
       axios.get('/api/user')
         .then(res => {
           console.log(res.data)
-          const {username} = res.data
-          dispatch(loginUser({username}))
-          setUserInfo({username})
+          dispatch(loginUser(res.data))
         })
         .catch(() => {
           console.log('Not signed in.')
         })
-    } else if (!userInfo.username) {
-      setUserInfo({username: username})
     }
-  }, [!userInfo.username])
+  }, [username])
 
   const logoutHandler = () => {
     axios.post('/api/user/logout')
     .then(res => {
         dispatch(logoutUser())
-        setUserInfo({})
         alert('Sucessfully logged out.')
         navigate('/')
       })
@@ -60,9 +53,9 @@ function Nav() {
           ) : null}
         </div>
         {
-          userInfo.username ? (
+          username ? (
             <div className='main-nav-divs' id='nav-right'>
-              <p>Welcome, {userInfo.username}</p>
+              <p>Welcome, {username}</p>
               <button
                 className='btn nav-links login-logout'
                 onClick={logoutHandler}
