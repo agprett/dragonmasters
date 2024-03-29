@@ -8,12 +8,10 @@ const encounterFunctions = {
       const {filter} = req.query
       const {user_id} = req.session.user
 
-      // let clauses = {user_id}
-      // if(filter) {
-      //   clauses.campaign_id = {[Op.is]: null}
-      // }
-
-      let data = await Encounter.findAll({where: {user_id}})
+      let data = await Encounter.findAll({
+        where: {user_id},
+        include: Campaign
+      })
 
       if(data) {
         res.status(200).send(data)

@@ -57,6 +57,10 @@ function TrackersDisplay({combatants, setPopupInfo}) {
     setMapCombatants(newI)
   }
 
+  const displayInitiativeOrder = () => {
+    window.open('http://localhost:6789/stuff/encounters/27/run', 'chromeWindow', 'popup=true')
+  } 
+
   const trackers = mapCombatants.map(ind => {
     return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopupInfo={setPopupInfo} />
   })
@@ -66,6 +70,7 @@ function TrackersDisplay({combatants, setPopupInfo}) {
       {addPopup && <QuickAdd combatants={mapCombatants} setAddPopup={setAddPopup} addCombatant={addCombatant} />}
       <button className='btn btn-type-2 btn-color-3 create-btn' onClick={() => setAddPopup(true)}>+ Quick Add</button>
       <button className='btn btn-type-2 btn-color-1' onClick={orderCombatants}>Order by Initiative</button>
+      {/* <button className='btn btn-type-2 btn-color-1' onClick={displayInitiativeOrder}>View Initiative</button> */}
       <table className='tracker-table'>
         <thead>
           <tr className='tracker' id='tracker-head'>

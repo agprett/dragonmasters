@@ -1,5 +1,7 @@
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
+import {monsters} from '../mongodb/collectionsFns.js'
+
 let pointers = {}
 const quickDB = monstersDB.map(monster => {
   const {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url} = monster
@@ -9,46 +11,49 @@ const quickDB = monstersDB.map(monster => {
 })
 
 const monsterFunctions = {
-  getAllMonsters: (req, res) => {
-    const {name, size, challenge_rating_min, challenge_rating_max, alignment, full} = req.query
+  getAllMonsters: async (req, res) => {
+    // const {name, size, challenge_rating_min, challenge_rating_max, alignment, full} = req.query
 
-    let data = quickDB
+    // let data = quickDB
     
-    if(full) {
-      data = monstersDB
-    }
+    // if(full) {
+    //   data = monstersDB
+    // }
     
-    if(name || size || challenge_rating_min || challenge_rating_max || alignment) {  
-      let filtered = data.filter(monster => {
-        let keep = true
+    // if(name || size || challenge_rating_min || challenge_rating_max || alignment) {  
+    //   let filtered = data.filter(monster => {
+    //     let keep = true
         
-        if(name && !monster.name.toLowerCase().includes(name.toLowerCase())) {
-          keep = false
-        }
+    //     if(name && !monster.name.toLowerCase().includes(name.toLowerCase())) {
+    //       keep = false
+    //     }
   
-        if(size && monster.size !== size) {
-          keep = false
-        }
+    //     if(size && monster.size !== size) {
+    //       keep = false
+    //     }
   
-        if(challenge_rating_min && monster.challenge_rating < challenge_rating_min) {
-          keep = false
-        }
+    //     if(challenge_rating_min && monster.challenge_rating < challenge_rating_min) {
+    //       keep = false
+    //     }
 
-        if(challenge_rating_max && monster.challenge_rating >= challenge_rating_max) {
-          keep = false
-        }
+    //     if(challenge_rating_max && monster.challenge_rating >= challenge_rating_max) {
+    //       keep = false
+    //     }
 
-        if(alignment && monster.alignment !== alignment) {
-          keep = false
-        }
+    //     if(alignment && monster.alignment !== alignment) {
+    //       keep = false
+    //     }
   
-        return keep
-      })
+    //     return keep
+    //   })
 
-      return res.status(200).send(filtered)
-    }
+    //   return res.status(200).send(filtered)
+    // }
     
-    res.status(200).send(quickDB)
+    // res.status(200).send(quickDB)
+
+    let monstersData = await monsters.find()
+    res.status(200).send(monstersData)
   },
 
   getMonster: (req, res) => {

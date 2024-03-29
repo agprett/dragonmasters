@@ -33,11 +33,10 @@ function CampaignNew() {
   useEffect(() => {
     axios.get('/api/characters')
       .then(res => {
-        console.log(res.data)
         setMyPlayers(res.data)
       })
-
-    axios.get('/api/encounters?filter=true')
+      
+      axios.get('/api/encounters?filter=true')
       .then(res => {
         setMyEncounters(res.data)
       })
@@ -114,7 +113,7 @@ function CampaignNew() {
             }
           }}
         />
-        <p>{encounter.name}</p>
+        {encounter.Campaign ? <p>{encounter.name} - Campaign: {encounter.Campaign.name}</p> : <p>{encounter.name}</p>}
       </div>
     )
   })
