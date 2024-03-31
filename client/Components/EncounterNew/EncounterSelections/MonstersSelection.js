@@ -1,8 +1,6 @@
 import React from 'react';
 
-function MonstersSelection(props) {
-  const {encounterMonsters, setEncounterMonsters, monsters, filter, setFilter} = props
-
+function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, filter, setFilter}) {
   const addMonster = (monster) => {
     const {name, index, url} = monster
     

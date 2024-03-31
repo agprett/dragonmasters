@@ -9,7 +9,7 @@ const getModi = (num) => {
   return Math.floor((num - 10) / 2)
 }
 
-function Tracker({type, baseInfo, setInitiative, setPopupInfo}) {
+function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
   const [info, setInfo] = useState({...baseInfo})
   const [health, setHealth] = useState(info.hit_points)
 
@@ -66,7 +66,7 @@ function Tracker({type, baseInfo, setInitiative, setPopupInfo}) {
       </td>
       <td>
         {type === 'monster' ? (
-          <h3 className="tracker-name" onClick={() => setPopupInfo(info)}>{info.name}</h3>
+          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>{info.name}</h3>
           ) : (
           <h3>{info.name}</h3>
         )}
@@ -103,7 +103,7 @@ function Tracker({type, baseInfo, setInitiative, setPopupInfo}) {
           <button
             className='info-button'
             onClick={() => {
-              setPopupInfo(info)
+              setPopoutInfo(info)
             }}
           >?</button>
         )}

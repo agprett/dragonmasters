@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
 
-function QuickPlayer({players, closePopup, addCombatant}) {
+function QuickPlayer({players, closePopup, addCombatant, setType}) {
   const [addable, setAddable] = useState([])
 
   useEffect(() => {
@@ -26,6 +26,7 @@ function QuickPlayer({players, closePopup, addCombatant}) {
   return (
     <div>
       <button className="btn btn-type-3 btn-color-4 close-btn" onClick={closePopup}>Cancel</button>
+      <button className="btn btn-type-3 btn-color-4" onClick={() => setType('none')}>Back</button>
       {playersDisplay}
     </div>
   )

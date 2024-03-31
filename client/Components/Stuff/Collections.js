@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Collections(props) {
-  const {name, link} = props.collectionInfo
+function Collections({collectionInfo}) {
+  const {name, link} = collectionInfo
 
   return (
     <div className='collections'>

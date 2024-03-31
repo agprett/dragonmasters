@@ -4,7 +4,7 @@ import './TrackersDisplay.css'
 import Tracker from './Tracker.js'
 import QuickAdd from '../QuickAdd/QuickAdd.js'
 
-function TrackersDisplay({combatants, setPopupInfo}) {
+function TrackersDisplay({combatants, setPopoutInfo}) {
   const [mapCombatants, setMapCombatants] = useState([])
   const [addPopup, setAddPopup] =  useState(false)
 
@@ -62,7 +62,7 @@ function TrackersDisplay({combatants, setPopupInfo}) {
   } 
 
   const trackers = mapCombatants.map(ind => {
-    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopupInfo={setPopupInfo} />
+    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopoutInfo={setPopoutInfo} />
   })
 
   return (

@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react"
 
 import './TrackersDisplay.css'
 
-function CharacterTracker(props) {
+function CharacterTracker({character}) {
   const [characterInfo, setCharacterInfo] = useState({})
   const [healthInput, setHealthInput] = useState(1)
 
   useEffect(() => {
     console.log('reloaded')
-    setCharacterInfo(props.character)
-  }, [props.character])
+    setCharacterInfo(character)
+  }, [character])
 
   const updateHealth = (direction) => {
     if(direction === 'up'){
@@ -34,7 +34,7 @@ function CharacterTracker(props) {
   }
 
   return (
-    <>{!props.character.name ? (
+    <>{!character.name ? (
       <p>Loading</p>
      ) : (
       <div className='tracker' id={`${characterInfo.name}`}>

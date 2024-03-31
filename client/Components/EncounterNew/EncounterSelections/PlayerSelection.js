@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 import CreateCharacter from './CreateChar.js';
 
-function PlayersSelection(props) {
-  const {encounterPlayers, setEncounterPlayers, players, setPlayers} = props
-
+function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPlayers}) {
   const [showNew, setShowNew] = useState(false)
 
   console.log('character reset')

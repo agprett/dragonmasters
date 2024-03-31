@@ -2,9 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-function SpellPopup (props) {
-  const {specs, setViewPopup} = props
-
+function SpellPopout ({specs, setPopoutInfo}) {
   const ritOrConc = () => {
     let sentence = []
 
@@ -34,11 +32,11 @@ function SpellPopup (props) {
   }
 
   return (
-    <div className='popup'>
+    <div className='popout'>
 
       <Link className='view-specs' to={`../specs/spells/${specs.index}`} target='_blank' rel="noopener noreferrer">View in Seperate Page</Link>
 
-      <button className='close-info-button' onClick={() => setViewPopup(false)}>X</button>
+      <button className='close-info-button' onClick={() => setPopoutInfo(false)}>X</button>
 
       <div>
         <h2>{specs.name}{ritOrConc()}</h2>
@@ -68,4 +66,4 @@ function SpellPopup (props) {
   )
 }
 
-export default SpellPopup
+export default SpellPopout

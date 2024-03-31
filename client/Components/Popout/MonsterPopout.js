@@ -2,10 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-function MonsterPopup (props) {
-  console.log('Popup reload')
-  const {specs, setViewPopup} = props
-
+function MonsterPopout ({specs, setPopoutInfo}) {
+  console.log('Popout reload')
   const createSpeedStr = () => {
     let speedArr = []
 
@@ -91,11 +89,11 @@ function MonsterPopup (props) {
   ) : <></>
 
   return (
-    <div className='popup'>
+    <div className='popout'>
 
       <Link className='view-specs' to={`/guide/specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
             
-      <button className='close-info-button' onClick={() => setViewPopup(false)}>X</button>
+      <button className='close-info-button' onClick={() => setPopoutInfo(false)}>X</button>
       
       <div className='monster-header'>
         <h2 className="monster-name">{specs.name}</h2>
@@ -165,4 +163,4 @@ function MonsterPopup (props) {
   )
 }
 
-export default MonsterPopup
+export default MonsterPopout

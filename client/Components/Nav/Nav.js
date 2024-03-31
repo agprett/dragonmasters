@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -7,10 +7,12 @@ import Footer from './Footer'
 import logo from '../../images/logo.png'
 
 import { loginUser, logoutUser } from '../../ducks/userSlice.js'
+import StuffNav from './StuffNav.js'
 
 function Nav() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const {pathname} = useLocation()
   const {username} = useSelector(state => state.user.info)
 
   useEffect(() => {
@@ -68,6 +70,9 @@ function Nav() {
           )
         }
       </nav>
+
+      {pathname.startsWith('/stuff') && <StuffNav />}
+
       <Outlet />
       
       <Footer />

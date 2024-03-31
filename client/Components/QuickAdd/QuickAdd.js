@@ -12,6 +12,8 @@ function QuickAdd({combatants, setAddPopup, addCombatant}) {
     const tempPlayers = []
     const tempMonsters = []
 
+    console.log('redone')
+
     combatants.forEach(element => {
       if(element.type === 'player') {
         tempPlayers.push(element.name)
@@ -54,8 +56,8 @@ function QuickAdd({combatants, setAddPopup, addCombatant}) {
           </div>
         </div>
       )}
-      {type === 'player' && <QuickPlayer players={players} closePopup={closePopup} addCombatant={addCombatant} />}
-      {type === 'monster' && <QuickMonster monsters={monsters} closePopup={closePopup} addCombatant={addCombatant} />}
+      {type === 'player' && <QuickPlayer players={players} closePopup={closePopup} addCombatant={addCombatant} setType={setType} />}
+      {type === 'monster' && <QuickMonster monsters={monsters} closePopup={closePopup} addCombatant={addCombatant} setType={setType} />}
     </div>
   )
 }
