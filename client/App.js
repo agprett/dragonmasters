@@ -14,6 +14,7 @@ import Stuff from './Components/Stuff/Stuff.js'
 import StuffNav from './Components/StuffNav/StuffNav.js'
 import Campaigns from './Components/Campaigns/Campaigns.js'
 import CampaignView from './Components/Campaigns/CampaignView.js'
+import CampaignNew from './Components/Campaigns/CampaignNew.js'
 import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/EncounterNew/EncounterNew.js'
 import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
             path: ':guide_type',
             loader: async ({params}) => {
               let {data} = await axios.get(`/api/${params.guide_type}`)
+              console.log(data)
               
               return data
             },
@@ -76,6 +78,10 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Campaigns />
+              },
+              {
+                path: 'new',
+                element: <CampaignNew />
               },
               {
                 path: ':campaign_id',

@@ -24,10 +24,10 @@ import userFunctions from './controllers/userController.js'
 const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
 
 import campaignFunctions from './controllers/campaignController.js'
-const {getCampaigns, getCampaign, createCampaign, addCampaignNote} = campaignFunctions
+const {getCampaigns, getCampaign, createCampaign, updateCampaign, deleteCampaign, addCampaignNote} = campaignFunctions
 
 import encounterFunctions from './controllers/encounterController.js'
-const {getEncounters, getEncounter, createEncounter, updateEncounter} = encounterFunctions
+const {getEncounters, getEncounter, createEncounter, updateEncounter, deleteEncounter} = encounterFunctions
 
 import characterFunctions from './controllers/characterController.js'
 const {getCharacters, getCharacter, createCharacter, deleteCharacter} = characterFunctions
@@ -55,6 +55,8 @@ app.post('/api/user/delete', deleteUser)
 app.get('/api/campaigns', loginCheck, getCampaigns)
 app.get('/api/campaigns/:id', loginCheck, getCampaign)
 app.post('/api/campaigns', loginCheck, createCampaign)
+app.put('/api/campaigns', loginCheck, updateCampaign)
+app.delete('/api/campaigns/:id', loginCheck, deleteCampaign)
 
 app.post('/api/campaigns/note', loginCheck, addCampaignNote)
 
@@ -62,6 +64,7 @@ app.get('/api/encounters', loginCheck, getEncounters)
 app.get('/api/encounters/:id', loginCheck, getEncounter)
 app.post('/api/encounters', loginCheck, createEncounter)
 app.put('/api/encounters', loginCheck, updateEncounter)
+app.delete('/api/encounters/:id', loginCheck, deleteEncounter)
 
 app.get('/api/characters', loginCheck, getCharacters)
 app.get('/api/characters/:id', loginCheck, getCharacter)

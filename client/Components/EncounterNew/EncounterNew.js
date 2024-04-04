@@ -27,13 +27,14 @@ function NewEncounter() {
   const xpThresholds = {1: [25, 50, 75, 100], 2: [50, 100, 150, 200], 3: [75, 150, 225, 400]}
 
   const [display, setDisplay] = useState(0)
-  const [encounterInfo, setEncounterInfo] = useState(editEnc.name ? setEditEnc(editEnc) : {name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: ''})
-  // const [campaigns, setCampaigns] = useState([])
+  const [encounterInfo, setEncounterInfo] = useState(editEnc.name ? setEditEnc(editEnc) : {name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: '', campaign_id: ''})
   const [encounterPlayers, setEncounterPlayers] = useState(editEnc.players ? editEnc.players : [])
   const [encounterMonsters, setEncounterMonsters] = useState(editEnc.monsters ? editEnc.monsters : {})
+  const [selectedCampaign, setSelectedCampaign] = useState(editEnc.campaignName ? editEnc.campaignName : '')
   const [confirmed, setConfirmed] = useState(false)
   const [players, setPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
+  const [campaigns, setCampaigns] = useState([])
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
@@ -47,10 +48,11 @@ function NewEncounter() {
         setMonsters(res.data)
       })
 
-    // axios.get('/api/campaign')
-    //   .then(res => {
-    //     setCampaigns(res.data)
-    //   })
+    axios.get('/api/campaigns')
+      .then(res => {
+        setCampaigns(res.data)
+        console.log(res.data)
+      })
   }, [])
 
   const postNewEncounter = () => {
@@ -72,20 +74,20 @@ function NewEncounter() {
 
       if(body.id) {
         axios.put('/api/encounters', body)
-        .then(res => {
-          console.log(res.data)
-          alert('Encounter updated!')
-          navigate('/stuff/encounters')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+          .then(res => {
+            console.log(res.data)
+            alert('Encounter updated!')
+            navigate(`/stuff/encounters/${res.data.id}`)
+          })
+          .catch(err => {
+            console.log(err)
+          })
       } else {
         axios.post('/api/encounters', body)
           .then(res => {
             console.log(res.data)
             alert('Encounter created!')
-            navigate('/stuff/encounters')
+            navigate(`/stuff/encounters/${res.data.id}`)
           })
           .catch(err => {
             console.log(err)
@@ -151,10 +153,10 @@ function NewEncounter() {
         </div>
       </div>
 
-      {display === 0 && <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} />}
+      {display === 0 && <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />}
       {display === 1 && <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} setPlayers={setPlayers} />}
       {display === 2 && <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />} 
-      {display === 3 && <NewEncounterSummary display={display} confirmed={confirmed} setConfirmed={setConfirmed} encounterInfo={encounterInfo} encounterPlayers={encounterPlayers} encounterMonsters={encounterMonsters} />}
+      {display === 3 && <NewEncounterSummary display={display} confirmed={confirmed} setConfirmed={setConfirmed} encounterInfo={encounterInfo} encounterPlayers={encounterPlayers} encounterMonsters={encounterMonsters} selectedCampaign={selectedCampaign} />}
 
     </div>
   )

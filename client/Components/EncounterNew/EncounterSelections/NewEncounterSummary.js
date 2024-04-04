@@ -1,8 +1,8 @@
 import React from 'react';
 
 function NewEncounterSummary(props) {
-  const {confirmed, setConfirmed, encounterPlayers, encounterMonsters} = props
-  const {name, shortDesc, desc, location, terrain, campaign, rewards} = props.encounterInfo
+  const {confirmed, setConfirmed, encounterPlayers, encounterMonsters, selectedCampaign} = props
+  const {name, shortDesc, desc, location, terrain, rewards} = props.encounterInfo
 
   const charShorts = encounterPlayers.map((char, i) => {
     return (
@@ -46,6 +46,7 @@ function NewEncounterSummary(props) {
         <p className='large-breakdown-piece'>Description: {desc || 'None'}</p>
         <p>Terrain: {terrain || 'None'}</p>
         <p>Location: {location || 'None'}</p>
+        <p>Campaign: {selectedCampaign || 'None'}</p>
         <p className='large-breakdown-piece'>Rewards: {rewards || 'None'}</p>
       </section>
 

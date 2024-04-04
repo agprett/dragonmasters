@@ -1,13 +1,13 @@
 import React from 'react';
 
 function InfoSelection(props) {
-  const {encounterInfo, setEncounterInfo, campaigns} = props
+  const {encounterInfo, setEncounterInfo, campaigns, setSelectedCampaign} = props
 
-  // const availableCampaigns = campaigns.map((campaign, i) => {
-  //   return (
-  //     <option key={i} value={campaign.campaign_id}>{campaign.title}</option>
-  //   )
-  // })
+  const availableCampaigns = campaigns.map((campaign, i) => {
+    return (
+      <option key={i} value={campaign.campaign_id}>{campaign.name}</option>
+    )
+  })
 
   return (
     <section className="breakdown">
@@ -74,6 +74,29 @@ function InfoSelection(props) {
               }}
             />
             <span className='form-label'>Terrain</span>
+          </label>
+        </div>
+        <div className="form-piece">
+          <label className="form-piece-filled">
+            <select
+              className="form-input"
+              value={encounterInfo.campaign_id}
+              onChange={evt => {
+                if(evt.target.value === 'Select Campaign') {
+                  setEncounterInfo({...encounterInfo, campaign_id: ''})
+                  setSelectedCampaign('')
+                } else {
+                  setEncounterInfo({...encounterInfo, campaign_id: evt.target.value})
+                  setSelectedCampaign(evt.target.options[evt.target.selectedIndex].text)
+                }
+              }}
+            >
+              <option defaultValue={true} value={null}>
+                Select Campaign
+              </option>
+              {availableCampaigns}
+            </select>
+            <span className="form-label">Campaign</span>
           </label>
         </div>
         <div className='form-piece large-input'>

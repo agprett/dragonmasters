@@ -41,7 +41,7 @@ function GuideFilter(props) {
           <>
             <div className="form-piece">
               <label className="form-piece-filled">
-                <select className="form-input">
+                <select className="form-input" onChange={evt => setFilters({...filters, size: evt.target.value})}>
                   <option defaultValue={true} value="">
                     Select Size
                   </option>
@@ -59,14 +59,20 @@ function GuideFilter(props) {
             <div className="form-piece form-piece-split">
               <div className="form-input-split">
                 <label className="form-piece-filled">
-                  <input className="form-input" required />
+                  <input
+                    className={"form-input" + (filters.challenge_rating_min ? '' : ' empty-input')}
+                    onChange={evt => setFilters({...filters, challenge_rating_min: evt.target.value})}
+                  />
                   <span className="form-label">Min</span>
                 </label>
               </div>
               <div className="form-dash"></div>
               <div className="form-input-split">
                 <label className="form-piece-filled">
-                  <input className="form-input" required />
+                  <input
+                    className={"form-input" + (filters.challenge_rating_max ? '' : ' empty-input')}
+                    onChange={evt => setFilters({...filters, challenge_rating_max: evt.target.value})} 
+                  />
                   <span className="form-label">Max</span>
                 </label>
               </div>
@@ -79,7 +85,7 @@ function GuideFilter(props) {
           <>
             <div className="form-piece">
               <label className="form-piece-filled">
-                <select className="form-input">
+                <select className="form-input" onChange={evt => setFilters({...filters, casting_time: evt.target.value})} >
                   <option defaultValue={true} value=''>Select Casting Time</option>
                   <option>1 action</option>
                   <option>1 bonus action</option>
@@ -96,7 +102,7 @@ function GuideFilter(props) {
             </div>
             <div className="form-piece">
               <label className="form-piece-filled">
-                <select className="form-input">
+                <select className="form-input" onChange={evt => setFilters({...filters, school: evt.target.value})} >
                   <option defaultValue={true} value=''>Select School</option>
                   <option>Evocation</option>
                   <option>Conjuration</option>
@@ -114,7 +120,7 @@ function GuideFilter(props) {
             <div className="form-piece form-piece-split">
               <div className="form-input-split">
                 <label className="form-piece-filled">
-                  <select className="form-input">
+                  <select className="form-input" onChange={evt => setFilters({...filters, minLevel: evt.target.value})} >
                     <option defaultValue={true} value=''>Select Level</option>
                     <option value='0'>Cantrip</option>
                     <option value='1'>1st</option>
@@ -133,7 +139,7 @@ function GuideFilter(props) {
               <div className="form-dash"></div>
               <div className="form-input-split">
                 <label className="form-piece-filled">
-                  <select className="form-input">
+                  <select className="form-input" onChange={evt => setFilters({...filters, maxLevel: evt.target.value})} >
                     <option defaultValue={true} value=''>Select Level</option>
                     <option value='0'>Cantrip</option>
                     <option value='1'>1st</option>
@@ -152,7 +158,7 @@ function GuideFilter(props) {
             </div>
             <div className="form-piece">
               <label className="form-piece-filled">
-                <select className="form-input">
+                <select className="form-input" onChange={evt => setFilters({...filters, classSelect: evt.target.value})} >
                   <option defaultValue={true} value=''>Select Class</option>
                   <option>Wizard</option>
                   <option>Sorcerer</option>
@@ -187,7 +193,11 @@ function GuideFilter(props) {
       </button>
       <div className="form-piece">
         <label className="form-piece-filled">
-          <input className="form-input" required />
+          <input
+            className={"form-input" + (filters.name ? '' : ' empty-input')}
+            value={filters.name}
+            onChange={evt => setFilters({...filters, name: evt.target.value})}
+          />
           <span className="form-label">Name</span>
         </label>
       </div>

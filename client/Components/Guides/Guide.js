@@ -68,13 +68,13 @@ function Guide () {
         {viewPopup ? renderPopup() : ''}
 
         <GuideFilter type={type} setGuideData={setGuideData} />
-
+        
         <table className='guide-results'>
           <thead>
             {resultsHead()}
           </thead>
           <tbody>
-            {guideData[0] ? viewGuides : <tr className='guide-result'>No Data to Show</tr>}
+            {guideData[0] ? viewGuides : <tr className='guide-result'><td>No Data to Show</td></tr>}
           </tbody>
         </table>
 

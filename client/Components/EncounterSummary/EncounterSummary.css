@@ -1,39 +1,3 @@
-.encounter-summary {
-  min-height: calc(100vh - 125px);
-  width: 100%;
-  padding: 20px 10px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-}
-
-.summary-top {
-  width: 90%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-}
-
-.encounter-base-info {
-  height: 200px;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.summary-top-buttons {
-  position: absolute;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .summary-added {
   width: 100%;
   display: flex;
