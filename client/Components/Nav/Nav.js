@@ -39,6 +39,11 @@ function Nav() {
       })
   }
 
+
+  const openInitiative = () => {
+    window.open(`/initiative`, 'Quick Fight!','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=750,height=500')
+  }
+
   return (
     <>
       <nav id='main-nav'>
@@ -51,6 +56,10 @@ function Nav() {
           {username ? (
             <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
           ) : null}
+          <button
+            className='btn btn-type-2 btn-color-3'
+            onClick={openInitiative}
+          >Quick Fight</button>
         </div>
         {
           username ? (

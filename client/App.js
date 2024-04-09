@@ -10,6 +10,8 @@ import Guide from './Components/Guides/Guide.js'
 import MonsterSpecs from './Components/Specs/MonsterSpecs.js'
 import SpellSpecs from './Components/Specs/SpellSpecs.js'
 
+import Initiative from './Components/Initiative/Initiative.js'
+
 import Stuff from './Components/Stuff/Stuff.js'
 import StuffNav from './Components/StuffNav/StuffNav.js'
 import Campaigns from './Components/Campaigns/Campaigns.js'
@@ -144,6 +146,10 @@ const router = createBrowserRouter([
         ]
       }
     ]
+  },
+  {
+    path: '/initiative',
+    element: <Initiative />
   },
   {
     path: '/login',

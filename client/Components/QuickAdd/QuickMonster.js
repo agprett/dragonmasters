@@ -47,7 +47,7 @@ function QuickMonster({monsters, closePopup, addCombatant}) {
     <div>
       <button className="btn btn-type-3 btn-color-4 close-btn" onClick={closePopup}>Cancel</button>
       {monstersDisplay}
-      <form className="vertical form" onSubmit={findMonsters}>
+      <form className="vertical-form" onSubmit={findMonsters}>
         <input value={search} onChange={e => setSearch(e.target.value)} />
         <button type="submit">Search</button>
       </form>
