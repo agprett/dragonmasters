@@ -14,7 +14,7 @@ function SpellPopout ({specs, setPopoutInfo}) {
       sentence.push('Concentration')
     }
 
-    return sentence[0] ? ` (${sentence.join(', ')})` : ''
+    return sentence[0] && ` (${sentence.join(', ')})`
   }
   
   const convertLevel = () => {
@@ -46,9 +46,9 @@ function SpellPopout ({specs, setPopoutInfo}) {
       <div className="splitter"></div>
 
       <div>
-        {specs.desc.map(para => <p>{para}</p>)}
-        {specs.higher_level ? specs.higher_level.map(para => <p>{para}</p>) : <></>}
-        {specs.material ? <p>Materials: {specs.material}</p> : <></>}
+        {specs.desc.map((para, i) => <p key={i} >{para}</p>)}
+        {specs.higher_level && specs.higher_level.map((para, i) => <p key={i} >{para}</p>)}
+        {specs.material && <p>Materials: {specs.material}</p>}
       </div>
 
       <div className="splitter"></div>
@@ -58,9 +58,9 @@ function SpellPopout ({specs, setPopoutInfo}) {
         <p>Duration: {specs.duration}</p>
         <p>Casting Time: {specs.casting_time}</p>
         <p>Components: {specs.components.join(', ')}</p>
-        {specs.attack_type ? <p>Attack Type: {specs.attack_type}</p> : ''}
-        {specs.area_of_effect ? <p>AOE: {specs.area_of_effect.size} ft. {specs.area_of_effect.type}</p> : ''}
-        {specs.damage && specs.damage.damage_type ? <p>Damage Type: {specs.damage.damage_type.name}</p> : ''}
+        {specs.attack_type && <p>Attack Type: {specs.attack_type}</p>}
+        {specs.area_of_effect && <p>AOE: {specs.area_of_effect.size} ft. {specs.area_of_effect.type}</p>}
+        {specs.damage && specs.damage.damage_type && <p>Damage Type: {specs.damage.damage_type.name}</p>}
       </div>
     </div>
   )
