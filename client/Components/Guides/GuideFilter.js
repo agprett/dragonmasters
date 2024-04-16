@@ -11,9 +11,7 @@ const buildFilterString = (filters) => {
   return filterArray.join("&");
 };
 
-function GuideFilter(props) {
-  const { type, setGuideData } = props;
-
+function GuideFilter({ type, setInfo }) {
   const [filters, setFilters] = useState({ name: "" });
 
   const sendFilters = (e) => {
@@ -21,7 +19,7 @@ function GuideFilter(props) {
 
     axios.get(`/api/${type}?${buildFilterString(filters)}`).then((res) => {
       const { data } = res;
-      setGuideData(data);
+      setInfo(data);
     });
   };
 
@@ -30,7 +28,7 @@ function GuideFilter(props) {
 
     axios.get(`/api/${type}`).then((res) => {
       const { data } = res;
-      setGuideData(data);
+      setInfo(data);
     });
   };
 

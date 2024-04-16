@@ -2,10 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-function MonsterPopup (props) {
-  console.log('Popup reload')
-  const {specs, setViewPopup} = props
-
+function MonsterPopout ({specs, setPopoutInfo}) {
+  console.log(specs)
   const createSpeedStr = () => {
     let speedArr = []
 
@@ -30,28 +28,28 @@ function MonsterPopup (props) {
   const createSubSkills = () => {
     return (
       <>
-        {specs.saving_throws[0] ? (
+        {specs.saving_throws && (
           <p>
             Saving Throws: {specs.saving_throws.map((element) => `${element.name}: ${element.value}`).join(', ')}
           </p>
-        ) : ''}
-        {specs.skills[0] ? (
+        )}
+        {specs.skills && (
           <p>
             Skills: {specs.skills.map(element => `${element.name}: +${element.value}`).join(', ')}
           </p>
-        ) : ''}
-        {specs.senses ? (
+        )}
+        {specs.senses && (
           <p>
             Senses: {Object.keys(specs.senses).map(sense => `${sense}: ${specs.senses[sense]}`).join(', ')}
           </p>
-        ) : ''}
+        )}
         <p>Language: {specs.languages || 'None'}</p>
         <p>Challenge: {specs.challenge_rating} ({specs.xp} XP)</p>
       </>
     )
   }
   
-  const createSpecials = specs.special_abilities ? (
+  const createSpecials = specs.special_abilities && (
     specs.special_abilities.map(ability => {
       return (
         <div key={ability.name}>
@@ -60,26 +58,26 @@ function MonsterPopup (props) {
         </div>
       )
     })
-  ) : <></>
+  )
 
-  const createSpellStuff = specs.spellcasting ? (
+  const createSpellStuff = specs.spellcasting && (
     <div>
       <h2>Spellcasting</h2>
       {specs.spellcasting.desc.split('\n').map((str, i) => <p key={`${i}`}>{str}</p>)}
     </div>
-  ) : <></>
+  )
 
   const createActions = specs.actions.map(action => {
     return (
       <div key={action.name}>
         <h3>{action.name}</h3>
         <p>{action.desc}</p>
-        {action.usage ? <p>Usage info needed</p> : ''}
+        {action.usage && <p>Usage info needed</p>}
       </div>
     )
   })
 
-  const createLegendary = specs.legendary_actions ? (
+  const createLegendary = specs.legendary_actions && (
     specs.legendary_actions.map(action => {
       return (
         <div key={action.name}>
@@ -88,22 +86,22 @@ function MonsterPopup (props) {
         </div>
       )
     })
-  ) : <></>
+  )
 
   return (
-    <div className='popup'>
+    <div className='popout'>
 
       <Link className='view-specs' to={`/guide/specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
             
-      <button className='close-info-button' onClick={() => setViewPopup(false)}>X</button>
+      <button className='close-info-button' onClick={() => setPopoutInfo(false)}>X</button>
       
       <div className='monster-header'>
         <h2 className="monster-name">{specs.name}</h2>
         <p>&nbsp;-&nbsp;</p>
-        <p>{specs.size} {specs.type} {specs.subtype ? ` (${specs.subtype})` : ''}, {specs.alignment}</p>
+        <p>{specs.size} {specs.type} {specs.subtype && ` (${specs.subtype})`}, {specs.alignment}</p>
       </div>
 
-      {specs.desc ? <p className="monster-desc"> {specs.desc}</p> : ''}
+      {specs.desc && <p className="monster-desc"> {specs.desc}</p>}
 
       <div className="splitter"></div>
 
@@ -125,7 +123,7 @@ function MonsterPopup (props) {
         {createSubSkills()}
       </div>
 
-      {specs.special_abilities ? (
+      {specs.special_abilities && (
         <>
           <div className="splitter"></div>
 
@@ -134,15 +132,15 @@ function MonsterPopup (props) {
             {createSpecials}
           </div>
         </>
-      ) : <></>}
+      )}
 
-      {specs.spellcasting ? (
+      {specs.spellcasting && (
         <>
           <div className="splitter"></div>
 
           {createSpellStuff}
         </>
-      ) : <></>}
+      )}
 
       <div className="splitter"></div>
 
@@ -151,7 +149,7 @@ function MonsterPopup (props) {
         {createActions}
       </div>
 
-      {specs.legendary_actions ? (
+      {specs.legendary_actions && (
         <>
           <div className='splitter'></div>
           <div className='monster-legendary-actions'>
@@ -160,9 +158,9 @@ function MonsterPopup (props) {
             {createLegendary}
           </div>
         </>
-      ) : ''}
+      )}
     </div>
   )
 }
 
-export default MonsterPopup
+export default MonsterPopout

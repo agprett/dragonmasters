@@ -3,9 +3,7 @@ import React, {useEffect} from 'react';
 import PlayersSelection from './PlayerSelection';
 import MonstersSelection from './MonstersSelection';
 
-function CharactersSelection(props) {
-  const {display, encounterCharacters, setEncounterCharacters, players, monsters, filters, setFilters} = props
-  
+function CharactersSelection({display, encounterCharacters, setEncounterCharacters, players, monsters, filters, setFilters}) {
   useEffect(() => {
     console.log('ran character selection')
   })

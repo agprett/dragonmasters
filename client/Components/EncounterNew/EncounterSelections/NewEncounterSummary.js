@@ -1,8 +1,7 @@
 import React from 'react';
 
-function NewEncounterSummary(props) {
-  const {confirmed, setConfirmed, encounterPlayers, encounterMonsters, selectedCampaign} = props
-  const {name, shortDesc, desc, location, terrain, rewards} = props.encounterInfo
+function NewEncounterSummary({confirmed, setConfirmed, encounterPlayers, encounterMonsters, selectedCampaign}) {
+  const {name, shortDesc, desc, location, terrain, rewards} = encounterInfo
 
   const charShorts = encounterPlayers.map((char, i) => {
     return (

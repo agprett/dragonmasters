@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useParams, Link, useLoaderData } from 'react-router-dom'
 
-import GuideFilter from './GuideFilter'
-import GuideResult from './GuideResult'
-import MonsterPopup from '../Popout/MonsterPopup'
-import SpellPopup from '../Popout/SpellPopup'
+import GuideFilter from './GuideFilter.js'
+import GuideResult from './GuideResult.js'
+import MonsterPopout from '../Popout/MonsterPopout.js'
+import SpellPopout from '../Popout/SpellPopout.js'
 
 const capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
@@ -12,19 +12,18 @@ function Guide () {
   const data = useLoaderData()
   const {guide_type: type} = useParams()
 
-  const [viewPopup, setViewPopup] = useState(false)
-  const [popupData, setPopupData] = useState({})
-  const [guideData, setGuideData] = useState(data)
+  const [popoutInfo, setPopoutInfo] = useState(false)
+  const [info, setInfo] = useState(data)
 
-  const viewGuides = guideData.map(data => <GuideResult key={data.index} data={data} setViewPopup={setViewPopup} setPopupData={setPopupData} type={type} />)
+  const viewGuides = info.map(data => <GuideResult key={data.index} data={data} setPopoutInfo={setPopoutInfo} type={type} />)
 
-  const renderPopup = () => {
+  const renderPopout = () => {
     switch(type) {
       case 'monsters':
-        return <MonsterPopup specs={popupData} setViewPopup={setViewPopup} />
+        return <MonsterPopout specs={popoutInfo} setPopoutInfo={setPopoutInfo} />
 
       case 'spells':
-        return <SpellPopup specs={popupData} setViewPopup={setViewPopup} />
+        return <SpellPopout specs={popoutInfo} setPopoutInfo={setPopoutInfo} />
     }
   }
 
@@ -65,16 +64,16 @@ function Guide () {
 
       <section className='guide-body'>
 
-        {viewPopup ? renderPopup() : ''}
+        {popoutInfo && renderPopout()}
 
-        <GuideFilter type={type} setGuideData={setGuideData} />
+        <GuideFilter type={type} setInfo={setInfo} />
         
         <table className='guide-results'>
           <thead>
             {resultsHead()}
           </thead>
           <tbody>
-            {guideData[0] ? viewGuides : <tr className='guide-result'><td>No Data to Show</td></tr>}
+            {info[0] ? viewGuides : <tr className='guide-result'><td>No Data to Show</td></tr>}
           </tbody>
         </table>
 

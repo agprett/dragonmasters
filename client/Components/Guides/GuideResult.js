@@ -1,9 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
-function GuideResult (props) {
-  const {type, data} = props
-  const {index, name} = props.data
+function GuideResult ({type, data, setPopoutInfo}) {
+  const {index, name} = data
 
   const displayResults = () => {
     switch(type) {
@@ -36,8 +35,7 @@ function GuideResult (props) {
   const getData = () => {
     axios.get(`/api/${type}/${index}`)
       .then(res => {
-        props.setPopupData(res.data)
-        props.setViewPopup(true)
+        setPopoutInfo(res.data)
       })
   }
 

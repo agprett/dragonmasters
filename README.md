@@ -13,7 +13,7 @@ Below are the features currently built into the application. More will be added 
 
 ### Guides
 ![Guides screenshot](./imgs/guides.png)
-The Guides section holds a multiple sets of guides that can be viewed. Currently it has monster and spell guides. Select a guide by clicking on it and it will bring the user to a page that shows a list of monsters, spells, etc. that can be filtered with the form on the left. By selecting one of the items will bring up a more detailed popup for that item. There is a button at the top right of the popup to close the page or view in a seperate tab so it can be stored for later reference.
+The Guides section holds a multiple sets of guides that can be viewed. Currently it has monster and spell guides. Select a guide by clicking on it and it will bring the user to a page that shows a list of monsters, spells, etc. that can be filtered with the form on the left. By selecting one of the items will bring up a more detailed popout for that item. There is a button at the top right of the popout to close the page or view in a seperate tab so it can be stored for later reference.
 
 ### Stuff
 ![Stuff Screenshot](./imgs/stuff.png)

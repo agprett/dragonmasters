@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import ShowMonster from "./ShowMonsters"
 
-function QuickMonster({monsters, closePopup, addCombatant}) {
+function QuickMonster({monsters, closePopup, addCombatant, setType}) {
   const [search, setSearch] = useState('')
   const [found, setFound] = useState([])
 
@@ -46,6 +46,7 @@ function QuickMonster({monsters, closePopup, addCombatant}) {
   return (
     <div>
       <button className="btn btn-type-3 btn-color-4 close-btn" onClick={closePopup}>Cancel</button>
+      <button className="btn btn-type-3 btn-color-4" onClick={() => setType('none')}>Back</button>
       {monstersDisplay}
       <form className="vertical form" onSubmit={findMonsters}>
         <input value={search} onChange={e => setSearch(e.target.value)} />

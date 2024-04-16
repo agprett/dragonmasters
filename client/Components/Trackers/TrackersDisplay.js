@@ -4,12 +4,12 @@ import './TrackersDisplay.css'
 import Tracker from './Tracker.js'
 import QuickAdd from '../QuickAdd/QuickAdd.js'
 
-function TrackersDisplay({combatants, setPopupInfo}) {
-  const [mapCombatants, setMapCombatants] = useState([])
+function TrackersDisplay({initialData, setPopoutInfo}) {
+  const [combatants, setCombatants] = useState([])
   const [addPopup, setAddPopup] =  useState(false)
 
   useEffect(() => {
-    setMapCombatants(combatants.map((ind, i) => {
+    setCombatants(initialData.map((ind, i) => {
       return {...ind, i, initiative: 0, type: (ind.player ? 'player' : 'monster')}
     }))
   }, [])
@@ -18,25 +18,25 @@ function TrackersDisplay({combatants, setPopupInfo}) {
     console.log(info)
 
     if(one) {
-      mapCombatants[one].name += ' - 1'
+      combatants[one].name += ' - 1'
     }
 
-    let newCombatant = {...info, type, initiative: 0, i: info.i ? mapCombatants.length + info.i : mapCombatants.length}
+    let newCombatant = {...info, type, initiative: 0, i: info.i ? combatants.length + info.i : combatants.length}
 
     console.log(newCombatant)
-    setMapCombatants(mapCombatants => [...mapCombatants, newCombatant])
+    setCombatants(combatants => [...combatants, newCombatant])
   }
 
   const setInitiative = (initiative, i) => {
-    let arr = [...mapCombatants]
+    let arr = [...combatants]
 
     arr[i].initiative = initiative
 
-    setMapCombatants(arr)
+    setCombatants(arr)
   }
 
   const orderCombatants = () => {
-    let arr = [...mapCombatants]
+    let arr = [...combatants]
 
     arr.sort((a, b) => {
       if(a.initiative === b.initiative) {
@@ -54,23 +54,18 @@ function TrackersDisplay({combatants, setPopupInfo}) {
 
     let newI = arr.map((e, i) => {return {...e, i}})
 
-    setMapCombatants(newI)
+    setCombatants(newI)
   }
 
-  const displayInitiativeOrder = () => {
-    window.open('http://localhost:6789/stuff/encounters/27/run', 'chromeWindow', 'popup=true')
-  } 
-
-  const trackers = mapCombatants.map(ind => {
-    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopupInfo={setPopupInfo} />
+  const trackers = combatants.map(ind => {
+    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopoutInfo={setPopoutInfo} />
   })
 
   return (
     <div className='tracker-display'>
-      {addPopup && <QuickAdd combatants={mapCombatants} setAddPopup={setAddPopup} addCombatant={addCombatant} />}
+      {addPopup && <QuickAdd combatants={combatants} setAddPopup={setAddPopup} addCombatant={addCombatant} />}
       <button className='btn btn-type-2 btn-color-3 create-btn' onClick={() => setAddPopup(true)}>+ Quick Add</button>
       <button className='btn btn-type-2 btn-color-1' onClick={orderCombatants}>Order by Initiative</button>
-      {/* <button className='btn btn-type-2 btn-color-1' onClick={displayInitiativeOrder}>View Initiative</button> */}
       <table className='tracker-table'>
         <thead>
           <tr className='tracker' id='tracker-head'>

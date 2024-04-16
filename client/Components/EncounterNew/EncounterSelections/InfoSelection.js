@@ -1,8 +1,6 @@
 import React from 'react';
 
-function InfoSelection(props) {
-  const {encounterInfo, setEncounterInfo, campaigns, setSelectedCampaign} = props
-
+function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedCampaign}) {
   const availableCampaigns = campaigns.map((campaign, i) => {
     return (
       <option key={i} value={campaign.campaign_id}>{campaign.name}</option>
