@@ -82,7 +82,7 @@ const encounterFunctions = {
         otherMonsters.push({name, count, url, pointer})
       }
 
-      let newEncounter = await Encounter.create({
+      let encounterInfo = {
         user_id,
         name,
         description: desc,
@@ -90,10 +90,15 @@ const encounterFunctions = {
         terrain,
         location,
         rewards,
-        campaign_id: campaign_id || null,
         monsters: otherMonsters,
         characters: characters.map(char => {return {character_id: char.character_id}})
-      }, {
+      }
+
+      if(campaign_id) {
+        encounterInfo.campaign_id = campaign_id
+      }
+
+      let newEncounter = await Encounter.create(encounterInfo, {
         include: [{
           model: EncounterMonster,
           as: 'monsters'
@@ -117,7 +122,11 @@ const encounterFunctions = {
     let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
 
     if(req.name && short_description && req.session.user, id) {
-      let encounterInfo = {name, short_description, desc, terrain, location, rewards, campaign_id}
+      let encounterInfo = {name, short_description, desc, terrain, location, rewards}
+
+      if(campaign_id) {
+        encounterInfo.campaign_id = campaign_id
+      }
 
       await Encounter.update(encounterInfo, {where: {encounter_id: id}})
 

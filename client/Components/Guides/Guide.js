@@ -64,7 +64,7 @@ function Guide () {
 
       <section className='guide-body'>
 
-        {popoutInfo ? renderPopout() : ''}
+        {popoutInfo && renderPopout()}
 
         <GuideFilter type={type} setInfo={setInfo} />
         

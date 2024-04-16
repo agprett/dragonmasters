@@ -21,7 +21,7 @@ function EncounterRun() {
         <h2 className="title-2">{name}</h2>
       </div>
       
-      <TrackersDisplay combatants={combatants} setPopoutInfo={setPopoutInfo} />
+      <TrackersDisplay initialData={combatants} setPopoutInfo={setPopoutInfo} />
       
       {popoutInfo && <MonsterPopout specs={popoutInfo} setPopoutInfo={setPopoutInfo} />}
       

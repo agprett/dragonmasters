@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 function MonsterPopout ({specs, setPopoutInfo}) {
-  console.log('Popout reload')
+  console.log(specs)
   const createSpeedStr = () => {
     let speedArr = []
 

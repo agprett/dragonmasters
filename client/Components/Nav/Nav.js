@@ -50,9 +50,9 @@ function Nav() {
             <h3>DragonMasters</h3>
           </NavLink>
           <NavLink className='nav-links' to="/guide">Guide</NavLink>
-          {username ? (
+          {username && (
             <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
-          ) : null}
+          )}
         </div>
         {
           username ? (
