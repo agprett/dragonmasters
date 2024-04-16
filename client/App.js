@@ -18,6 +18,7 @@ import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/EncounterNew/EncounterNew.js'
 import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
 import EncounterRun from './Components/Encounters/EncounterRun.js'
+import Initiative from './Components/Initiative/Initiative.js'
 
 import Login from './Components/Login/Login.js'
 import Signin from './Components/Login/Signup.js'
@@ -143,7 +144,10 @@ const router = createBrowserRouter([
       }
     ]
   },
-
+  {
+    path: '/initiative',
+    element: <Initiative />
+  },
   {
     path: '/login',
     element: <Login />

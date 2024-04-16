@@ -1,0 +1,70 @@
+#initiative-page {
+  min-height: 100vh;
+  width: 100vw;
+  padding-top: 15px;
+  padding-bottom: 35px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.initiative-display {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.initiative-table {
+  width: 80%;
+  margin-top: 15px;
+}
+
+#initiative-head {
+  height: 55px;
+  pointer-events: none;
+  color: #EBEBEB;
+  background-color: #286A9C;
+}
+
+.initiative {
+  min-height: 50px;
+  padding: 5px 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1.25fr 3fr .25fr;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  font-size: 16pt;
+  font-weight: 600;
+  border-bottom: 3px solid #286A9C;
+  font-family: 'MedievalSharp', sans-serif;
+}
+
+.empty-initiative {
+  grid-template-columns: 1fr;
+}
+
+.inititiative-thing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12pt;
+}
+
+.initiative-add {
+  width: 450px;
+  height: 300px;
+  padding-top: 50px;
+  position: fixed;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 100;
+  background-color: #EBEBEB;
+}
