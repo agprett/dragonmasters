@@ -36,7 +36,7 @@ function Initiative() {
   const addName = (name, count) => {
     if(count > 1) {
       for(let i = 1; i <= count; i++) {
-        setCombatants(state => [...state, {name: `${name} ${i}`, initiative: 0, i: combatants.length}])
+        setCombatants(state => [...state, {name: `${name} ${i}`, initiative: 0, i: combatants.length + i - 1}])
       }
     } else {
       setCombatants([...combatants, {name: name, initiative: 0, i: combatants.length}])
