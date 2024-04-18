@@ -93,7 +93,7 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
               }}
             />
           </td>
-          <td><button className='btn btn-type-3 btn-color-2' onClick={() => removeMonster(monster)}>Remove</button></td>
+          <td><button className='btn btn-type-3 btn-color-4' onClick={() => removeMonster(monster)}>Remove</button></td>
         </tr>
       )
 

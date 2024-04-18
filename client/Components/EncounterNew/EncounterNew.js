@@ -143,7 +143,7 @@ function NewEncounter() {
         </div>
         <div className='new-encounter-manuever-btns'>
           <button
-            className='btn btn-type-2 btn-color-2'
+            className={`btn btn-type-2 btn-color-${display > 0 ? 2 : 4}`}
             onClick={() => displayChange('back')}
             >{display > 0 ? 'Back' : 'Cancel'}</button>
           <button

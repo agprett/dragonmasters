@@ -41,7 +41,7 @@ function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPl
       <tr className='new-added-row' key={i}>
         <td><h3>{player.name}</h3></td>
         <td>{player.player}</td>
-        <td><button className='btn btn-type-3 btn-color-1' onClick={() => removePlayer(player)}>Remove</button></td>
+        <td><button className='btn btn-type-3 btn-color-4' onClick={() => removePlayer(player)}>Remove</button></td>
       </tr>
     )
   })
