@@ -54,7 +54,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
       <td>
         <div className="inititiative-thing">
           <input
-            className='base-input medium-input'
+            className='base-input small-input'
             value={info.initiative}
             onChange={e => {
               setInitiative(+e.target.value, info.i)
@@ -75,7 +75,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
         <div>
           <input
             id={`${info.name}-hp-input`}
-            className="base-input medium-input"
+            className="base-input small-input"
             type="number"
             min='0'
             onChange={updateNumInput} value={health}

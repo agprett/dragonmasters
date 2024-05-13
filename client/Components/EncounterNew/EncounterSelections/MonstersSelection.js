@@ -84,7 +84,7 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
           <td><h3>{info.name}</h3></td>
           <td>
             <input
-              className='base-input medium-input'
+              className='base-input small-input'
               type='number'
               value={amount}
               onChange={(event) => {

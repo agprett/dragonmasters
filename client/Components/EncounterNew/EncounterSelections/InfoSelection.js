@@ -25,17 +25,18 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Name</span>
           </label>
         </div>
-        <div className='form-piece'>
+        <div className='form-piece medium-input'>
           <label className='form-piece-filled'>
             <input
               required
               className='form-input'
+              maxLength={100}
               value={encounterInfo.shortDesc}
               onChange={(event) => {
                 setEncounterInfo({...encounterInfo, shortDesc: event.target.value})
               }}
             />
-            <span className='form-label'>Short Description</span>
+            <span className='form-label'>Short Description {`(${encounterInfo.shortDesc.length}/100)`}</span>
           </label>
         </div>
         <div className='form-piece large-input'>

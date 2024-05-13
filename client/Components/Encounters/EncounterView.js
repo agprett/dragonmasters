@@ -48,7 +48,7 @@ function EncounterSummary() {
 
   const charShorts = encounterInfo.players.map((char, i) => {
     return (
-      <div key={i} className='encounter-monster-short'>
+      <div key={i} className='info-list-item encounter-char'>
         <h2>{char.name}</h2>
         <h3>{char.player}</h3>
         <p>AC: {char.armor_class}</p>
@@ -59,7 +59,7 @@ function EncounterSummary() {
 
   const monsterShorts = encounterInfo.monsters.map((element, i) => {
     return (
-      <div key={i} className='encounter-monster-short'>
+      <div key={i} className='info-list-item encounter-char'>
         <h2>{element.name}</h2>
         <h3>Amount: {element.count}</h3>
       </div>
@@ -75,44 +75,63 @@ function EncounterSummary() {
         to={location.state ? location.state.last : '/stuff/encounters'}
       >{'<'} Back</Link>
 
-      <section className='summary-top'>
+      <section className='breakdown-top'>
 
-        <div className='summary-base-info'>
+        <div className='breakdown-base-info'>
           <h2 className='title-1'>{encounterInfo.name}</h2>
           <h2>{encounterInfo.short_description}</h2>
         </div>
 
-        <div className='summary-top-buttons'>
+        <div className='breakdown-top-buttons'>
           <Link
-            className='btn btn-type-1 btn-color-3'
+            className='btn btn-type-2 btn-color-3'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
           <button
-            className='btn btn-type-1 btn-color-1'
+            className='btn btn-type-2 btn-color-1'
             onClick={() => updateEncounter()}
           >Edit</button>
         </div>
       </section>
 
-      <section className='summary-added'>
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Players:</h2>
+      <section className='breakdown'>
+        <h2 className='breakdown-head'>Details</h2>
+        <div className='breakdown-piece large-breakdown-piece'>
+          <p className='breakdown-label'>Description:</p>
+          <p className='breakdown-text'>
+            {encounterInfo.description || 'None'}
+          </p>
+        </div>
+        <div className='breakdown-break'></div>
+        <div className='breakdown-piece'>
+          <p className='breakdown-label'>Location:</p>
+          <p className='breakdown-text'>{encounterInfo.location || 'None'}</p>
+        </div>
+        <div className='breakdown-piece'>
+          <p className='breakdown-label'>Terrain:</p>
+          <p className='breakdown-text'>{encounterInfo.terrain || 'None'}</p>
+        </div>
+        <div className='breakdown-piece'>
+          <p className='breakdown-label'>Campaign:</p>
+          <Link to={`/stuff/campaign/${encounterInfo.campaign.name}`} className='breakdown-text'>{encounterInfo.campaign.name || 'None'}</Link>
+        </div>
+        <div className='breakdown-break'></div>
+        <div className='breakdown-piece large-breakdown-piece'>
+          <p className='breakdown-label'>Rewards:</p>
+          <p className='breakdown-text'>{encounterInfo.rewards || 'None'}</p>
+        </div>
+      </section>
+
+      <section className='info-list-group'>
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Players:</h2>
           {encounterInfo.players[0] ? charShorts : <p>No added characters</p>}
         </section>
 
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Monsters:</h2>
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Monsters:</h2>
           {encounterInfo.monsters[0] ? monsterShorts : <p>No added monsters</p>}
         </section>
-      </section>
-
-      <section className='breakdown'>
-        <h2 className='dashboard-head'>Other Information</h2>
-        <p className='large-breakdown-piece'>Description: {encounterInfo.description || 'None'}</p>
-        <p>Terrain: {encounterInfo.terrain || 'None'}</p>
-        <p>Location: {encounterInfo.location || 'None'}</p>
-        <p>Campaign: {encounterInfo.campaign.name || 'None'}</p>
-        <p className='large-breakdown-piece'>Rewards: {encounterInfo.rewards || 'None'}</p>
       </section>
 
       <button className='btn btn-type-1 btn-color-4' onClick={() => setDisplayPopup(true)} >Delete</button>

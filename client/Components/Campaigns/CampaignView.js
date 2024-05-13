@@ -49,7 +49,7 @@ function CampaignView() {
 
   const charShorts = campaignInfo.Characters.map((char, i) => {
     return (
-      <div key={i} className='encounter-monster-short'>
+      <div key={i} className='info-list-item campaign-character'>
         <h2>{char.name}</h2>
         <h3>{char.player}</h3>
         <p>AC: {char.armor_class}</p>
@@ -60,9 +60,9 @@ function CampaignView() {
 
   const encounters = campaignInfo.Encounters.map((element, i) => {
     return (
-      <div className='encounter-short' key={i}>
+      <div className='info-list-item campaign-encounter' key={i}>
         <h2>{element.name}</h2>
-        <button className='btn btn-type-2 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
+        <button className='btn btn-type-3 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
       </div>
     )
   })
@@ -76,35 +76,46 @@ function CampaignView() {
         to={'/stuff/campaigns'}
       >{'<'} Back</Link>
 
-      <section className='summary-top'>
-        <div className='summary-base-info'>
+      <section className='breakdown-top'>
+        <div className='breakdown-base-info'>
           <h2 className='title-1'>{campaignInfo.name}</h2>
-          {campaignInfo.length && <h4>Length: {campaignInfo.length}</h4>}
         </div>
         
-        <div className='summary-top-buttons'>
+        <div className='breakdown-top-buttons'>
           <button
-            className='btn btn-type-1 btn-color-1'
+            className='btn btn-type-2 btn-color-1'
             onClick={() => updateCampaign()}
-          >Edit</button>
+            >Edit</button>
         </div>
-      </section>
-
-      <section className='summary-added'>
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Players:</h2>
-          {campaignInfo.Characters[0] ? charShorts : <p>No added characters</p>}
-        </section>
-
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Encounters:</h2>
-          {campaignInfo.Encounters[0] ? encounters : <p>No added encounters</p>}
-        </section>
       </section>
 
       <section className='breakdown'>
-        <h2 className='dashboard-head'>Other Information</h2>
-        <p className='large-breakdown-piece'>Description: {campaignInfo.description || 'None'}</p>
+        <h2 className='breakdown-head'>Details:</h2>
+        <div className='breakdown-piece large-breakdown-piece'>
+          <p className='breakdown-label'>Description: </p>
+          <p className='breakdown-text'>{campaignInfo.description || 'None'}</p>
+        </div>
+        <div className='breakdown-break'></div>
+        <div className='breakdown-piece'>
+          <p className='breakdown-label'>Length:</p>
+          <p className='breakdown-text'>{campaignInfo.length || 'None'}</p>
+        </div>
+        <div className='breakdown-piece'>
+          <p className='breakdown-label'>World Name:</p>
+          <p className='breakdown-text'>{campaignInfo.world_name || 'None'}</p>
+        </div>
+      </section>
+
+      <section className='info-list-group'>
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Players:</h2>
+          {campaignInfo.Characters[0] ? charShorts : <p>No added characters</p>}
+        </section>
+
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Encounters:</h2>
+          {campaignInfo.Encounters[0] ? encounters : <p>No added encounters</p>}
+        </section>
       </section>
 
       <button className='btn btn-type-1 btn-color-4' onClick={() => setDisplayPopup(true)} >Delete</button>

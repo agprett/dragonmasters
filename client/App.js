@@ -16,7 +16,7 @@ import CampaignView from './Components/Campaigns/CampaignView.js'
 import CampaignNew from './Components/Campaigns/CampaignNew.js'
 import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/EncounterNew/EncounterNew.js'
-import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
+import EncounterView from './Components/Encounters/EncounterView.js'
 import EncounterRun from './Components/Encounters/EncounterRun.js'
 
 import Login from './Components/Login/Login.js'
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <EncounterSummary />
+                    element: <EncounterView />
                   },
                   {
                     path: 'run',

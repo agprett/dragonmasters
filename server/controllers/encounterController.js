@@ -119,10 +119,10 @@ const encounterFunctions = {
   },
 
   updateEncounter: async (req, res) => {
-    let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
+    let {name, shortDesc: short_description, desc: description, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
 
     if(req.name && short_description && req.session.user, id) {
-      let encounterInfo = {name, short_description, desc, terrain, location, rewards}
+      let encounterInfo = {name, short_description, description, terrain, location, rewards}
 
       if(campaign_id) {
         encounterInfo.campaign_id = campaign_id
