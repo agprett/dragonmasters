@@ -26,7 +26,7 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
     for(let i = 0; i < total; i++) {
       let data = {
         ...info,
-        name: info.name + ' - ' + (count + i + 1),
+        name: total + count === 1 ? info.name : info.name + ' - ' + (count + i + 1),
         i,
         type: 'monster'
       }
@@ -44,15 +44,37 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
 
 
   return (
-    <div>
+    <div className="quick-add-display">
       <button className="btn btn-type-3 btn-color-4 close-btn" onClick={closePopup}>Cancel</button>
-      <button className="btn btn-type-3 btn-color-4" onClick={() => setType('none')}>Back</button>
-      {monstersDisplay}
-      <form className="vertical form" onSubmit={findMonsters}>
-        <input value={search} onChange={e => setSearch(e.target.value)} />
-        <button type="submit">Search</button>
-      </form>
-      {found && foundDisplay}
+      <button className="btn btn-type-3 btn-color-1 back-btn-2" onClick={() => setType('none')}>{'< Back'}</button>
+      <div className="info-list-group">
+        <section className="info-list-wrapper info-list-full">
+          <h2 className="info-list-head">Add more:</h2>
+          {monsters[0] ? monstersDisplay : <p>No monsters in encounter</p>}
+        </section>
+      </div>
+      
+      <div className="info-list-group">
+        <section className="info-list-wrapper info-list-full">
+          <h2 className="info-list-head">Add new:</h2>
+          <form className="horizontal-form" onSubmit={findMonsters}>
+            <div className="form-piece">
+              <label className="form-piece-filled">
+                <input
+                  className={"form-input" + (search ? '' : ' empty-input')}
+                  value={search}
+                  onChange={(evt) => {
+                    setSearch(evt.target.value)
+                  }}
+                />
+                <span className="form-label">Name</span>
+              </label>
+            </div>
+            <button className="btn btn-type-3 btn-color-2" type="submit">Search</button>
+          </form>
+          {found[0] ? foundDisplay : <p>No monsters found</p>}
+        </section>
+      </div>
     </div>
   )
 }

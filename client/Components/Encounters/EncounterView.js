@@ -113,7 +113,7 @@ function EncounterSummary() {
         </div>
         <div className='breakdown-piece'>
           <p className='breakdown-label'>Campaign:</p>
-          <Link to={`/stuff/campaign/${encounterInfo.campaign.name}`} className='breakdown-text'>{encounterInfo.campaign.name || 'None'}</Link>
+          <p className='breakdown-text'>{encounterInfo.campaign.name || 'None'}</p>
         </div>
         <div className='breakdown-break'></div>
         <div className='breakdown-piece large-breakdown-piece'>

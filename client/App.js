@@ -132,7 +132,7 @@ const router = createBrowserRouter([
                         }
                       });
 
-                      return {combatants, name, encounter_id}
+                      return {initialCombatants: combatants, name, encounter_id}
                     }
                   }
                 ]

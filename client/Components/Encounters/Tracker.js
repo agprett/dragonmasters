@@ -66,7 +66,14 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
       </td>
       <td>
         {type === 'monster' ? (
-          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>{info.name}</h3>
+          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>
+            {type === 'monster' && (
+              <p
+                className='info-button'
+              >?</p>
+            )}
+            {info.name}
+          </h3>
           ) : (
           <h3>{info.name}</h3>
         )}
@@ -99,14 +106,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
         {info.armor_class}
       </td>
       <td>
-        {type === 'monster' && (
-          <button
-            className='info-button'
-            onClick={() => {
-              setPopoutInfo(info)
-            }}
-          >?</button>
-        )}
+        <button className="btn btn-type-4 btn-color-4">X</button>
       </td>
     </tr>
   )
