@@ -12,18 +12,14 @@ function QuickAdd({combatants, setAddPopup, addCombatant}) {
     const tempPlayers = []
     const tempMonsters = []
 
-
     combatants.forEach(element => {
       if(element.type === 'player') {
         tempPlayers.push(element.name)
       } else {
-        if(tempMonsters[element.index]) {
-          tempMonsters[element.index].count++
-        } else {
+        if(!tempMonsters[element.index]) {
           tempMonsters[element.index] = {
             ...element,
-            name: element.name.split(' - ')[0],
-            count: 1
+            name: element.name.split(' - ')[0]
           }
         }
       }

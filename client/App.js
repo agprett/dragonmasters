@@ -126,6 +126,7 @@ const router = createBrowserRouter([
                             info.name = monster.name + ' - ' + i
                           }
 
+                          info.amount = +info.count
                           delete info.count
                           combatants.push(info)
                           i++

@@ -9,7 +9,7 @@ const getModi = (num) => {
   return Math.floor((num - 10) / 2)
 }
 
-function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
+function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}) {
   const [info, setInfo] = useState({...baseInfo})
   const [health, setHealth] = useState(info.hit_points)
 
@@ -106,7 +106,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
         {info.armor_class}
       </td>
       <td>
-        <button className="btn btn-type-4 btn-color-4">X</button>
+        <button className="btn btn-type-4 btn-color-4" onClick={() => removeCombatant(info.i)}>X</button>
       </td>
     </tr>
   )

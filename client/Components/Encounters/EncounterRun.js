@@ -19,7 +19,6 @@ function EncounterRun() {
   }, [])
 
   const addCombatant = (info, type, first) => {
-    console.log(first)
     if(first) {
       setCombatants(combatants => combatants.map(combatant => {
         if(combatant.i === first) {
@@ -32,8 +31,17 @@ function EncounterRun() {
 
     let newCombatant = {...info, type, initiative: 0, i: info.i ? combatants.length + info.i : combatants.length}
 
-    console.log(newCombatant)
-    setCombatants(combatants => [...combatants, newCombatant])
+    setCombatants(combatants => [...combatants.map(combatant => {
+      if(combatant.index === newCombatant.index) {
+        return {...combatant, amount: combatant.amount + 1}
+      } else {
+        return combatant
+      }
+    }), newCombatant])
+  }
+
+  const removeCombatant = (i) => {
+    setCombatants(combatants => combatants.filter(combatant => combatant.i !== i))
   }
 
   const setInitiative = (initiative, i) => {
@@ -70,7 +78,7 @@ function EncounterRun() {
 
 
   const trackers = combatants.map(ind => {
-    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopoutInfo={setPopoutInfo} />
+    return <Tracker key={`${ind.name}-${ind.i}`} type={ind.type} baseInfo={ind} setInitiative={setInitiative} setPopoutInfo={setPopoutInfo} removeCombatant={removeCombatant} />
   })
 
 

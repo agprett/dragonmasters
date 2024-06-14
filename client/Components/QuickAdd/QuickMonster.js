@@ -21,16 +21,17 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
   }
 
   const addMonsters = (info, total) => {
-    let count = info.count || 0
+    const amount = info.amount || 0
 
     for(let i = 0; i < total; i++) {
       let data = {
         ...info,
-        name: total + count === 1 ? info.name : info.name + ' - ' + (count + i + 1),
+        name: total + amount === 1 ? info.name : info.name + ' - ' + (amount + i + 1),
         i,
-        type: 'monster'
+        type: 'monster',
+        amount: amount + 1
       }
-      addCombatant(data, 'monster', info.count === 1 && i === 0 ? info.i : false)
+      addCombatant(data, 'monster', info.amount === 1 && i === 0 ? info.i : false)
     }
   }
 
