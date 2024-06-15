@@ -9,7 +9,7 @@ const getModi = (num) => {
   return Math.floor((num - 10) / 2)
 }
 
-function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
+function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}) {
   const [info, setInfo] = useState({...baseInfo})
   const [health, setHealth] = useState(info.hit_points)
 
@@ -54,7 +54,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
       <td>
         <div className="inititiative-thing">
           <input
-            className='base-input medium-input'
+            className='base-input small-input'
             value={info.initiative}
             onChange={e => {
               setInitiative(+e.target.value, info.i)
@@ -66,7 +66,14 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
       </td>
       <td>
         {type === 'monster' ? (
-          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>{info.name}</h3>
+          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>
+            {type === 'monster' && (
+              <p
+                className='info-button'
+              >?</p>
+            )}
+            {info.name}
+          </h3>
           ) : (
           <h3>{info.name}</h3>
         )}
@@ -75,7 +82,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
         <div>
           <input
             id={`${info.name}-hp-input`}
-            className="base-input medium-input"
+            className="base-input small-input"
             type="number"
             min='0'
             onChange={updateNumInput} value={health}
@@ -99,14 +106,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo}) {
         {info.armor_class}
       </td>
       <td>
-        {type === 'monster' && (
-          <button
-            className='info-button'
-            onClick={() => {
-              setPopoutInfo(info)
-            }}
-          >?</button>
-        )}
+        <button className="btn btn-type-4 btn-color-4" onClick={() => removeCombatant(info.i)}>X</button>
       </td>
     </tr>
   )

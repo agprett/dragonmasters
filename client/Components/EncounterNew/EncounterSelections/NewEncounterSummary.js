@@ -1,11 +1,11 @@
 import React from 'react';
 
-function NewEncounterSummary({confirmed, setConfirmed, encounterPlayers, encounterMonsters, encounterInfo, selectedCampaign}) {
+function NewEncounterSummary({confirmed, setConfirmed, encounterInfo, encounterPlayers, encounterMonsters, selectedCampaign}) {
   const {name, shortDesc, desc, location, terrain, rewards} = encounterInfo
 
   const charShorts = encounterPlayers.map((char, i) => {
     return (
-      <div key={i} className='encounter-monster-short'>
+      <div key={i} className='info-list-item'>
         <h2>{char.name}</h2>
         <h3>{char.player}</h3>
         <p>HP: {char.hit_points}</p>
@@ -20,7 +20,7 @@ function NewEncounterSummary({confirmed, setConfirmed, encounterPlayers, encount
       let monster = encounterMonsters[key]
 
       arr.push(
-        <div key={monster.info.index} className='encounter-monster-short'>
+        <div key={monster.info.index} className='info-list-item'>
           <h2>{monster.name}</h2>
           <h3>Amount: {monster.amount}</h3>
         </div>
@@ -49,14 +49,14 @@ function NewEncounterSummary({confirmed, setConfirmed, encounterPlayers, encount
         <p className='large-breakdown-piece'>Rewards: {rewards || 'None'}</p>
       </section>
 
-      <section className='summary-added'>
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Players:</h2>
+      <section className='info-list-group'>
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Players:</h2>
           {encounterPlayers[0] ? charShorts : <p>No added characters</p>}
         </section>
 
-        <section className='encounter-added'>
-          <h2 className='dashboard-head'>Monsters:</h2>
+        <section className='info-list-wrapper'>
+          <h2 className='info-list-head'>Monsters:</h2>
           {Object.keys(encounterMonsters).length ? monsterShorts() : <p>No added monsters</p>}
         </section>
         
