@@ -16,7 +16,7 @@ function FightTracker({ info, setInitiative, removeName }) {
       <td>
         <div className="inititiative-thing">
           <input
-            className='base-input medium-input'
+            className='base-input small-input'
             value={combatant.initiative}
             onChange={e => {
               setInitiative(+e.target.value, combatant.i)
