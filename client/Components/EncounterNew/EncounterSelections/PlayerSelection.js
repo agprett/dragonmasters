@@ -47,7 +47,7 @@ function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPl
   })
   
   return (
-    <div className="new-encounter-selections">
+    <div className="accordion-breakdown-item new-encounter-selections">
       <table className='ne-player-table'>
         <thead>
             <tr className='ne-character-row' id='ne-character-head'>

@@ -90,19 +90,11 @@
   border-color: green;
 }
 
-.new-encounter-manuever-btns {
-  width: 20%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
 .new-encounter-selections {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  padding-top: 35px;
+  align-items: flex-start;
 }
 
 .create-new-char-form {

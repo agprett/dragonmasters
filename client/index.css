@@ -650,3 +650,74 @@
   padding: 0px 20px 5px;
   border-bottom: 3px solid rgb(40, 106, 156);
 }
+
+/* Accordion styling */
+.accordion {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+.accordion-item {
+  width: 100%;
+  padding-top: 75px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 1s;
+}
+
+.accordion-content-expanded {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+  overflow: hidden;
+}
+
+.accordion-item-header {
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  font-size: 25pt;
+  font-weight: 700;
+  font-family: 'MedievalSharp', sans-serif;
+  color: rgb(235, 235, 235);
+  background-color: rgb(40, 106, 156);
+  user-select: none;
+}
+
+.accordion-breakdown-item {
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 16pt;
+}
+
+.accordion-item-status {
+  background-color: inherit;
+  border: none;
+  font-size: 20pt;
+  font-weight: 700;
+  color: inherit;
+  position: absolute;
+  right: 10px;
+}

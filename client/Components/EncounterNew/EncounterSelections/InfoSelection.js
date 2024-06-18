@@ -8,9 +8,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
   })
 
   return (
-    <section className="breakdown">
-      <h2 className='dashboard-head'>Base Info</h2>
-
+    <div className="accordion-breakdown-item">
       <form onSubmit={e => e.preventDefault()} className="horizontal-form">
         <div className='form-piece'>
           <label className='form-piece-filled'>
@@ -25,6 +23,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Name</span>
           </label>
         </div>
+
         <div className='form-piece medium-input'>
           <label className='form-piece-filled'>
             <input
@@ -39,6 +38,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Short Description {`(${encounterInfo.shortDesc.length}/100)`}</span>
           </label>
         </div>
+
         <div className='form-piece large-input'>
           <label className='form-piece-filled'>
             <textarea
@@ -51,6 +51,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Description</span>
           </label>
         </div>
+
         <div className='form-piece'>
           <label className='form-piece-filled'>
             <input
@@ -63,6 +64,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Location</span>
           </label>
         </div>
+
         <div className='form-piece'>
           <label className='form-piece-filled'>
             <input
@@ -75,6 +77,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className='form-label'>Terrain</span>
           </label>
         </div>
+
         <div className="form-piece">
           <label className="form-piece-filled">
             <select
@@ -98,6 +101,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
             <span className="form-label">Campaign</span>
           </label>
         </div>
+
         <div className='form-piece large-input'>
           <label className='form-piece-filled'>
             <textarea
@@ -111,7 +115,7 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
           </label>
         </div>
       </form>
-    </section>
+    </div>
   )
 }
 

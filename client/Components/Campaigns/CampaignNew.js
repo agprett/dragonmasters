@@ -19,6 +19,7 @@ function CampaignNew() {
 
   const editCampaign= useSelector(state => state.campaign.info)
 
+  const [panels, setPanels] = useState({'one': true, 'two': false})
   const [campaignInfo, setCampaignInfo] = useState(editCampaign.name ? setEditCampaign(editCampaign) : {
     name: '',
     description: '',
@@ -118,6 +119,10 @@ function CampaignNew() {
     )
   })
 
+  const changeDisplay = (panel) => {
+    setPanels({...panels, [panel]: !panels[panel]})
+  }
+
   return (
     <div className="page-layout-2">
       <button
@@ -127,80 +132,119 @@ function CampaignNew() {
           navigate('/stuff/campaigns')
         }}
       >{'<'} Back</button>
+
+      <section className="breakdown-top">
+        <div className="breakdown-base-info"><h2 className="title-1">New Campaign</h2></div>
+      </section>
+
       <button
         className="btn btn-type-1 btn-color-3 create-btn"
         onClick={createCampaign}
       >Create</button>
-      <section className="breakdown">
-        <h2 className="dashboard-head">Base Info</h2>
 
-        <form className="horizontal-form" onSubmit={evt => evt.preventDefault()}>
-          <div className="form-piece">
-            <label className="form-piece-filled">
-              <input
-                required
-                className="form-input"
-                value={campaignInfo.name}
-                onChange={(evt) => {
-                  setCampaignInfo({...campaignInfo, name: evt.target.value})
-                }}
-              />
-              <span className="form-label">Name</span>
-            </label>
-          </div>
-          <div className="form-piece large-input">
-            <label className="form-piece-filled">
-              <textarea
-                className={"form-input" + (campaignInfo.description ? '' : ' empty-input')}
-                value={campaignInfo.description}
-                onChange={(evt) => {
-                  setCampaignInfo({...campaignInfo, description: evt.target.value})
-                }}
-              />
-              <span className="form-label">Description</span>
-            </label>
-          </div>
-          <div className="form-piece">
-            <label className="form-piece-filled">
-              <input
-                className={"form-input" + (campaignInfo.length ? '' : ' empty-input')}
-                value={campaignInfo.length}
-                onChange={(evt) => {
-                  setCampaignInfo({...campaignInfo, length: evt.target.value})
-                }}
-              />
-              <span className="form-label">Length</span>
-            </label>
-          </div>
-          <div className="form-piece">
-            <label className="form-piece-filled">
-              <input
-                className={"form-input" + (campaignInfo.world_name ? '' : ' empty-input')}
-                value={campaignInfo.world_name}
-                onChange={(evt) => {
-                  setCampaignInfo({...campaignInfo, world_name: evt.target.value})
-                }}
-              />
-              <span className="form-label">World Name</span>
-            </label>
-          </div>
-        </form>
-      </section>
+      <section className="accordion">
+        <div className="accordion-item">
+          <div
+            className='accordion-item-header'
+            onClick={() => changeDisplay('one')}
+          >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
 
-      <section className="dashboard">
-        <div className="extra-selections">
-          <h2 className="dashboard-head">Add Characters</h2>
-          {playersSelections}
+          <div className={`accordion-content ${panels.one ? 'accordion-content-expanded' : ''}`}>
+            <div className="accordion-breakdown-item">
+              <form className="horizontal-form" onSubmit={evt => evt.preventDefault()}>
+                <div className="form-piece">
+                  <label className="form-piece-filled">
+                    <input
+                      required
+                      className="form-input"
+                      value={campaignInfo.name}
+                      onChange={(evt) => {
+                        setCampaignInfo({...campaignInfo, name: evt.target.value})
+                      }}
+                    />
+                    <span className="form-label">Name</span>
+                  </label>
+                </div>
+
+                <div className="form-piece large-input">
+                  <label className="form-piece-filled">
+                    <textarea
+                      className={"form-input" + (campaignInfo.description ? '' : ' empty-input')}
+                      value={campaignInfo.description}
+                      onChange={(evt) => {
+                        setCampaignInfo({...campaignInfo, description: evt.target.value})
+                      }}
+                    />
+                    <span className="form-label">Description</span>
+                  </label>
+                </div>
+
+                <div className="form-piece">
+                  <label className="form-piece-filled">
+                    <input
+                      className={"form-input" + (campaignInfo.length ? '' : ' empty-input')}
+                      value={campaignInfo.length}
+                      onChange={(evt) => {
+                        setCampaignInfo({...campaignInfo, length: evt.target.value})
+                      }}
+                    />
+                    <span className="form-label">Length</span>
+                  </label>
+                </div>
+
+                <div className="form-piece">
+                  <label className="form-piece-filled">
+                    <input
+                      className={"form-input" + (campaignInfo.world_name ? '' : ' empty-input')}
+                      value={campaignInfo.world_name}
+                      onChange={(evt) => {
+                        setCampaignInfo({...campaignInfo, world_name: evt.target.value})
+                      }}
+                    />
+                    <span className="form-label">World Name</span>
+                  </label>
+                </div>
+              </form>        
+            </div>
+          </div>
         </div>
 
-        <div className="extra-selections">
-          <h2 className="dashboard-head">Add Encounters</h2>
-          {encounterSelections}
+        <div className="accordion-item">
+          <div
+            className="accordion-item-header"
+            onClick={() => changeDisplay('two')}
+          >Stuff<button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
+
+          <div className={`accordion-content ${panels.two ? 'accordion-content-expanded' : ''}`}>
+            <div>
+              <section className="dashboard">
+                <div className="extra-selections">
+                  <h2 className="dashboard-head">Add Characters</h2>
+                  {playersSelections}
+                </div>
+
+                <div className="extra-selections">
+                  <h2 className="dashboard-head">Add Encounters</h2>
+                  {encounterSelections}
+                </div>
+              </section>
+            </div>
+          </div>
         </div>
       </section>
-
     </div>
   )
 }
 
 export default CampaignNew
+
+{/* <div className="accordion-item">
+<div
+  className="accordion-item-header"
+  onClick={() => changeDisplay('SSS')}
+>SSS<button className='accordion-item-status'>{panels.SSS ? '-' : '+'}</button></div>
+
+<div className={`accordion-content ${panels.SSS ? 'accordion-content-expanded' : ''}`}>
+  <div className="breakdown accordion-breakdown-item">SSS</div>
+</div>
+</div> */}

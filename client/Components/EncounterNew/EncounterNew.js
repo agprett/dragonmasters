@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -26,12 +26,11 @@ function NewEncounter() {
 
   const xpThresholds = {1: [25, 50, 75, 100], 2: [50, 100, 150, 200], 3: [75, 150, 225, 400]}
 
-  const [display, setDisplay] = useState(0)
+  const [panels, setPanels] = useState({one: true, two: false, three: false})
   const [encounterInfo, setEncounterInfo] = useState(editEnc.name ? setEditEnc(editEnc) : {name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: '', campaign_id: ''})
   const [encounterPlayers, setEncounterPlayers] = useState(editEnc.players ? editEnc.players : [])
   const [encounterMonsters, setEncounterMonsters] = useState(editEnc.monsters ? editEnc.monsters : {})
   const [selectedCampaign, setSelectedCampaign] = useState(editEnc.campaignName ? editEnc.campaignName : '')
-  const [confirmed, setConfirmed] = useState(false)
   const [players, setPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
   const [campaigns, setCampaigns] = useState([])
@@ -56,7 +55,7 @@ function NewEncounter() {
   }, [])
 
   const postNewEncounter = () => {
-    if(encounterInfo.name && encounterInfo.shortDesc && encounterPlayers[0] && Object.keys(encounterMonsters).length && confirmed) {
+    if(encounterInfo.name && encounterInfo.shortDesc && encounterPlayers[0] && Object.keys(encounterMonsters).length) {
       let structuredMonsters = []
 
       for(mon in encounterMonsters) {
@@ -98,66 +97,57 @@ function NewEncounter() {
     }
   }
 
-  const displayChange = (direction) => {
-    if(direction === 'forward') {
-      if(display < 3){
-        setDisplay(display + 1)
-      } else {
-        postNewEncounter()
-      }
-    } else if(direction === 'back') {
-      if(display > 0) {
-        setDisplay(display - 1)
-      } else {
-        dispatch(clearEncounter())
-        navigate('/stuff/encounters')
-      }
-    }
+  const changeDisplay = (panel) => {
+    setPanels({...panels, [panel]: !panels[panel]})
   }
 
   return (
     <div className='page-layout-2'>
-      <div id='new-encounter-nav'>
-        <div id="selection-progress-div">
-          <div className='progress-bar'></div>
-          <div 
-            className={`progress-bar ${display === 0 ? 'empty' : display === 1 ? 'third' : display === 2 ? 'two-third' : 'end'}`}
-            id='progress-bar'
-          ></div>
-          <div className='checkpoint' onClick={() => setDisplay(0)}>
-            <div id={display === 0 ? 'current' : null} className={encounterInfo.name && encounterInfo.shortDesc ? 'circle complete' : 'circle'}>✓</div>
-            <p>Info</p>
-          </div>
-          <div className='checkpoint' onClick={() => setDisplay(1)}>
-            <div id={display === 1 ? 'current' : null} className={encounterPlayers[0] || encounterPlayers === 'skipped' ? 'circle complete' : 'circle'}>✓</div>
-            <p>Players</p>
-          </div>
-          <div className='checkpoint' onClick={() => setDisplay(2)}>
-            <div id={display === 2 ? 'current' : null} className={Object.keys(encounterMonsters).length ? 'circle complete' : 'circle'}>✓</div>
-            <p>Monsters</p>
-          </div>
-          <div className='checkpoint' onClick={() => setDisplay(3)}>
-            <div id={display === 3 ? 'current' : null} className={confirmed ? 'circle complete' : 'circle'}>✓</div>
-            <p>Summary</p>
+      <Link
+        className='btn btn-type-1 btn-color-4 back-btn'
+        to={'/stuff/encounters'}
+      >Cancel</Link>
+
+      <section className='breakdown-top'>
+        <div className='breakdown-base-info'><h2 className='title-1'>New Encounter</h2></div>
+      </section>
+
+      <button
+        className='btn btn-type-1 btn-color-3 create-btn'
+        onClick={postNewEncounter}
+      >Create</button>
+
+      <section className='accordion'>
+        <div className='accordion-item'>
+          <div
+            className='accordion-item-header'
+            onClick={() => changeDisplay('one')}
+          >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
+          <div className={`accordion-content ${panels.one ? 'accordion-content-expanded' : ''}`}>
+            <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
           </div>
         </div>
-        <div className='new-encounter-manuever-btns'>
-          <button
-            className={`btn btn-type-2 btn-color-${display > 0 ? 2 : 4}`}
-            onClick={() => displayChange('back')}
-            >{display > 0 ? 'Back' : 'Cancel'}</button>
-          <button
-            className='btn btn-type-2 btn-color-2'
-            onClick={() => displayChange('forward')}
-          >{display < 3 ? 'Next' : 'Finish'}</button>
+
+        <div className='accordion-item'>
+          <div
+            className='accordion-item-header'
+            onClick={() => changeDisplay('two')}
+          >Players <button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
+          <div className={`accordion-content ${panels.two ? 'accordion-content-expanded' : ''}`}>  
+            <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} setPlayers={setPlayers} />
+          </div>
         </div>
-      </div>
 
-      {display === 0 && <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />}
-      {display === 1 && <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} setPlayers={setPlayers} />}
-      {display === 2 && <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />} 
-      {display === 3 && <NewEncounterSummary display={display} confirmed={confirmed} setConfirmed={setConfirmed} encounterInfo={encounterInfo} encounterPlayers={encounterPlayers} encounterMonsters={encounterMonsters} selectedCampaign={selectedCampaign} />}
-
+        <div className='accordion-item'>
+          <div
+            className='accordion-item-header'
+            onClick={() => changeDisplay('three')}
+          >Monsters <button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
+          <div className={`accordion-content ${panels.three ? 'accordion-content-expanded' : ''}`}>
+            <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />
+          </div>
+        </div>
+      </section>
     </div>
   )
 };

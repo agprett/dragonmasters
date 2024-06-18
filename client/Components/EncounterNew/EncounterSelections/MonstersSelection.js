@@ -104,7 +104,7 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
   }
 
   return (
-    <section className="new-encounter-selections">
+    <div className="accordion-breakdown-item new-encounter-selections">
       <div className='ne-monster-display'>
         <form id="search-monsters" className='horizontal-form'>
           <h3>Search: </h3>
@@ -143,7 +143,7 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
         </thead>
         <tbody id='added-monster-display'>{Object.keys(encounterMonsters).length ? addedMonsters(): <tr className='none-added-row'><td>No Monsters Currently Added</td></tr>}</tbody>
       </table>
-    </section>
+    </div>
   )
 }
 
