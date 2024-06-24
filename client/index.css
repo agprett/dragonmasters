@@ -667,20 +667,6 @@
   position: relative;
 }
 
-.accordion-content {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 1s;
-}
-
-.accordion-content-expanded {
-  grid-template-rows: 1fr;
-}
-
-.accordion-content > div {
-  overflow: hidden;
-}
-
 .accordion-item-header {
   height: 60px;
   width: 100%;
@@ -698,7 +684,21 @@
   user-select: none;
 }
 
-.accordion-breakdown-item {
+.accordion-content-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 1s;
+}
+
+.accordion-content-expanded {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content-wrapper > div {
+  overflow: hidden;
+}
+
+.accordion-content {
   width: 100%;
   padding-top: 0;
   padding-bottom: 0;

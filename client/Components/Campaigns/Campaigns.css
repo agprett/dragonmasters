@@ -24,7 +24,43 @@
 }
 
 .campaign-encounter {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
   align-items: center;
+}
+
+.new-campaign-encounter {
+  width: 90%;
+}
+
+.new-campaign-encounter-head {
+  height: 55px;
+  pointer-events: none;
+  color: #EBEBEB;
+  border: none;
+  background-color: #474747;
+}
+
+.new-campaign-encounter-row {
+  min-height: 50px;
+  padding: 5px 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2fr 2fr;
+  grid-auto-columns: 1fr;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  font-size: 16pt;
+  font-weight: 600;
+  border-bottom: 3px solid #286A9C;
+  font-family: 'MedievalSharp', sans-serif;
+}
+
+.new-campaign-encounter-row td, .new-campaign-encounter-row th {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

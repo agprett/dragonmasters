@@ -62,7 +62,7 @@ function CampaignView() {
     return (
       <div className='info-list-item campaign-encounter' key={i}>
         <h2>{element.name}</h2>
-        <button className='btn btn-type-3 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
+        <button className='btn btn-type-4 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
       </div>
     )
   })

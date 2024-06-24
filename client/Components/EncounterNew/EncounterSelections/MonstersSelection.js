@@ -104,7 +104,7 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
   }
 
   return (
-    <div className="accordion-breakdown-item new-encounter-selections">
+    <div className="accordion-content new-encounter-selections">
       <div className='ne-monster-display'>
         <form id="search-monsters" className='horizontal-form'>
           <h3>Search: </h3>

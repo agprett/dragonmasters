@@ -3,12 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearEncounter } from '../../ducks/encounterSlice';
-
 import InfoSelection from './EncounterSelections/InfoSelection';
 import MonstersSelection from './EncounterSelections/MonstersSelection';
 import PlayersSelection from './EncounterSelections/PlayerSelection';
-import NewEncounterSummary from './EncounterSelections/NewEncounterSummary';
 
 const setEditEnc = (info) => {
   const data = {...info}
@@ -123,7 +120,7 @@ function NewEncounter() {
             className='accordion-item-header'
             onClick={() => changeDisplay('one')}
           >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
-          <div className={`accordion-content ${panels.one ? 'accordion-content-expanded' : ''}`}>
+          <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
             <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
           </div>
         </div>
@@ -133,7 +130,7 @@ function NewEncounter() {
             className='accordion-item-header'
             onClick={() => changeDisplay('two')}
           >Players <button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
-          <div className={`accordion-content ${panels.two ? 'accordion-content-expanded' : ''}`}>  
+          <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>  
             <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} setPlayers={setPlayers} />
           </div>
         </div>
@@ -143,7 +140,7 @@ function NewEncounter() {
             className='accordion-item-header'
             onClick={() => changeDisplay('three')}
           >Monsters <button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
-          <div className={`accordion-content ${panels.three ? 'accordion-content-expanded' : ''}`}>
+          <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
             <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />
           </div>
         </div>

@@ -4,6 +4,7 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 
 import { clearCampaign } from "../../ducks/campaignSlice.js"
+import PlayersSelection from "../EncounterNew/EncounterSelections/PlayerSelection.js"
 
 const setEditCampaign = (info) => {
   const data = {...info}
@@ -19,7 +20,7 @@ function CampaignNew() {
 
   const editCampaign= useSelector(state => state.campaign.info)
 
-  const [panels, setPanels] = useState({'one': true, 'two': false})
+  const [panels, setPanels] = useState({'one': true, 'two': false, 'three': false})
   const [campaignInfo, setCampaignInfo] = useState(editCampaign.name ? setEditCampaign(editCampaign) : {
     name: '',
     description: '',
@@ -35,6 +36,13 @@ function CampaignNew() {
     axios.get('/api/characters')
       .then(res => {
         setMyPlayers(res.data)
+        if(editCampaign.name) {
+          setAddedPlayers(addedPlayers.map(player => {
+            let fullDataIndex = res.data.findIndex(data => data.character_id === player.character_id)
+
+            return res.data[fullDataIndex]
+          }))
+        }
       })
       
       axios.get('/api/encounters?filter=true')
@@ -44,9 +52,11 @@ function CampaignNew() {
   }, [])
 
   const createCampaign = () => {
+    const playerList = addedPlayers.map(player => {return {...player, current_hit_points: player.hit_points}})
+
     const body = {
       ...campaignInfo,
-      addedPlayers,
+      addedPlayers: playerList,
       addedEncounters
     }
 
@@ -54,7 +64,6 @@ function CampaignNew() {
 
     if(body.name) {
       if(body.id) {
-        console.log(body)
         axios.put('/api/campaigns', body)
           .then(res => {
             console.log(res.data)
@@ -98,24 +107,22 @@ function CampaignNew() {
 
   let encounterSelections = myEncounters.map(encounter => {
     return (
-      <div className="extra-selections-options" key={encounter.encounter_id}>
-        <input
-          className="extra-selections-checkbox"
-          type="checkbox"
-          defaultChecked={addedEncounters.includes(encounter.encounter_id)}
-          onChange={(evt) => {
-            if(!evt.target.checked) {
-              let arr = [...addedEncounters]
-              let index = arr.indexOf(encounter.encounter_id)
-              arr.splice(index, 1)
-              setAddedEncounters(arr)
-            } else {
-              setAddedEncounters([...addedEncounters, encounter.encounter_id])
-            }
-          }}
-        />
-        {encounter.Campaign ? <p>{encounter.name} - Campaign: {encounter.Campaign.name}</p> : <p>{encounter.name}</p>}
-      </div>
+      <tr className="new-campaign-encounter-row" key={encounter.encounter_id}>
+        <td>{encounter.name}</td>
+        <td>{encounter.Campaign ? encounter.Campaign.name : 'None'}</td>
+        <td>
+          <button
+            className={`btn btn-type-3 btn-color-${addedEncounters.includes(encounter.encounter_id) ? '4' : '3'}`}
+            onClick={() => {
+              if(addedEncounters.includes(encounter.encounter_id)) {
+                setAddedEncounters(addedEncounters.filter(id => id !== encounter.encounter_id))
+              } else {
+                setAddedEncounters([...addedEncounters, encounter.encounter_id])
+              }
+            }}
+          >{addedEncounters.includes(encounter.encounter_id) ? 'Remove' : 'Add'}</button>
+        </td>
+      </tr>
     )
   })
 
@@ -149,8 +156,8 @@ function CampaignNew() {
             onClick={() => changeDisplay('one')}
           >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
 
-          <div className={`accordion-content ${panels.one ? 'accordion-content-expanded' : ''}`}>
-            <div className="accordion-breakdown-item">
+          <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
+            <div className="accordion-content">
               <form className="horizontal-form" onSubmit={evt => evt.preventDefault()}>
                 <div className="form-piece">
                   <label className="form-piece-filled">
@@ -212,22 +219,31 @@ function CampaignNew() {
         <div className="accordion-item">
           <div
             className="accordion-item-header"
+            onClick={() => changeDisplay('three')}
+          >Characters<button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
+
+          <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
+            <PlayersSelection encounterPlayers={addedPlayers} setEncounterPlayers={setAddedPlayers} players={myPlayers} setPlayers={setMyPlayers}/>
+          </div>
+        </div>
+
+        <div className="accordion-item">
+          <div
+            className="accordion-item-header"
             onClick={() => changeDisplay('two')}
-          >Stuff<button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
+          >Encounters<button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
 
-          <div className={`accordion-content ${panels.two ? 'accordion-content-expanded' : ''}`}>
-            <div>
-              <section className="dashboard">
-                <div className="extra-selections">
-                  <h2 className="dashboard-head">Add Characters</h2>
-                  {playersSelections}
-                </div>
-
-                <div className="extra-selections">
-                  <h2 className="dashboard-head">Add Encounters</h2>
-                  {encounterSelections}
-                </div>
-              </section>
+          <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>
+            <div className="accordion-content">
+              <table className="new-campaign-encounter">
+                <thead className="new-campaign-encounter-head new-campaign-encounter-row">
+                  <tr><th><h3>Name</h3></th></tr>
+                  <tr><th>Current Campaign</th></tr>
+                  <tr><th></th></tr>
+                </thead>
+                
+                <tbody>{encounterSelections}</tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -244,7 +260,7 @@ export default CampaignNew
   onClick={() => changeDisplay('SSS')}
 >SSS<button className='accordion-item-status'>{panels.SSS ? '-' : '+'}</button></div>
 
-<div className={`accordion-content ${panels.SSS ? 'accordion-content-expanded' : ''}`}>
-  <div className="breakdown accordion-breakdown-item">SSS</div>
+<div className={`accordion-content-wrapper ${panels.SSS ? 'accordion-content-expanded' : ''}`}>
+  <div className="breakdown accordion-wrapper">SSS</div>
 </div>
 </div> */}

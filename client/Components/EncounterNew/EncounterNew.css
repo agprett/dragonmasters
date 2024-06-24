@@ -133,7 +133,8 @@
   height: 55px;
   pointer-events: none;
   color: #EBEBEB;
-  background-color: #286A9C;
+  border: none;
+  background-color: #474747;
 }
 
 .ne-character-row {
@@ -185,7 +186,8 @@
   justify-content: center;
   font-size: 15pt;
   color: #EBEBEB;
-  background-color: #286A9C;
+  border: none;
+  background-color: #474747;
 }
 
 .none-added-row {
