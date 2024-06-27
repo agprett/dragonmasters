@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedCampaign}) {
+function EncounterForm({encounterInfo, setEncounterInfo, campaigns, setSelectedCampaign}) {
   const availableCampaigns = campaigns.map((campaign, i) => {
     return (
       <option key={i} value={campaign.campaign_id}>{campaign.name}</option>
@@ -119,4 +119,4 @@ function InfoSelection({encounterInfo, setEncounterInfo, campaigns, setSelectedC
   )
 }
 
-export default InfoSelection
+export default EncounterForm

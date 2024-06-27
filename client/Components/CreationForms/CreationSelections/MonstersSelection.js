@@ -1,31 +1,30 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, filter, setFilter}) {
+const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAddedMonsters, monsters, filter, setFilter}) {
   const addMonster = (monster) => {
     const {name, index, url} = monster
     
     console.log('hit')
     
-    if(!encounterMonsters[index]){
-      let tempChars = {...encounterMonsters}
+    if(!addedMonsters[index]){
+      let tempChars = {...addedMonsters}
       tempChars[index] = {name, url, info: monster, amount: 1}
-      
-      setEncounterMonsters({...tempChars})
-    } else if(encounterMonsters[index]) {
-      let updateCountChar = {...encounterMonsters[index]}
+      setAddedMonsters({...tempChars})
+    } else if(addedMonsters[index]) {
+      let updateCountChar = {...addedMonsters[index]}
       
       updateCountChar.amount++
 
-      let tempChars = encounterMonsters
+      let tempChars = addedMonsters
 
       tempChars[index] = updateCountChar
 
-      setEncounterMonsters({...tempChars})
+      setAddedMonsters({...tempChars})
     }
   }
 
   const increaseCount = (index, event) => {
-    let updatedChar = {...encounterMonsters[index]}
+    let updatedChar = {...addedMonsters[index]}
 
     let newNum = event.target.value.split('')
     
@@ -41,18 +40,18 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
       updatedChar.amount = +amount
     }
 
-    let tempChars = {...encounterMonsters}
+    let tempChars = {...addedMonsters}
     tempChars[index] = updatedChar
 
-    setEncounterMonsters({...tempChars})
+    setAddedMonsters({...tempChars})
   }
 
   const removeMonster = (index) => {
-    let tempChars = {...encounterMonsters}
+    let tempChars = {...addedMonsters}
 
     delete tempChars[index]
 
-    setEncounterMonsters({...tempChars})
+    setAddedMonsters({...tempChars})
   }
 
   const monstersDisplay = monsters
@@ -73,11 +72,11 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
     )
   })
 
-  const addedMonsters = () => {
+  const addedMonstersDisplay = () => {
     let monsterDivs = []
 
-    for(let monster in encounterMonsters){
-      const {info, amount} = encounterMonsters[monster]
+    for(let monster in addedMonsters){
+      const {info, amount} = addedMonsters[monster]
 
       let monsterDiv = (
         <tr className='new-added-row' key={info.name}>
@@ -141,10 +140,10 @@ function MonstersSelection({encounterMonsters, setEncounterMonsters, monsters, f
             <th><h2>Added Monsters</h2></th>
           </tr>
         </thead>
-        <tbody id='added-monster-display'>{Object.keys(encounterMonsters).length ? addedMonsters(): <tr className='none-added-row'><td>No Monsters Currently Added</td></tr>}</tbody>
+        <tbody id='added-monster-display'>{Object.keys(addedMonstersDisplay()).length ? addedMonstersDisplay(): <tr className='none-added-row'><td>No Monsters Currently Added</td></tr>}</tbody>
       </table>
     </div>
   )
-}
+})
 
 export default MonstersSelection

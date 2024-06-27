@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 
 import CreateCharacter from './CreateChar.js';
 
-function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPlayers}) {
+const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedPlayers, myPlayers, setMyPlayers}) {
   const [showNew, setShowNew] = useState(false)
 
   console.log('character reset')
 
   const selectPlayer = (player) => {
-    setEncounterPlayers([...encounterPlayers, player])
+    setAddedPlayers([...addedPlayers, player])
   }
 
   const removePlayer = (player) => {
-    let index = encounterPlayers.findIndex(char => player.character_id === char.character_id)
-    let removalArr = [...encounterPlayers]
+    let index = addedPlayers.findIndex(char => player.character_id === char.character_id)
+    let removalArr = [...addedPlayers]
 
     removalArr.splice(index, 1)
 
-    setEncounterPlayers([...removalArr])
+    setAddedPlayers([...removalArr])
   }
 
-  const playersDisplay = players.map((player, i) => {
-    let index = encounterPlayers.findIndex(char => +player.character_id === +char.character_id)
+  const playersDisplay = myPlayers.map((player, i) => {
+    let index = addedPlayers.findIndex(char => +player.character_id === +char.character_id)
     if(index === -1) {
       const {name, player: playerName, hit_points, level} = player
       return (
@@ -36,7 +36,7 @@ function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPl
     }
   })
 
-  const addedPlayers = encounterPlayers.map((player, i) => {
+  const addedPlayersDisplay = addedPlayers.map((player, i) => {
     return (
       <tr className='new-added-row' key={i}>
         <td><h3>{player.name}</h3></td>
@@ -68,13 +68,13 @@ function PlayersSelection({encounterPlayers, setEncounterPlayers, players, setPl
           </tr>
         </thead>
         <tbody>
-          {encounterPlayers[0] ? addedPlayers : <tr className='none-added-row'><td>No Players Currently Added</td></tr>}
+          {addedPlayers[0] ? addedPlayersDisplay : <tr className='none-added-row'><td>No Players Currently Added</td></tr>}
         </tbody>
       </table>
 
-      {showNew && <CreateCharacter setShowNew={setShowNew} setPlayers={setPlayers} />}
+      {showNew && <CreateCharacter setShowNew={setShowNew} setMyPlayers={setMyPlayers} />}
     </div>
   )
-}
+})
 
 export default PlayersSelection

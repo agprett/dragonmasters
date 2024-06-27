@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 
 import { clearCampaign } from "../../ducks/campaignSlice.js"
-import PlayersSelection from "../EncounterNew/EncounterSelections/PlayerSelection.js"
+import PlayersSelection from "./CreationSelections/PlayerSelection.js"
 
 const setEditCampaign = (info) => {
   const data = {...info}
@@ -22,11 +22,12 @@ function CampaignNew() {
 
   const [panels, setPanels] = useState({'one': true, 'two': false, 'three': false})
   const [campaignInfo, setCampaignInfo] = useState(editCampaign.name ? setEditCampaign(editCampaign) : {
-    name: '',
-    description: '',
-    length: '',
-    world_name: ''
-  })
+      name: '',
+      description: '',
+      length: '',
+      world_name: ''
+    }
+  )
   const [myPlayers, setMyPlayers] = useState([])
   const [myEncounters, setMyEncounters] = useState([])
   const [addedPlayers, setAddedPlayers] = useState(editCampaign.players ? editCampaign.players : [])
@@ -45,7 +46,7 @@ function CampaignNew() {
         }
       })
       
-      axios.get('/api/encounters?filter=true')
+    axios.get('/api/encounters?filter=true')
       .then(res => {
         setMyEncounters(res.data)
       })
@@ -59,8 +60,6 @@ function CampaignNew() {
       addedPlayers: playerList,
       addedEncounters
     }
-
-    console.log(body)
 
     if(body.name) {
       if(body.id) {
@@ -81,29 +80,6 @@ function CampaignNew() {
       alert('Please fill in name.')
     }
   }
-  
-  let playersSelections = myPlayers.map(player => {
-    return (
-      <div className="extra-selections-options" key={player.character_id}>
-        <input
-          className="extra-selections-checkbox"
-          type="checkbox"
-          defaultChecked={addedPlayers.findIndex(ele => ele.character_id === player.character_id) !== -1}
-          onChange={(evt) => {
-            if(!evt.target.checked) {
-              let arr = [...addedPlayers]
-              let index = arr.findIndex(ele => ele.character_id === player.character_id)
-              arr.splice(index, 1)
-              setAddedPlayers(arr)
-            } else {
-              setAddedPlayers([...addedPlayers, {character_id: player.character_id, current_hit_points: player.hit_points}])
-            }
-          }}
-        />
-        <p>{player.name}</p>
-      </div>
-    )
-  })
 
   let encounterSelections = myEncounters.map(encounter => {
     return (
@@ -133,21 +109,21 @@ function CampaignNew() {
   return (
     <div className="page-layout-2">
       <button
-        className='btn btn-type-1 btn-color-1 back-btn'
+        className='btn btn-type-1 btn-color-4 back-btn'
         onClick={() => {
           dispatch(clearCampaign())
           navigate('/stuff/campaigns')
         }}
-      >{'<'} Back</button>
+      >Cancel</button>
 
       <section className="breakdown-top">
-        <div className="breakdown-base-info"><h2 className="title-1">New Campaign</h2></div>
+        <div className="breakdown-base-info"><h2 className="title-1">{editCampaign.name ? 'Update' : 'New'} Campaign</h2></div>
       </section>
 
       <button
         className="btn btn-type-1 btn-color-3 create-btn"
         onClick={createCampaign}
-      >Create</button>
+      >{editCampaign.name ? 'Save' : 'Create'}</button>
 
       <section className="accordion">
         <div className="accordion-item">
@@ -223,7 +199,7 @@ function CampaignNew() {
           >Characters<button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
 
           <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
-            <PlayersSelection encounterPlayers={addedPlayers} setEncounterPlayers={setAddedPlayers} players={myPlayers} setPlayers={setMyPlayers}/>
+            <PlayersSelection addedPlayers={addedPlayers} setAddedPlayers={setAddedPlayers} myPlayers={myPlayers} setMyPlayers={setMyPlayers}/>
           </div>
         </div>
 

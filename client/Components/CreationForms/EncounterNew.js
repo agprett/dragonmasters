@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import InfoSelection from './EncounterSelections/InfoSelection';
-import MonstersSelection from './EncounterSelections/MonstersSelection';
-import PlayersSelection from './EncounterSelections/PlayerSelection';
+import EncounterForm from './CreationSelections/EncounterForm';
+import MonstersSelection from './CreationSelections/MonstersSelection';
+import PlayersSelection from './CreationSelections/PlayerSelection';
+import { clearEncounter } from '../../ducks/encounterSlice';
 
 const setEditEnc = (info) => {
   const data = {...info}
@@ -25,10 +26,10 @@ function NewEncounter() {
 
   const [panels, setPanels] = useState({one: true, two: false, three: false})
   const [encounterInfo, setEncounterInfo] = useState(editEnc.name ? setEditEnc(editEnc) : {name: '', shortDesc: '', desc: '', location: '', terrain: '', rewards: '', campaign_id: ''})
-  const [encounterPlayers, setEncounterPlayers] = useState(editEnc.players ? editEnc.players : [])
-  const [encounterMonsters, setEncounterMonsters] = useState(editEnc.monsters ? editEnc.monsters : {})
+  const [addedPlayers, setAddedPlayers] = useState(editEnc.players ? editEnc.players : [])
+  const [addedMonsters, setAddedMonsters] = useState(editEnc.monsters ? editEnc.monsters : {})
   const [selectedCampaign, setSelectedCampaign] = useState(editEnc.campaignName ? editEnc.campaignName : '')
-  const [players, setPlayers] = useState([])
+  const [myPlayers, setMyPlayers] = useState([])
   const [monsters, setMonsters] = useState([])
   const [campaigns, setCampaigns] = useState([])
   const [filter, setFilter] = useState('')
@@ -36,7 +37,7 @@ function NewEncounter() {
   useEffect(() => {
     axios.get('/api/characters')
       .then(res => {
-        setPlayers(res.data)
+        setMyPlayers(res.data)
       })
 
     axios.get('/api/monsters')
@@ -52,17 +53,17 @@ function NewEncounter() {
   }, [])
 
   const postNewEncounter = () => {
-    if(encounterInfo.name && encounterInfo.shortDesc && encounterPlayers[0] && Object.keys(encounterMonsters).length) {
+    if(encounterInfo.name && encounterInfo.shortDesc && addedPlayers[0] && Object.keys(addedMonsters).length) {
       let structuredMonsters = []
 
-      for(mon in encounterMonsters) {
-        const {name, amount, url, info} = encounterMonsters[mon]
+      for(mon in addedMonsters) {
+        const {name, amount, url, info} = addedMonsters[mon]
         structuredMonsters.push({name, count: amount, url, pointer: info.pointer})
       }
 
       const body = {
         ...encounterInfo,
-        characters: encounterPlayers,
+        characters: addedPlayers,
         monsters: structuredMonsters
       }
 
@@ -100,19 +101,22 @@ function NewEncounter() {
 
   return (
     <div className='page-layout-2'>
-      <Link
+      <button
         className='btn btn-type-1 btn-color-4 back-btn'
-        to={'/stuff/encounters'}
-      >Cancel</Link>
+        onClick={() => {
+          dispatch(clearEncounter())
+          navigate('/stuff/encounters')
+        }}
+      >Cancel</button>
 
       <section className='breakdown-top'>
-        <div className='breakdown-base-info'><h2 className='title-1'>New Encounter</h2></div>
+        <div className='breakdown-base-info'><h2 className='title-1'>{editEnc.name ? 'Update' : 'New'} Encounter</h2></div>
       </section>
 
       <button
         className='btn btn-type-1 btn-color-3 create-btn'
         onClick={postNewEncounter}
-      >Create</button>
+      >{editEnc.name ? 'Save' : 'Create'}</button>
 
       <section className='accordion'>
         <div className='accordion-item'>
@@ -121,7 +125,7 @@ function NewEncounter() {
             onClick={() => changeDisplay('one')}
           >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
-            <InfoSelection encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
+            <EncounterForm encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
           </div>
         </div>
 
@@ -131,7 +135,7 @@ function NewEncounter() {
             onClick={() => changeDisplay('two')}
           >Players <button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>  
-            <PlayersSelection encounterPlayers={encounterPlayers} setEncounterPlayers={setEncounterPlayers} players={players} setPlayers={setPlayers} />
+            <PlayersSelection addedPlayers={addedPlayers} setAddedPlayers={setAddedPlayers} myPlayers={myPlayers} setMyPlayers={setMyPlayers} />
           </div>
         </div>
 
@@ -141,7 +145,7 @@ function NewEncounter() {
             onClick={() => changeDisplay('three')}
           >Monsters <button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
-            <MonstersSelection encounterMonsters={encounterMonsters} setEncounterMonsters={setEncounterMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />
+            <MonstersSelection addedMonsters={addedMonsters} setAddedMonsters={setAddedMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />
           </div>
         </div>
       </section>
