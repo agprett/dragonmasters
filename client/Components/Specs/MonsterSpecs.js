@@ -13,6 +13,7 @@ function MonsterSpecs () {
       .then(res => {
         // console.log(res.data)
         setSpecs(res.data)
+        document.title = res.data.name
       })
   }, [])
 

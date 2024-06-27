@@ -11,10 +11,11 @@ function SpellSpecs () {
       .then(res => {
         console.log(res.data)
         setSpecs(res.data)
+        document.title = res.data.name
       })
   }, [])
 
-  const ritOrConc = () => {
+  const ritOrCon = () => {
     let sentence = []
 
     if(specs.ritual) {
@@ -49,7 +50,7 @@ function SpellSpecs () {
   return (
     <div className='monster-specs'>
       <div>
-        <h2>{specs.name}{ritOrConc()}</h2>
+        <h2>{specs.name}{ritOrCon()}</h2>
         <h3>{convertLevel()}</h3>
       </div>
 
