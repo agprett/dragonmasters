@@ -12,7 +12,6 @@ function Campaigns() {
   useEffect(() => {
     axios.get('/api/campaigns')
       .then(res => {
-        console.log(res.data)
         setCampaigns(res.data)
       })
   }, [])

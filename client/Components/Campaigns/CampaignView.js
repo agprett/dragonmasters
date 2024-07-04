@@ -17,7 +17,6 @@ function CampaignView() {
   useEffect(() => {
     axios.get(`/api/campaigns/${campaign_id}`)
       .then(res => {
-        console.log(res.data)
         setCampaignInfo(res.data)
       })
   }, [])

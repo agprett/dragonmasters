@@ -9,7 +9,6 @@ function SpellSpecs () {
   useEffect(() => {
     axios.get(`/api/spells/${index}`)
       .then(res => {
-        console.log(res.data)
         setSpecs(res.data)
         document.title = res.data.name
       })

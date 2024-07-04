@@ -48,7 +48,6 @@ function NewEncounter() {
     axios.get('/api/campaigns')
       .then(res => {
         setCampaigns(res.data)
-        console.log(res.data)
       })
   }, [])
 
@@ -67,12 +66,9 @@ function NewEncounter() {
         monsters: structuredMonsters
       }
 
-      console.log(body)
-
       if(body.id) {
         axios.put('/api/encounters', body)
           .then(res => {
-            console.log(res.data)
             alert('Encounter updated!')
             navigate(`/stuff/encounters/${res.data.id}`)
           })
@@ -82,7 +78,6 @@ function NewEncounter() {
       } else {
         axios.post('/api/encounters', body)
           .then(res => {
-            console.log(res.data)
             alert('Encounter created!')
             navigate(`/stuff/encounters/${res.data.id}`)
           })

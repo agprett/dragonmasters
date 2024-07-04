@@ -55,8 +55,7 @@ const router = createBrowserRouter([
             path: ':guide_type',
             loader: async ({params}) => {
               let {data} = await axios.get(`/api/${params.guide_type}`)
-              console.log(data)
-              
+
               return data
             },
             element: <Guide />,

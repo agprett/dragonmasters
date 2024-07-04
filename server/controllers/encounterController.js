@@ -48,8 +48,6 @@ const encounterFunctions = {
         ]
       })
 
-      // console.log(encounterData)
-
       const {encounter_id, name, description, short_description, terrain, location, rewards, players} = encounterData
       
       const monsters = encounterData.monsters.map(monster => {

@@ -20,7 +20,6 @@ function Nav() {
     if(!username) {
       axios.get('/api/user')
         .then(res => {
-          console.log(res.data)
           dispatch(loginUser(res.data))
         })
         .catch(() => {

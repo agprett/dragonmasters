@@ -5,8 +5,6 @@ import CreateCharacter from './CreateChar.js';
 const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedPlayers, myPlayers, setMyPlayers}) {
   const [showNew, setShowNew] = useState(false)
 
-  console.log('character reset')
-
   const selectPlayer = (player) => {
     setAddedPlayers([...addedPlayers, player])
   }

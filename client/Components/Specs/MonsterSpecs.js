@@ -11,7 +11,6 @@ function MonsterSpecs () {
   useEffect(() => {
     axios.get(`/api/monsters/${index}`)
       .then(res => {
-        // console.log(res.data)
         setSpecs(res.data)
         document.title = res.data.name
       })

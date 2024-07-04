@@ -4,8 +4,6 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
   const addMonster = (monster) => {
     const {name, index, url} = monster
     
-    console.log('hit')
-    
     if(!addedMonsters[index]){
       let tempChars = {...addedMonsters}
       tempChars[index] = {name, url, info: monster, amount: 1}

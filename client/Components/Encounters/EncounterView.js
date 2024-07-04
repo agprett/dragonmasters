@@ -38,8 +38,6 @@ function EncounterSummary() {
       updatedMonsters[monster.index] = {...obj}
     })
 
-    console.log(updatedMonsters)
-
     let info = {id: encounter_id, name, shortDesc: short_description, desc: description, location, terrain, rewards, campaign_id: campaign.campaign_id, campaignName: campaign.name, players, monsters: updatedMonsters}
 
     dispatch(addEncounter(info))

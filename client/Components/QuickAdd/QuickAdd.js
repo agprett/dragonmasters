@@ -25,8 +25,6 @@ function QuickAdd({combatants, setAddPopup, addCombatant}) {
       }
     });
 
-    console.log(Object.values(tempMonsters))
-
     setPlayers(tempPlayers)
     setMonsters(Object.values(tempMonsters))
   }, [])

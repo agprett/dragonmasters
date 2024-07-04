@@ -39,8 +39,6 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
   const rollInitiative = () => {
     let rolled = getD20()
 
-    console.log(rolled)
-
     if(info.stats) {
       rolled = rolled + getModi(info.stats.dexterity)
     }

@@ -65,7 +65,6 @@ function CampaignNew() {
       if(body.id) {
         axios.put('/api/campaigns', body)
           .then(res => {
-            console.log(res.data)
             alert('Campaign updated!')
             navigate(`/stuff/campaigns/${res.data.id}`)
           })
