@@ -8,7 +8,7 @@ function StuffNav () {
   useEffect(() => {
     axios.get('/api/user')
       .then(() => {
-        // console.log('Logged in')
+        console.log('Logged in')
       })
       .catch(() => {
         alert('You must be signed in to view this page!')

@@ -16,7 +16,6 @@ function Nav() {
   const {username} = useSelector(state => state.user.info)
 
   useEffect(() => {
-    console.log('nav refresh', username)
     if(!username) {
       axios.get('/api/user')
         .then(res => {
@@ -46,7 +45,7 @@ function Nav() {
         <div className='main-nav-divs' id='main-nav-left'>
           <img src={logo} alt="small=-logo" className="medium-logo"/>
           <NavLink className='nav-links' to="/">
-            <h3>DragonMasters</h3>
+            <h3>DragonMasters Codex</h3>
           </NavLink>
           <NavLink className='nav-links' to="/guide">Guide</NavLink>
           {username && (
