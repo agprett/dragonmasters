@@ -11,8 +11,8 @@ function MonsterSpecs () {
   useEffect(() => {
     axios.get(`/api/monsters/${index}`)
       .then(res => {
-        // console.log(res.data)
         setSpecs(res.data)
+        document.title = res.data.name
       })
   }, [])
 
@@ -40,28 +40,28 @@ function MonsterSpecs () {
   const createSubSkills = () => {
     return (
       <>
-        {specs.saving_throws[0] ? (
+        {specs.saving_throws && (
           <p>
             Saving Throws: {specs.saving_throws.map((element) => `${element.name}: ${element.value}`).join(', ')}
           </p>
-        ) : ''}
-        {specs.skills[0] ? (
+        )}
+        {specs.skills && (
           <p>
             Skills: {specs.skills.map(element => `${element.name}: +${element.value}`).join(', ')}
           </p>
-        ) : ''}
-        {specs.senses ? (
+        )}
+        {specs.senses && (
           <p>
             Senses: {Object.keys(specs.senses).map(sense => `${sense}: ${specs.senses[sense]}`).join(', ')}
           </p>
-        ) : ''}
+        )}
         <p>Language: {specs.languages || 'None'}</p>
         <p>Challenge: {specs.challenge_rating} ({specs.xp} XP)</p>
       </>
     )
   }
   
-  const createSpecials = specs.special_abilities ? (
+  const createSpecials = specs.special_abilities && (
     specs.special_abilities.map(ability => {
       return (
         <div>
@@ -70,28 +70,28 @@ function MonsterSpecs () {
         </div>
       )
     })
-  ) : <></>
+  )
 
-  const createSpellStuff = specs.spellcasting ? (
+  const createSpellStuff = specs.spellcasting && (
     <div>
       <h2>Spellcasting</h2>
       {specs.spellcasting.desc.split('\n').map(str => <p>{str}</p>)}
     </div>
-  ) : <></>
+  )
 
-  const createActions = specs.actions ? (
+  const createActions = specs.actions && (
     specs.actions.map(action => {
       return (
         <div>
           <h3>{action.name}</h3>
           <p>{action.desc}</p>
-          {action.usage ? <p>Usage info needed</p> : ''}
+          {action.usage && <p>Usage info needed</p>}
         </div>
       )
     })
-  ) : ''
+  )
 
-  const createLegendary = specs.legendary_actions ? (
+  const createLegendary = specs.legendary_actions && (
     specs.legendary_actions.map(action => {
       return (
         <div>
@@ -100,19 +100,19 @@ function MonsterSpecs () {
         </div>
       )
     })
-  ) : <></>
+  )
 
   return (
     <div className='monster-specs'>
       <div className='monster-header'>
-        <h2 class="monster-name">{specs.name}</h2>
+        <h2 className="monster-name">{specs.name}</h2>
         <p>&nbsp;-&nbsp;</p>
-        <p>{specs.size} {specs.type} {specs.subtype ? ` (${specs.subtype})` : ''}, {specs.alignment}</p>
+        <p>{specs.size} {specs.type} {specs.subtype && ` (${specs.subtype})`}, {specs.alignment}</p>
       </div>
 
-      {specs.desc ? <p class="monster-desc"> {specs.desc}</p> : ''}
+      {specs.desc && <p className="monster-desc"> {specs.desc}</p>}
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-base-info'>
         <p>AC: {specs.armor_class}</p>
@@ -120,45 +120,45 @@ function MonsterSpecs () {
         <p>{createSpeedStr()}</p>
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-main-skills'>
         {statsBlock()}
       </div>
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-sub-skills'>
         {createSubSkills()}
       </div>
 
-      {specs.special_abilities ? (
+      {specs.special_abilities && (
         <>
-          <div class="splitter"></div>
+          <div className="splitter"></div>
 
           <div className='monster-specials'>
             <h2>Special Abilities</h2>
             {createSpecials}
           </div>
         </>
-      ) : ''}
+      )}
 
-      {specs.spellcasting ? (
+      {specs.spellcasting && (
         <>
-          <div class="splitter"></div>
+          <div className="splitter"></div>
 
           {createSpellStuff}
         </>
-      ) : <></>}
+      )}
 
-      <div class="splitter"></div>
+      <div className="splitter"></div>
 
       <div className='monster-actions'>
         <h2>Actions</h2>
         {createActions}
       </div> 
 
-      {specs.legendary_actions ? (
+      {specs.legendary_actions && (
         <>
           <div className='splitter'></div>
           <div className='monster-legendary-actions'>
@@ -167,7 +167,7 @@ function MonsterSpecs () {
             {createLegendary}
           </div>
         </>
-      ) : ''}
+      )}
     </div>
   )
 }

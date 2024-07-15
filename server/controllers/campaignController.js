@@ -1,4 +1,5 @@
-import { Campaign, CampaignCharacter, CampaignNote, Character } from '../db/models.js'
+import { Op } from 'sequelize'
+import { Campaign, CampaignCharacter, CampaignNote, Character, Encounter } from '../db/models.js'
 
 const campaignFunctions = {
   getCampaigns: async (req, res) => {
@@ -12,8 +13,7 @@ const campaignFunctions = {
         attributes: ['name'],
         through: {
           attributes: []
-        },
-        as: 'characters'
+        }
       }
     })
 
@@ -26,19 +26,27 @@ const campaignFunctions = {
     try {
       let campaign = await Campaign.findOne({
         where: {campaign_id: id},
-        attributes: ['campaign_id', 'name', 'length', 'description'],
-        include: {
-          model: Character,
-          attributes: ['name', 'player', 'char_class'],
-          through: {
-            attributes: []
+        attributes: ['campaign_id', 'name', 'length', 'description', 'world_name', 'dungeon_master'],
+        include: [
+          {
+            model: Character,
+            attributes: ['name', 'player', 'char_class', 'hit_points', 'armor_class', 'character_id'],
+            through: {
+              attributes: []
+            }
           },
-          as: 'characters'
-        }
+          {
+            model: Encounter,
+            attributes: ['encounter_id', 'name', 'short_description', 'location']
+          }
+        ]
       })
   
       if(campaign.dungeon_master === req.session.user.user_id) {
-        res.status(200).send(campaign)
+        const {campaign_id, name, length, description, world_name, character_id, Characters, Encounters} = campaign
+        let data = {campaign_id, name, length, world_name, character_id, description, Characters, Encounters}
+
+        res.status(200).send(data)
       } else {
         res.status(403).send('You must be signed in to view this campaign.')
       }
@@ -50,19 +58,62 @@ const campaignFunctions = {
 
   createCampaign: async (req, res) => {
     const {user_id} = req.session.user
-    const {name, description, length, world_name, note} = req.body
+    const {name, description, length, world_name, note, addedPlayers: characters, addedEncounters} = req.body
 
-    if(!name) {
-      res.status(401).send('You must provide all required info to create a campaign')
+    if(name && req.session.user) {
+      let newCampaign = await Campaign.create({
+        name,
+        description,
+        length,
+        dungeon_master: user_id,
+        world_name,
+        characters
+      },
+      {
+        include: [
+          {
+            model: CampaignCharacter,
+            as: 'characters'
+          }
+        ]
+      })
+
+      Encounter.update({campaign_id: newCampaign.campaign_id},{
+          where: {
+            encounter_id: addedEncounters
+          }
+        }
+      )
+      
+      if(newCampaign.name) {
+        res.status(200).send({message: 'New campaign created!', id: newCampaign.campaign_id})
+      } else {
+        res.status(500).send('Unable to process request.')
+      }
     } else {
-      await Campaign.create({name, description, length, dungeon_master: user_id, world_name})
-
-      res.status(200).send('New campaign created!')
+      res.status(401).send('You must provide all required info to create a campaign')
     }
   },
 
   updateCampaign: async (req, res) => {
-    
+    let {id, name, description, length, world_name, addedPlayers, addedEncounters} = req.body
+
+    if(name && id && req.session.user) {
+      let campaignInfo = {name, description, length, world_name}
+
+      await Encounter.update({campaign_id: null}, {where: {campaign_id: id}})
+      await Encounter.update({campaign_id: id}, {where: {encounter_id: addedEncounters}})
+
+      await Campaign.update(campaignInfo, {where: {campaign_id: id}})
+
+      await CampaignCharacter.destroy({where: {campaign_id: id}})
+
+      await CampaignCharacter.bulkCreate(addedPlayers.map(player => {return {...player, campaign_id: id}}))
+
+      res.status(200).send({message: 'Campaign updated!', id})
+    } else {
+      res.status(400).send('Please provide all required information to update the campaign.')
+    }
   },
 
   deleteCampaign: async (req, res) => {

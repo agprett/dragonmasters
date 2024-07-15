@@ -11,13 +11,13 @@ import MonsterSpecs from './Components/Specs/MonsterSpecs.js'
 import SpellSpecs from './Components/Specs/SpellSpecs.js'
 
 import Stuff from './Components/Stuff/Stuff.js'
-import StuffNav from './Components/StuffNav/StuffNav.js'
 import Campaigns from './Components/Campaigns/Campaigns.js'
 import CampaignView from './Components/Campaigns/CampaignView.js'
+import CampaignNew from './Components/CreationForms/CampaignNew.js'
 import Encounters from './Components/Encounters/Encounters.js'
-import EncounterNew from './Components/EncounterNew/EncounterNew.js'
-import EncounterSummary from './Components/EncounterSummary/EncounterSummary.js'
-import EncounterRun from './Components/EncounterRun/EncounterRun.js'
+import EncounterNew from './Components/CreationForms/EncounterNew.js'
+import EncounterView from './Components/Encounters/EncounterView.js'
+import EncounterRun from './Components/Encounters/EncounterRun.js'
 
 import Login from './Components/Login/Login.js'
 import Signin from './Components/Login/Signup.js'
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
             path: ':guide_type',
             loader: async ({params}) => {
               let {data} = await axios.get(`/api/${params.guide_type}`)
-              
+
               return data
             },
             element: <Guide />,
@@ -64,7 +64,6 @@ const router = createBrowserRouter([
       },
       {
         path: 'stuff',
-        element: <StuffNav />,
         children: [
           {
             index: true,
@@ -76,6 +75,10 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Campaigns />
+              },
+              {
+                path: 'new',
+                element: <CampaignNew />
               },
               {
                 path: ':campaign_id',
@@ -99,11 +102,38 @@ const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <EncounterSummary />
+                    element: <EncounterView />
                   },
                   {
                     path: 'run',
-                    element: <EncounterRun /> 
+                    element: <EncounterRun />, 
+                    loader: async ({params}) => {
+                      const {encounter_id} = params
+
+                      let res = await axios.get(`/api/encounters/${encounter_id}`)
+
+                      let {monsters, players, name} = res.data
+                      
+                      let combatants = [...players]
+
+                      monsters.forEach(monster => {
+                        let i = 1
+                        while(i <= monster.count) {
+                          let info = {...monster}
+
+                          if(monster.count > 1) {
+                            info.name = monster.name + ' - ' + i
+                          }
+
+                          info.amount = +info.count
+                          delete info.count
+                          combatants.push(info)
+                          i++
+                        }
+                      });
+
+                      return {initialCombatants: combatants, name, encounter_id}
+                    }
                   }
                 ]
               }
@@ -113,41 +143,17 @@ const router = createBrowserRouter([
       }
     ]
   },
+
   {
     path: '/login',
     element: <Login />
   },
+  
   {
     path: '/signup',
     element: <Signin />
   }
 ])
-// <Routes>
-//   <Route path='/' element={<Nav/>}>
-//     <Route index element={<Home/>}/>
-//     <Route path='guide'>
-//       <Route index element={<GuideHome/>}/>
-//       <Route path=':guide_type' element={<Guide/>}/>
-//     </Route>
-//     <Route path='stuff' element={<StuffNav/>}>
-//       <Route index element={<Stuff/>}/>
-//       <Route path='campaigns'>
-//         <Route index element={<Campaigns/>}/>
-//         <Route path=':campaign_id' element={<CampaignView/>}/>
-//       </Route>
-//       <Route path='encounters'>
-//         <Route index element={<Encounters/>}/>
-//         <Route path='new' element={<EncounterNew/>}/>
-//         <Route path=':encounter_id'>
-//           <Route index element={<EncounterSummary/>}/>
-//           <Route path='run' element={<EncounterRun/>}/>
-//         </Route>
-//       </Route>
-//     </Route>
-//   </Route>
-//   <Route path='/login' element={<Login />}/>
-//   <Route path='/signup' element={<Signin />}/>
-// </Routes>
 
 function App() {
   return (

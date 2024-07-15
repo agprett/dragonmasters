@@ -7,7 +7,7 @@ const quickDB = spellsDb.map(spell => {
 })
 
 const spellFunctions = {
-  getAllSpells: (req, res) => {
+  getAllSpells: async (req, res) => {
     const {name, casting_time, school, minLevel, maxLevel, classSelect} = req.query
 
     if(name || casting_time || school || minLevel || maxLevel || classSelect) {
@@ -22,7 +22,7 @@ const spellFunctions = {
           keep = false
         }
 
-        if(school && school !== spell.school) {
+        if(school && school !== spell.school.name) {
           keep = false
         }
 

@@ -1,41 +1,36 @@
-import React, {useEffect, useState} from 'react'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Footer from './Footer'
-import './Nav.css'
 import logo from '../../images/logo.png'
 
-import { getUser, logoutUser } from '../../ducks/reducer'
+import { loginUser, logoutUser } from '../../ducks/userSlice.js'
+import StuffNav from './StuffNav.js'
 
-function Nav(props) {
+function Nav() {
   const navigate = useNavigate()
-  const [userInfo, setUserInfo] = useState({})
+  const dispatch = useDispatch()
+  const {pathname} = useLocation()
+  const {username} = useSelector(state => state.user.info)
 
   useEffect(() => {
-    console.log('nav refresh', props.username)
-    if(!props.username) {
+    if(!username) {
       axios.get('/api/user')
         .then(res => {
-          console.log(res.data)
-          const {username} = res.data
-          props.getUser({username})
-          setUserInfo({username})
+          dispatch(loginUser(res.data))
         })
         .catch(() => {
           console.log('Not signed in.')
         })
-    } else if (!userInfo.username) {
-      setUserInfo({username: props.username})
     }
-  }, [!userInfo.username])
+  }, [username])
 
   const logoutHandler = () => {
-    props.logoutUser()
-    setUserInfo({})
     axios.post('/api/user/logout')
-      .then(res => {
+    .then(res => {
+        dispatch(logoutUser())
         alert('Sucessfully logged out.')
         navigate('/')
       })
@@ -48,31 +43,34 @@ function Nav(props) {
     <>
       <nav id='main-nav'>
         <div className='main-nav-divs' id='main-nav-left'>
-          <img src={logo} alt="small-logo" className="medium-logo"/>
-          <NavLink className='nav-links btn-type-1-hover' to="/">
-            <h3>DragonMasters</h3>
+          <img src={logo} alt="small=-logo" className="medium-logo"/>
+          <NavLink className='nav-links' to="/">
+            <h3>DragonMasters Codex</h3>
           </NavLink>
-          <NavLink className='nav-links btn-type-1-hover' to="/guide">Guide</NavLink>
-          {props.username ? (
-            <NavLink className='nav-links btn-type-1-hover' to="/stuff">My stuff</NavLink>
-          ) : null}
+          <NavLink className='nav-links' to="/guide">Guide</NavLink>
+          {username && (
+            <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
+          )}
         </div>
         {
-          userInfo.username ? (
+          username ? (
             <div className='main-nav-divs' id='nav-right'>
-              <p>Welcome, {userInfo.username}</p>
+              <p>Welcome, {username}</p>
               <button
-                className='nav-links btn btn-type-1-hover login-logout'
+                className='btn nav-links login-logout'
                 onClick={logoutHandler}
               >Logout</button>
             </div>
           ) : (
-            <div className='nav-divs' id='nav-right'>
-              <Link className='nav-links btn btn-type-1-hover login-logout' to='/login'>Log in/Sign up</Link>
+            <div className='main-nav-divs' id='nav-right'>
+              <Link className='btn nav-links login-logout' to='/login'>Log in/Sign up</Link>
             </div>
           )
         }
       </nav>
+
+      {pathname.startsWith('/stuff') && <StuffNav />}
+
       <Outlet />
       
       <Footer />
@@ -80,8 +78,4 @@ function Nav(props) {
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {getUser, logoutUser}
-
-export default connect(mapStateToProps, functions)(Nav)
+export default Nav

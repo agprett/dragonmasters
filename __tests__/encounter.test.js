@@ -32,29 +32,52 @@ describe('Users can create a new encounter when providing all needed information
       location: 'somewhere',
       rewards: 'EVERYTHING',
       campaign_id: 11,
+      monsters: [
+        {
+          name: 'Zombie',
+          count: 5,
+          url: '/api/monsters/zombie'
+        }
+      ],
+      characters: [
+        {
+          characterId: 6
+        },
+        {
+          characterId: 7
+        }
+      ]
     }
     
     let newEnc2 = {
       name: 'test2',
       short_description: 'test2 short',
       terrain: 'normal',
+      monsters: [
+        {
+          name: 'Aboleth',
+          count: 2,
+          url: '/api/monsters/aboleth'
+        }
+      ]
     }
 
     await signedIn.post(`${baseURL}`, newEnc)
-      .then(res => {
+      .then(async (res) => {
         expect(res.data).toBe('New encounter created!')
+
+        await signedIn.post(`${baseURL}`, newEnc2)
+          .then(res => {
+            expect(res.data).toBe('New encounter created!')
+          })
+          .catch(() => {
+            fail('Shoud not respond with an error')
+          })
       })
       .catch(() => {
         fail('Shoud not respond with an error')
       })
 
-    await signedIn.post(`${baseURL}`, newEnc2)
-      .then(res => {
-        expect(res.data).toBe('New encounter created!')
-      })
-      .catch(() => {
-        fail('Shoud not respond with an error')
-      })
 
 
   })
@@ -70,7 +93,11 @@ describe('Users can create a new encounter when providing all needed information
         fail('This should have failed')
       })
       .catch(err => {
-        expect(err.response.data).toBe('')
+        expect(err.response.data).toBe('Must send all required data to create a new encounter')
       })
   })
 })
+
+// describe('Users can get information about the encounters they have created', async () => {
+
+// })

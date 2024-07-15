@@ -1,17 +1,25 @@
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
+let pointers = {}
 const quickDB = monstersDB.map(monster => {
-  const {index, name, size, hit_points, armor_class, challenge_rating, xp, url} = monster
+  const {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url} = monster
+  pointers[index] = pointer
 
-  return {index, name, size, hit_points, armor_class, challenge_rating, xp, url}
+  return {index, name, size, hit_points, armor_class, challenge_rating, xp, pointer, url}
 })
 
 const monsterFunctions = {
-  getAllMonsters: (req, res) => {
-    const {name, size, challenge_rating_min, challenge_rating_max, alignment} = req.query
+  getAllMonsters: async (req, res) => {
+    const {name, size, challenge_rating_min, challenge_rating_max, alignment, full} = req.query
+
+    let data = quickDB
+    
+    if(full) {
+      data = monstersDB
+    }
     
     if(name || size || challenge_rating_min || challenge_rating_max || alignment) {  
-      let filtered = quickDB.filter(monster => {
+      let filtered = data.filter(monster => {
         let keep = true
         
         if(name && !monster.name.toLowerCase().includes(name.toLowerCase())) {
@@ -44,9 +52,9 @@ const monsterFunctions = {
   },
 
   getMonster: (req, res) => {
-    const {index} = req.params
+    const {index} = req.params 
 
-    const monster = monstersDB[monstersDB.findIndex(e => e.index === index)]
+    const monster = monstersDB[pointers[index]]
 
     res.status(200).send(monster)
   }

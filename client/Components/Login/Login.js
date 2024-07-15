@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import {connect} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { loginUser } from '../../ducks/reducer'
+import logoImg from '../../images/logo.png'
 
-function Login(props) {
+import { loginUser } from '../../ducks/userSlice.js'
+
+function Login() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  
   const [userInfo, setUserInfo] = useState({username: '', password: ''})
 
   const loginHandler = (event) => {
@@ -15,7 +19,7 @@ function Login(props) {
     if(userInfo.username && userInfo.password) {
       axios.post('/api/user/login', {username: userInfo.username, password: userInfo.password})
         .then(res => {
-          props.loginUser(res.data.username)
+          dispatch(loginUser(res.data.username))
           navigate('/')
         })
         .catch(err => {
@@ -28,31 +32,44 @@ function Login(props) {
   }
 
   return (
-    <section>
-      <form onSubmit={loginHandler}>
-        <input
-          placeholder='Username'
-          value={userInfo.username}
-          onChange={(event) => setUserInfo({...userInfo, username: event.target.value})}
-          />
-        <input
-          placeholder='Password'
-          type='password'
-          value={userInfo.password}
-          onChange={(event) => setUserInfo({...userInfo, password: event.target.value})}
-
-        />
-        <button>Login</button>
-      </form>
-      <p>New to the site?</p>
-      <button><Link to='/signup'>Create an Account</Link></button>
-      <button><Link to='/'>Cancel</Link></button>
-    </section>
+    <div className="login-register-page">
+      <div className="login-form-container">
+        <form id="login-form" className="vertical-form" onSubmit={loginHandler}>
+          <Link to='/' className='logo-wrap'>
+            <img className="large-logo" src={logoImg} alt="logo"/>
+            <h1 className="title-1">DragonMasters Codex</h1>
+          </Link>
+          <p className="form-header">Create a new account</p>
+          <div className="form-piece">
+            <label className="form-piece-underlined">
+              <input
+                className='form-input'
+                required
+                value={userInfo.username}
+                onChange={(event) => setUserInfo({...userInfo, username: event.target.value})}
+              />
+              <span className="form-label">Username</span>
+            </label>
+          </div>
+          <div className="form-piece">
+            <label className="form-piece-underlined">
+              <input
+                className='form-input'
+                required
+                type='password'
+                value={userInfo.password}
+                onChange={(event) => setUserInfo({...userInfo, password: event.target.value})}
+              />
+              <span className="form-label">Password</span>
+            </label>
+          </div>
+          <button className="btn btn-type-1 btn-color-1">Login</button>
+          <p>New to the site? <Link to='/signup'>Create an Account</Link></p>
+        </form>
+        <div className="login-image">Start your next adventure now</div>
+      </div>
+    </div>
   )
 }
 
-const mapStateToProps = state => state
-
-const functions = {loginUser}
-
-export default connect(mapStateToProps, functions)(Login)
+export default Login

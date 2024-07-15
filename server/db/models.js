@@ -73,7 +73,12 @@ Character.init({
     type: DataTypes.INTEGER
   }
 }, {
-  sequelize: db
+  sequelize: db,
+  defaultScope: {
+    attributes: {
+      exclude: ['user_id']
+    }
+  }
 })
 
 // Campaign table tracks information about the overall campaign
@@ -110,7 +115,12 @@ Campaign.init({
     type: DataTypes.INTEGER
   }
 }, {
-  sequelize: db
+  sequelize: db,
+  defaultScope: {
+    attributes: {
+      exclude: ['dragon_master']
+    }
+  }
 })
 
 // Campaign Note is a table that has notes about the campaign and who can view them
@@ -212,7 +222,12 @@ Encounter.init({
     type: DataTypes.TEXT
   }
 }, {
-  sequelize: db
+  sequelize: db,
+  defaultScope: {
+    attributes: {
+      exclude: ['user_id']
+    }
+  }
 })
 
 // This table links encounters to the monsters added to them and how many there are of each monster
@@ -241,6 +256,10 @@ EncounterMonster.init({
     allowNull: false
   },
   count: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  pointer: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
@@ -283,8 +302,12 @@ Campaign.belongsTo(User, {foreignKey: 'dungeon_master'})
 Campaign.hasMany(CampaignNote, {foreignKey: 'campaign_id'})
 CampaignNote.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id', as: 'characters'})
-Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id', as: 'characters'})
+Campaign.belongsToMany(Character, {through: 'CampaignCharacter', foreignKey: 'campaign_id'})
+Character.belongsToMany(Campaign, {through: 'CampaignCharacter', foreignKey: 'character_id'})
+Campaign.hasMany(CampaignCharacter, {as: 'characters', foreignKey: 'campaign_id'})
+CampaignCharacter.belongsTo(Campaign, {as: 'characters', foreignKey: 'campaign_id'})
+Character.hasMany(CampaignCharacter, {foreignKey: 'character_id'})
+CampaignCharacter.belongsTo(Character, {foreignKey: 'character_id'})
 
 User.hasMany(Encounter, {foreignKey: 'user_id'})
 Encounter.belongsTo(User, {foreignKey: 'user_id'})
@@ -292,11 +315,15 @@ Encounter.belongsTo(User, {foreignKey: 'user_id'})
 Campaign.hasMany(Encounter, {foreignKey: 'campaign_id'})
 Encounter.belongsTo(Campaign, {foreignKey: 'campaign_id'})
 
-Encounter.hasMany(EncounterMonster, {foreignKey: 'encounter_id'})
-EncounterMonster.belongsTo(Encounter, {foreignKey: 'encounter_id'})
+Encounter.hasMany(EncounterMonster, {foreignKey: 'encounter_id', as: 'monsters'})
+EncounterMonster.belongsTo(Encounter, {foreignKey: 'encounter_id', as: 'monsters'})
 
-Encounter.hasMany(EncounterCharacter, {foreignKey: 'encounter_id'})
-EncounterCharacter.belongsTo(Encounter, {foreignKey: 'encounter_id'})
+Encounter.belongsToMany(Character, {through: 'EncounterCharacter', foreignKey: 'encounter_id', as: 'players'})
+Character.belongsToMany(Encounter, {through: 'EncounterCharacter', foreignKey: 'character_id', as: 'players'})
+Encounter.hasMany(EncounterCharacter, {as: 'characters', foreignKey: 'encounter_id'})
+EncounterCharacter.belongsTo(Encounter, {as: 'characters', foreignKey: 'encounter_id'})
+Character.hasMany(EncounterCharacter, {foreignKey: 'character_id'})
+EncounterCharacter.belongsTo(Character, {foreignKey: 'character_id'})
 
 export default db
 export { User, Character, Campaign, Encounter, CampaignNote, CampaignCharacter, EncounterMonster, EncounterCharacter }

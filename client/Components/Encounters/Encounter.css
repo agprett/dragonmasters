@@ -1,0 +1,80 @@
+.encounter-char {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
+  align-items: center;
+}
+
+
+
+.tracker-display {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tracker-table {
+  width: 100%;
+}
+
+#tracker-head {
+  height: 55px;
+  color: #EBEBEB;
+  cursor: default;
+  background-color: #286A9C;
+}
+
+.tracker {
+  min-height: 50px;
+  padding: 5px 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: .65fr 2.5fr .5fr .6fr .15fr;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  font-size: 16pt;
+  font-weight: 600;
+  border-bottom: 3px solid #286A9C;
+  font-family: 'MedievalSharp', sans-serif;
+}
+
+.inititiative-thing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12pt;
+}
+
+.tracker-name {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.info-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #286A9C;
+  background-color: #286A9C;
+  color: #EBEBEB;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-display {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
