@@ -6,19 +6,26 @@ import cors from 'cors'
 
 import 'dotenv/config'
 
-const {SERVER_PORT, SESSION_SECRET} = process.env
+const {SERVER_PORT, SESSION_SECRET, ENVIRONMENT} = process.env
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const app = express()
 
-app.use(cors())
-app.use(express.json())
-app.use(session({
+let sess = {
   secret: SESSION_SECRET,
   cookie: {maxAge: (1000 * 60 * 60 * 24 * 7), sameSite: true},
   resave: true,
   saveUninitialized: true
-}))
+}
+
+if(ENVIRONMENT === 'prod') {
+  app.set('trust proxy', 1)
+  sess.cookie.secure = true
+}
+
+app.use(cors())
+app.use(express.json())
+app.use(session(sess))
 
 import userFunctions from './controllers/userController.js'
 const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
