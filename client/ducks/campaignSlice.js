@@ -1,31 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  info: {
+    id: '',
+    name: '',
+    description: '',
+    length: '',
+    world_name: '',
+    players: [],
+    encounters: []
+  }
+}
+
 export const campaignSlice = createSlice({
   name: 'campaign',
-  initialState: {
-    info: {
-      id: '',
-      name: '',
-      description: '',
-      length: '',
-      world_name: '',
-      players: [],
-      encounters: []
-    }
-  },
+  initialState: {...initialState},
   reducers: {
     addCampaign: (state, action) => {
       state.info = action.payload
     },
     clearCampaign: state => {
-      state.info = {
-        name: '',
-        description: '',
-        length: '',
-        world_name: '',
-        players: [],
-        encounters: []
-      }
+      state.info = {...initialState}
     }
   }
 })
