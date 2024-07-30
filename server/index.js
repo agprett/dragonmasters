@@ -27,6 +27,7 @@ app.use(cors())
 app.use(express.json())
 app.use(session(sess))
 
+
 import userFunctions from './controllers/userController.js'
 const {getUser, registerUser, loginUser, logoutUser, deleteUser} = userFunctions
 
@@ -45,6 +46,7 @@ const {getAllMonsters, getMonster} = monsterFunctions
 import spellFunctions from './controllers/spellController.js'
 const {getAllSpells, getSpell} = spellFunctions
 
+
 const loginCheck = (req, res, next) => {
   if(req.session.user) {
     next()
@@ -52,6 +54,7 @@ const loginCheck = (req, res, next) => {
     res.status(403).send('Please login')
   }
 }
+
 
 app.get('/api/user', getUser)
 app.post('/api/user/register', registerUser)

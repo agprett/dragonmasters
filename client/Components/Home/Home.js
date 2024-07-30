@@ -2,7 +2,9 @@ import React from 'react'
 import './Home.css'
 import { Link } from 'react-router-dom'
 
-import bossBattle from '../../images/boss-battle.jpeg'
+import bossBattle from '../../images/boss-battle.jpg'
+import stuffImg from '../../images/stuff-background.png'
+import guidesImg from '../../images/guides-background.png'
 
 function Home() {
   return (
@@ -32,11 +34,13 @@ function Home() {
         <div className="collections">
             <p>Guides</p>
             <Link to="/guide" className="btn btn-type-1 btn-color-1">View</Link>
+            <img src={guidesImg} alt='guides-img' className='collections-img'/>
           </div>
   
           <div className="collections">
-            <p>My Stuff<br/>(Must be signed in)</p>
+            <p>Stuff<br/>(Must be signed in)</p>
             <Link to="/stuff" className="btn btn-type-1 btn-color-1">View</Link>
+            <img src={stuffImg} alt='stuff-img' className='collections-img'/>
           </div>
       </section>
     </div>

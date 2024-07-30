@@ -3,10 +3,15 @@
   padding: 0 15px;
   display: flex;
   align-items: center;
-  background-color: #286A9C;
+  border-top: #FFFFFF 1px solid;
+  background-color: #040114;
 }
 
 .stuff-nav-links {
-  padding: 0 10px;
+  padding: 0 15px;
   border-radius: 0 0 2px;
+}
+
+.stuff-nav-links.active {
+  border-bottom: #FFFFFF 4px solid;
 }

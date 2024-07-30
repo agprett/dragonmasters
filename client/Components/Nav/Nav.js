@@ -43,13 +43,13 @@ function Nav() {
     <>
       <nav id='main-nav'>
         <div className='main-nav-divs' id='main-nav-left'>
-          <img src={logo} alt="small=-logo" className="medium-logo"/>
+          <img src={logo} alt="small-logo" className="medium-logo"/>
           <NavLink className='nav-links' to="/">
-            <h3>DragonMasters Codex</h3>
+            <h3>Home</h3>
           </NavLink>
           <NavLink className='nav-links' to="/guide">Guide</NavLink>
           {username && (
-            <NavLink className='nav-links' to="/stuff">My Stuff</NavLink>
+            <NavLink className='nav-links' to="/stuff">Stuff</NavLink>
           )}
         </div>
         {
