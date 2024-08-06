@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './Popout.css'
 
 function MonsterPopout ({specs, setPopoutInfo}) {
   const createSpeedStr = () => {

@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+
+import './Campaigns.css'
 import { addCampaign } from '../../ducks/campaignSlice.js'
 import DeletePopup from '../DeletePopup/DeletePopup.js'
 
@@ -82,7 +84,7 @@ function CampaignView() {
         
         <div className='breakdown-top-buttons'>
           <button
-            className='btn btn-type-2 btn-color-1'
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateCampaign()}
             >Edit</button>
         </div>

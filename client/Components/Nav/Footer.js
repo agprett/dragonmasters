@@ -1,6 +1,8 @@
 import logo from '../../images/logo.png'
 import githubImg from '../../images/github-mark.png'
 
+import "./Footer.css"
+
 function Footer() {
   return (
     <footer id="main-footer">
@@ -13,7 +15,6 @@ function Footer() {
       <div id="social-stuff">
         <a className="social-link">
           <img className="social-img" src={githubImg} alt="Github"/>
-          <p>Github</p>
         </a>
       </div>
     </footer>

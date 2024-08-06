@@ -28,7 +28,7 @@ const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedP
           <td>{playerName}</td>
           <td>{hit_points}</td>
           <td>{level}</td>
-          <td><button className='btn btn-type-3 btn-color-2' onClick={() => selectPlayer(player)}>Add</button></td>
+          <td><button className='btn btn-type-3 btn-color-1' onClick={() => selectPlayer(player)}>Add</button></td>
         </tr>
       )
     }

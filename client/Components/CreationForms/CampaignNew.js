@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 
+import './CreationForms.css'
+
 import { clearCampaign } from "../../ducks/campaignSlice.js"
 import PlayersSelection from "./CreationSelections/PlayerSelection.js"
 
@@ -211,7 +213,7 @@ function CampaignNew() {
           <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>
             <div className="accordion-content">
               <table className="new-campaign-encounter">
-                <thead className="new-campaign-encounter-head new-campaign-encounter-row">
+                <thead className="new-campaign-encounter-row" id="new-campaign-encounter-head">
                   <tr><th><h3>Name</h3></th></tr>
                   <tr><th>Current Campaign</th></tr>
                   <tr><th></th></tr>

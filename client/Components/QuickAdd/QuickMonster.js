@@ -71,7 +71,7 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
                 <span className="form-label">Name</span>
               </label>
             </div>
-            <button className="btn btn-type-3 btn-color-2" type="submit">Search</button>
+            <button className="btn btn-type-3 btn-color-1" type="submit">Search</button>
           </form>
           {found[0] ? foundDisplay : <p>No monsters found</p>}
         </section>

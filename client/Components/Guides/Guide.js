@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, Link, useLoaderData } from 'react-router-dom'
 
+import './Guide.css'
 import GuideFilter from './GuideFilter.js'
 import GuideResult from './GuideResult.js'
 import MonsterPopout from '../Popout/MonsterPopout.js'
@@ -32,7 +33,7 @@ function Guide () {
       case 'monsters':
         return (
           <tr className="guide-result" id="guide-result-head">
-            <th className='result-name'>Name</th>
+            <th>Name</th>
             <th>Size</th>
             <th>HP</th>
             <th>AC</th>
@@ -44,7 +45,7 @@ function Guide () {
       case 'spells':
         return (
           <tr className="guide-result" id="guide-result-head">
-            <th className='result-name'>Name</th>
+            <th>Name</th>
             <th>Casting Time</th>
             <th>Range</th>
             <th>Level</th>
@@ -58,7 +59,7 @@ function Guide () {
   return (
     <section className='page-layout-2'>
       <header className='guide-title'>
-        <Link to='../' className='btn btn-type-1 btn-color-1 back-btn'>{'< Back'}</Link>
+        <Link to='../' className='btn btn-type-2 btn-color-1 back-btn'>{'< Back'}</Link>
         <h1 className='title-2'>{capFirst(type)}</h1>
       </header>
 

@@ -30,8 +30,8 @@
   width: 600px;
   position: relative;
   padding-top: 95px;
-  background-color: #EBEBEB;
-  border-bottom: 3px solid #286A9C;
+  background-color: #ffffff;
+  border-bottom: 3px solid #002d45;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
   z-index: 55;
   overflow-y: auto;
@@ -59,9 +59,10 @@
 #ne-character-head {
   height: 55px;
   pointer-events: none;
-  color: #EBEBEB;
   border: none;
-  background-color: #474747;
+  border-radius: 3px 3px 0 0;
+  color: #ffffff;
+  background-color: #002d45;
 }
 
 .ne-character-row {
@@ -74,9 +75,8 @@
   align-items: center;
   position: relative;
   text-align: center;
-  font-size: 16pt;
   font-weight: 600;
-  border-bottom: 3px solid #286A9C;
+  border-bottom: 3px solid #166696;
   font-family: 'MedievalSharp', sans-serif;
 }
 
@@ -100,9 +100,8 @@
   align-items: center;
   position: relative;
   text-align: center;
-  font-size: 13pt;
   font-weight: 600;
-  border-bottom: 3px solid #286A9C;
+  border-bottom: 3px solid #166696;
   font-family: 'MedievalSharp', sans-serif;
 }
 
@@ -111,16 +110,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15pt;
-  color: #EBEBEB;
   border: none;
-  background-color: #474747;
+  border-radius: 3px 3px 0 0;
+  color: #ffffff;
+  background-color: #002d45;
 }
 
 .none-added-row {
   height: 50px;
   text-align: center;
-  font-size: 16pt;
   font-weight: 600;
   font-family: 'MedievalSharp', sans-serif;
 }
@@ -143,12 +141,13 @@
   width: 90%;
 }
 
-.new-campaign-encounter-head {
+#new-campaign-encounter-head {
   height: 55px;
   pointer-events: none;
-  color: #EBEBEB;
   border: none;
-  background-color: #474747;
+  border-radius: 3px 3px 0 0;
+  color: #ffffff;
+  background-color: #002d45;
 }
 
 .new-campaign-encounter-row {
@@ -161,9 +160,8 @@
   align-items: center;
   position: relative;
   text-align: center;
-  font-size: 16pt;
   font-weight: 600;
-  border-bottom: 3px solid #286A9C;
+  border-bottom: 3px solid #166696;
   font-family: 'MedievalSharp', sans-serif;
 }
 

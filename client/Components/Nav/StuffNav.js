@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+import './StuffNav.css'
+
 function StuffNav () {
   const navigate = useNavigate()
 
@@ -18,9 +20,15 @@ function StuffNav () {
    
   return (
     <nav id='stuff-nav'>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff" end>My Stuff</NavLink>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff" end>My Stuff</NavLink>
+      </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink>
+      </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
+      </div>
     </nav>
   )
 }

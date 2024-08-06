@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import './Encounter.css'
 import { clearEncounter } from '../../ducks/encounterSlice.js'
 
 function Encounters() {

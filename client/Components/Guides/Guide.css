@@ -23,12 +23,9 @@
   position: sticky;
   top: 20px;
   padding: 20px 0;
-  /* color: #B8B8B8; */
-  /* background-color: #577993; */
 }
 
 #clear-btn {
-  font-size: 12pt;
   font-weight: 400;
   padding: 5px 12px;
   margin: 2px;
@@ -40,36 +37,39 @@
 }
 
 #guide-result-head {
-  height: 65px;
+  height: 55px;
   pointer-events: none;
-  color: #EBEBEB;
-  background-color: #286A9C;
+  font-weight: 700;
+  color: #040114;
+  border-radius: 3px 3px 0 0;
+  background-color: #166696;
+  border: none;
+  color: #ffffff;
 }
 
 .guide-result {
   width: 92%;
   min-height: 50px;
   margin: 0 auto;
-  font-size: 16pt;
   text-align: center;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1.75fr 1.35fr;
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1.85fr 1.25fr;
+  grid-auto-columns: .6fr;
   align-items: center;
-  padding: 9px 15px 9px;
+  padding: 10px 15px;
   transition: all .5s ease;
   cursor: pointer;
   border-radius: 2px;
-  color: #286A9C;
+  color: #002d45;
   background-color: inherit;
-  border-bottom: 3px solid #286A9C;
+  border-bottom: 2px solid #166696;
   font-family: 'MedievalSharp', sans-serif;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .result-name {
   font-weight: 700;
-  font-size: 20pt;
 }
 
 .guide-result:hover {

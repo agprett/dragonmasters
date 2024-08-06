@@ -65,7 +65,7 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
         <td>{hit_points}</td>
         <td>{armor_class}</td>
         <td>{challenge_rating}/{xp}</td>
-        <td><button className='btn btn-type-3 btn-color-2' onClick={() => addMonster(monster)}>Add</button></td>
+        <td><button className='btn btn-type-3 btn-color-1' onClick={() => addMonster(monster)}>Add</button></td>
       </tr>
     )
   })

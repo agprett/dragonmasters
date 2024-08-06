@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
+import './CreationForms.css'
+
 import EncounterForm from './CreationSelections/EncounterForm';
 import MonstersSelection from './CreationSelections/MonstersSelection';
 import PlayersSelection from './CreationSelections/PlayerSelection';

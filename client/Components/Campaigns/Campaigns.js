@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+
+import './Campaigns.css'
+
 import { clearCampaign } from '../../ducks/campaignSlice.js'
 
 function Campaigns() {

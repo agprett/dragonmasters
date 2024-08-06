@@ -3,15 +3,23 @@
   padding: 0 15px;
   display: flex;
   align-items: center;
-  border-top: #FFFFFF 1px solid;
-  background-color: #040114;
+  border-top: #ffffff .5px solid;
+  background-color: #002d45;
+}
+
+.stuff-nav-links-wrapper {
+  height: 100%;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
 }
 
 .stuff-nav-links {
-  padding: 0 15px;
-  border-radius: 0 0 2px;
+  padding: 3px 6px;
+  border-radius: 3px;
 }
 
-.stuff-nav-links.active {
-  border-bottom: #FFFFFF 4px solid;
+.stuff-nav-links-wrapper:has(.stuff-nav-links.active) {
+  border-bottom: #ffffff 3px solid;
+  border-top: #166696 3px solid;
 }

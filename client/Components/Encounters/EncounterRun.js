@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
+import './Encounter.css'
 import MonsterPopout from "../Popout/MonsterPopout.js";
 import Tracker from './Tracker.js'
 import QuickAdd from '../QuickAdd/QuickAdd.js'

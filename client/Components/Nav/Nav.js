@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate, useLocation } from 'react-router-do
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 
+import './Nav.css'
 import Footer from './Footer'
 import logo from '../../images/logo.png'
 
@@ -44,12 +45,16 @@ function Nav() {
       <nav id='main-nav'>
         <div className='main-nav-divs' id='main-nav-left'>
           <img src={logo} alt="small-logo" className="medium-logo"/>
-          <NavLink className='nav-links' to="/">
-            <h3>Home</h3>
-          </NavLink>
-          <NavLink className='nav-links' to="/guide">Guide</NavLink>
+          <div className='nav-links-wrapper'>
+            <NavLink className='nav-links' to="/">Home</NavLink>
+          </div>
+          <div className='nav-links-wrapper'>
+            <NavLink className='nav-links' to="/guide">Guide</NavLink>
+          </div>
           {username && (
+          <div className='nav-links-wrapper'>
             <NavLink className='nav-links' to="/stuff">Stuff</NavLink>
+          </div>
           )}
         </div>
         {
@@ -57,7 +62,7 @@ function Nav() {
             <div className='main-nav-divs' id='nav-right'>
               <p>Welcome, {username}</p>
               <button
-                className='btn nav-links login-logout'
+                className='btn btn-color-4 login-logout'
                 onClick={logoutHandler}
               >Logout</button>
             </div>

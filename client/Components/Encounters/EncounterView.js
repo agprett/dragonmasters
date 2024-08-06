@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import './Encounter.css'
 import DeletePopup from '../DeletePopup/DeletePopup.js'
 
 import { addEncounter } from '../../ducks/encounterSlice.js'
@@ -82,11 +83,11 @@ function EncounterSummary() {
 
         <div className='breakdown-top-buttons'>
           <Link
-            className='btn btn-type-2 btn-color-3'
+            className='btn btn-type-1 btn-color-3'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
           <button
-            className='btn btn-type-2 btn-color-1'
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
           >Edit</button>
         </div>
