@@ -9,7 +9,7 @@ function Home() {
     <div className='page-layout-1'>
       <section id="opener">
         <h1 className="opac-box">DragonMasters Codex</h1>
-        <h2 className='opener-desc'>Start your next adventure now</h2>
+        <h2 className='opener-desc'>Start your next adventure now!</h2>
         <img src={bossBattle} alt="boss-battle-image" id="opener-img"/>
       </section>
 
