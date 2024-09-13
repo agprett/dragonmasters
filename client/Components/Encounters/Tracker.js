@@ -64,25 +64,25 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
       </td>
       <td>
         {type === 'monster' ? (
-          <h3 className="tracker-name" onClick={() => setPopoutInfo(info)}>
+          <h5 className="tracker-name" onClick={() => setPopoutInfo(info)}>
             {type === 'monster' && (
               <p
                 className='info-button'
               >?</p>
             )}
             {info.name}
-          </h3>
+          </h5>
           ) : (
-          <h3>{info.name}</h3>
+          <h5>{info.name}</h5>
         )}
       </td>
       <td className="health-display">
-        <div>
+        <div className="health-input-wrapper">
           <input
             id={`${info.name}-hp-input`}
-            className="base-input small-input"
+            className="base-input small-input health-input"
             type="number"
-            min='0'
+            min={0}
             onChange={updateNumInput} value={health}
             onWheel={e => {
               if(e.deltaY <= 0) {
@@ -97,7 +97,12 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
             onMouseLeave={() => {
               document.body.classList.remove('hide-scroll')
             }}
-          /> / {info.hit_points}
+          />
+          <div>
+            <button onClick={() => updateHealth('up')} className="btn tiny-btn btn-color-1">+</button>
+            <button onClick={() => updateHealth('down')} className="btn tiny-btn btn-color-1">-</button>
+          </div>
+          / {info.hit_points}
         </div>
       </td>
       <td>

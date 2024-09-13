@@ -31,7 +31,7 @@ function Encounters() {
   const allEncounters = encounters.map((element, i) => {
     return (
       <div className='dashboard-item' key={i}>
-        <h3 className='dashboard-head'>{element.name}</h3>
+        <h4 className='dashboard-head'>{element.name}</h4>
         {element.campaign && <p>{element.campaign}</p>}
         <p>{element.short_description}</p>
         {element.location && <p>{element.location}</p>}
@@ -42,7 +42,7 @@ function Encounters() {
 
   return (
     <section className='page-layout-2'>
-      <h2 className='title-2'>My Encounters</h2>
+      <h2>My Encounters</h2>
       <button
         className='btn btn-type-2 btn-color-3 create-btn'
         onClick={() => viewNewEncounter()}

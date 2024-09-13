@@ -5,7 +5,6 @@
   max-width: 100vw;
   font-family: 'Josefin Sans', sans-serif;
   position: relative;
-  background-color: #cde3f1;
 }
 
 * {
@@ -16,9 +15,12 @@
 *::-webkit-scrollbar {
   display: none;
 }
-
 *::-webkit-scrollbar-button {
   display: none;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
 }
 
 
@@ -31,19 +33,16 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  background-color: #cde3f1;
 }
 
 .page-layout-2 {
   width: 100%;
   padding-top: 25px;
-  padding-bottom: 125px;
+  padding-bottom: 75px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  background-color: #cde3f1;
 }
 
 .hide-scroll {
@@ -66,34 +65,37 @@
   color: #ffffff;
 }
 .btn:hover {
+  color: #ffffff;
   cursor: pointer;
   background-position: bottom;
 }
 
 .btn-type-1 {
   font-weight: 600;
-  padding: 5px 20px;
+  padding: 2px 20px;
 }
 
 .btn-type-2 {
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 2px 18px;
   margin: 5px;
 }
 
 .btn-type-3 {
   font-weight: 500;
-  padding: 4px 8px;
+  padding: 1px 8px;
   margin: 5px;
 }
 
 .btn-type-4 {
   margin: auto;
-  font-weight: 500;
-  padding: 4px 8px;
+  padding: 1px 8px;
 }
 
 .btn-color-1 {
+  background-color: #166696;
+}
+.btn-color-1:hover {
   background-color: #166696;
 }
 
@@ -106,12 +108,21 @@
 .btn-color-2 {
   background-color: #e4c900;
 }
+.btn-color-2:hover {
+  background-color: #e4c900;
+}
 
 .btn-color-3 {
   background-color: #00a761;
 }
+.btn-color-3:hover {
+  background-color: #00a761;
+}
 
 .btn-color-4 {
+  background-color: #f11e00;
+}
+.btn-color-4:hover {
   background-color: #f11e00;
 }
 
@@ -135,6 +146,12 @@
   right: 10px;
   z-index: inherit;
 }
+.dashboard-close-btn {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  z-index: inherit;
+}
 
 .enable-pointer {
   pointer-events: auto;
@@ -150,6 +167,15 @@
   position: absolute;
   right: 15px;
   top: 5px;
+}
+
+.tiny-btn {
+  height: 12px;
+  width: 25px;
+  margin-bottom: 1px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .unavailable {
@@ -193,8 +219,32 @@
 
 
 /* base input styling */
-/* .base-input {
-  color: orange;
+.base-input {
+  font-family: inherit;
+  width: 50px;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  border-bottom: 1px solid #040114;
+  background-color: inherit;
+  color: #040114;
+}
+
+.small-input {
+  width: 40px;
+  font-size: medium;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* .medium-input {
+  min-width: 550px;
+  max-width: 550px;
+}
+
+.large-input {
+  min-width: 100%;
+  max-width: 100%;
 } */
 
 /* Form stylings */
@@ -204,6 +254,7 @@
   align-items: center;
   width: fit-content;
   border-radius: 2px;
+
 }
 
 .horizontal-form {
@@ -219,11 +270,45 @@
 }
 
 /* Form input styles */
+.form-header {
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px 3px 0 0;
+  background-color: #002d45;
+  color: #ffffff;
+  font-family: 'MedievalSharp', sans-serif;
+}
+
 .form-piece {
   width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.form-piece-split {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+.form-piece-split > p {
+  margin: 0;
+}
+
+.form-dash {
+  height: 2px;
+  width: 5px;
+  background-color: #040114;
 }
 
 .form-label {
@@ -233,31 +318,46 @@
   left: 0px;
   transition: all 0.2s ease;
   font-size: 18px;
-  color: #ffffff;
+  color: #040114;
   cursor: text;
 }
 .form-input:focus + .form-label,
 .form-input:valid:not(.empty-input) + .form-label {
   opacity: 1;
-  top: -8px;
+  top: 0px;
   font-size: 60%;
   transition: all 0.2s ease;
   font-weight: bold;
 }
 
+.form-label-alt {
+  color: #ffffff;
+}
+
 .form-input {
-  padding: 5px 5px 8px 0px;
-  font-size: 18px;
+  padding: 5px 5px 4px 0px;
+  margin-bottom: 5px;
   width: 100%;
   border: none;
   outline: none;
   border-radius: 0;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #040114;
   background-color: inherit;
-  color: #ffffff;
+  color: #040114;
 }
 .form-input:focus {
   border-bottom: 1px solid #01d99c;
+}
+.form-input-alt {
+  border-bottom: 1px solid #ffffff;
+  color: #ffffff;
+}
+select.form-input {
+  height: 34px;
+}
+.form-input-split {
+  width: 25%;
+  position: relative;
 }
 
 
@@ -273,8 +373,8 @@
 }
 
 .collections {
-  width: 400px;
-  min-height: 200px;
+  width: 450px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -371,21 +471,21 @@
 /* Breakdown styling */
 .breakdown {
   width: 85%;
-  padding: 55px 20px 15px;
+  padding: 45px 20px 10px;
   margin: 10px 0 25px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
   border-bottom: 3px solid #166696;
   border-radius: 3px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .breakdown-head {
-  height: 50px;
+  height: 40px;
   width: 100%;
   position: absolute;
   top: 0;
@@ -401,7 +501,7 @@
   width: fit-content;
   position: relative;
   padding: 20px 10px 0;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .large-breakdown-piece {
@@ -411,9 +511,7 @@
 
 .breakdown-label {
   position: absolute;
-  top: 2.5px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  top: .5px;
 }
 
 .breakdown-text {
@@ -442,7 +540,6 @@
 .info-list-wrapper {
   width: 45%;
   height: fit-content;
-  max-height: 400px;
   flex-direction: column;
   align-items: center;
   display: flex;
@@ -489,13 +586,13 @@
   
 .accordion-item {
   width: 100%;
-  padding-top: 60px;
+  padding-top: 50px;
   margin-bottom: 15px;
   position: relative;
 }
 
 .accordion-item-header {
-  height: 60px;
+  height: 50px;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -534,7 +631,6 @@
   margin: 0;
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 10px;

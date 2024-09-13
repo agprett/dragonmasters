@@ -85,7 +85,7 @@ function CampaignNew() {
   let encounterSelections = myEncounters.map(encounter => {
     return (
       <tr className="new-campaign-encounter-row" key={encounter.encounter_id}>
-        <td>{encounter.name}</td>
+        <td><h5>{encounter.name}</h5></td>
         <td>{encounter.Campaign ? encounter.Campaign.name : 'None'}</td>
         <td>
           <button
@@ -118,7 +118,7 @@ function CampaignNew() {
       >Cancel</button>
 
       <section className="breakdown-top">
-        <div className="breakdown-base-info"><h2 className="title-1">{editCampaign.name ? 'Update' : 'New'} Campaign</h2></div>
+        <div className="breakdown-base-info"><h2>{editCampaign.name ? 'Update' : 'New'} Campaign</h2></div>
       </section>
 
       <button
@@ -131,7 +131,7 @@ function CampaignNew() {
           <div
             className='accordion-item-header'
             onClick={() => changeDisplay('one')}
-          >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
+          ><h4>Basic Info</h4> <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
 
           <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
             <div className="accordion-content">
@@ -197,7 +197,7 @@ function CampaignNew() {
           <div
             className="accordion-item-header"
             onClick={() => changeDisplay('three')}
-          >Characters<button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
+          ><h4>Characters</h4><button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
 
           <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
             <PlayersSelection addedPlayers={addedPlayers} setAddedPlayers={setAddedPlayers} myPlayers={myPlayers} setMyPlayers={setMyPlayers}/>
@@ -208,13 +208,13 @@ function CampaignNew() {
           <div
             className="accordion-item-header"
             onClick={() => changeDisplay('two')}
-          >Encounters<button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
+          ><h4>Encounters</h4><button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
 
           <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>
             <div className="accordion-content">
               <table className="new-campaign-encounter">
                 <thead className="new-campaign-encounter-row" id="new-campaign-encounter-head">
-                  <tr><th><h3>Name</h3></th></tr>
+                  <tr><th><h5>Name</h5></th></tr>
                   <tr><th>Current Campaign</th></tr>
                   <tr><th></th></tr>
                 </thead>

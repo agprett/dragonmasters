@@ -14,7 +14,7 @@ function QuickPlayer({players, closePopup, addCombatant, setType}) {
   let playersDisplay = addable.filter(player => !players.includes(player.name)).map(player => {
     return (
       <div className="info-list-item quick-add-char" key={player.name}>
-        <h2>{player.name}</h2>
+        <h5>{player.name}</h5>
         <button
           className="btn btn-type-3 btn-color-3"
           onClick={() => {
@@ -32,7 +32,7 @@ function QuickPlayer({players, closePopup, addCombatant, setType}) {
       <button className="btn btn-type-3 btn-color-1 back-btn-2" onClick={() => setType('none')}>{'< Back'}</button>
       <div className="info-list-group">
         <section className="info-list-wrapper info-list-full">
-          <h2 className="info-list-head">Players:</h2>
+          <h5 className="info-list-head">Players:</h5>
           {addable[0] ? playersDisplay : <p>No available players</p>}
         </section>
       </div>

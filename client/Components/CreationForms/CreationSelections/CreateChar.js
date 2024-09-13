@@ -32,8 +32,8 @@ function CreateCharacter({setShowNew, setMyPlayers}) {
   return (
     <div className="create-new-char-form-wrapper">
       <div className="create-new-char-form">
-        <button className="btn btn-type-3 btn-color-4 close-btn" onClick={() => setShowNew(false)}>Cancel</button>
-        <h2 className="dashboard-head">New Player</h2>
+        <button className="btn btn-type-3 btn-color-4 dashboard-close-btn" onClick={() => setShowNew(false)}>Cancel</button>
+        <h4 className="dashboard-head">New Player</h4>
         <form onSubmit={postCharacter} className="horizontal-form">
           <label className="form-piece">
             <input

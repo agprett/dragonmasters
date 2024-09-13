@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   overflow: auto;
-  padding: 25px 35px;
+  padding: 25px 35px 75px;
 }
 
 .splitter {

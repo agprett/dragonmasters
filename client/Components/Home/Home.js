@@ -10,8 +10,8 @@ function Home() {
   return (
     <div className='page-layout-1'>
       <section id="opener">
-        <h1 className="opac-box">DragonMasters Codex</h1>
-        <h2 className='opener-desc'>Start your next adventure now</h2>
+        <h1 className="opac-box">DragonMaster's Codex</h1>
+        <h2 className='opener-desc'>If you see this somethings wrong</h2>
         <img src={bossBattle} alt="boss-battle-image" id="opener-img"/>
       </section>
 
@@ -32,13 +32,13 @@ function Home() {
 
       <section className='collections-display'>
         <div className="collections">
-            <p>Guides</p>
-            <Link to="/guide" className="btn btn-type-1 btn-color-1">View</Link>
+            <h5>Codex</h5>
+            <Link to="/codex" className="btn btn-type-1 btn-color-1">View</Link>
             <img src={guidesImg} alt='guides-img' className='collections-img'/>
           </div>
   
           <div className="collections">
-            <p>Stuff<br/>(Must be signed in)</p>
+            <h5>Stuff<br/>(Must be signed in)</h5>
             <Link to="/stuff" className="btn btn-type-1 btn-color-1">View</Link>
             <img src={stuffImg} alt='stuff-img' className='collections-img'/>
           </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import axios from 'axios'
 
-import Nav from './Components/Nav/Nav.js'
+import Navi from './Components/Nav/Navi.js'
 import Home from './Components/Home/Home.js'
 
 import GuideHome from './Components/Guides/GuideHome.js'
@@ -25,14 +25,14 @@ import Signin from './Components/Login/Signup.js'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Nav />,
+    element: <Navi />,
     children: [
       {
         index: true,
         element: <Home />
       },
       {
-        path: 'guide',
+        path: 'codex',
         children: [
           {
             index: true,

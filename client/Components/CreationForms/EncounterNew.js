@@ -107,7 +107,7 @@ function NewEncounter() {
       >Cancel</button>
 
       <section className='breakdown-top'>
-        <div className='breakdown-base-info'><h2 className='title-1'>{editEnc.name ? 'Update' : 'New'} Encounter</h2></div>
+        <div className='breakdown-base-info'><h2>{editEnc.name ? 'Update' : 'New'} Encounter</h2></div>
       </section>
 
       <button
@@ -120,7 +120,7 @@ function NewEncounter() {
           <div
             className='accordion-item-header'
             onClick={() => changeDisplay('one')}
-          >Basic Info <button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
+          ><h4>Basic Info</h4><button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
             <EncounterForm encounterInfo={encounterInfo} setEncounterInfo={setEncounterInfo} campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
           </div>
@@ -130,7 +130,7 @@ function NewEncounter() {
           <div
             className='accordion-item-header'
             onClick={() => changeDisplay('two')}
-          >Players <button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
+          ><h4>Players</h4><button className='accordion-item-status'>{panels.two ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.two ? 'accordion-content-expanded' : ''}`}>  
             <PlayersSelection addedPlayers={addedPlayers} setAddedPlayers={setAddedPlayers} myPlayers={myPlayers} setMyPlayers={setMyPlayers} />
           </div>
@@ -140,7 +140,7 @@ function NewEncounter() {
           <div
             className='accordion-item-header'
             onClick={() => changeDisplay('three')}
-          >Monsters <button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
+          ><h4>Monsters</h4><button className='accordion-item-status'>{panels.three ? '-' : '+'}</button></div>
           <div className={`accordion-content-wrapper ${panels.three ? 'accordion-content-expanded' : ''}`}>
             <MonstersSelection addedMonsters={addedMonsters} setAddedMonsters={setAddedMonsters} monsters={monsters} filter={filter} setFilter={setFilter} />
           </div>

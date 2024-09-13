@@ -92,7 +92,7 @@ function EncounterRun() {
 
       <section className="breakdown-top">
         <div className="breakdown-base-info">
-          <h2 className="title-2">{name}</h2>
+          <h2>{name}</h2>
         </div>
 
         <div className="breakdown-top-buttons">

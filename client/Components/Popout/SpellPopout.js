@@ -35,21 +35,13 @@ function SpellPopout ({specs, setPopoutInfo}) {
   return (
     <div className='popout'>
 
-      <Link className='view-specs' to={`../specs/spells/${specs.index}`} target='_blank' rel="noopener noreferrer">View in Seperate Page</Link>
+      <Link className='view-specs' to={`/codex/specs/spells/${specs.index}`} target='_blank' rel="noopener noreferrer">View in Seperate Page</Link>
 
       <button className='close-info-button' onClick={() => setPopoutInfo(false)}>X</button>
 
       <div>
-        <h2>{specs.name}{ritOrConc()}</h2>
-        <h3>{convertLevel()}</h3>
-      </div>
-
-      <div className="splitter"></div>
-
-      <div>
-        {specs.desc.map((para, i) => <p key={i} >{para}</p>)}
-        {specs.higher_level && specs.higher_level.map((para, i) => <p key={i} >{para}</p>)}
-        {specs.material && <p>Materials: {specs.material}</p>}
+        <h3>{specs.name}</h3>
+        <h5>{convertLevel()} {ritOrConc()}</h5>
       </div>
 
       <div className="splitter"></div>
@@ -63,6 +55,17 @@ function SpellPopout ({specs, setPopoutInfo}) {
         {specs.area_of_effect && <p>AOE: {specs.area_of_effect.size} ft. {specs.area_of_effect.type}</p>}
         {specs.damage && specs.damage.damage_type && <p>Damage Type: {specs.damage.damage_type.name}</p>}
       </div>
+
+      <div className="splitter"></div>
+
+      <div>
+        {specs.desc.map((para, i) => <p key={i} >&ensp;{para}</p>)}
+        <br></br>
+        {specs.higher_level && specs.higher_level.map((para, i) => <><p key={i} >&ensp;{para}</p><br></br></>)}
+        
+        {specs.material && <p>&ensp;Materials: {specs.material}</p>}
+      </div>
+      
     </div>
   )
 }

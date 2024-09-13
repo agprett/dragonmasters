@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -48,26 +48,26 @@ function Signup() {
       <div className="login-form-container">
         <Link to='/' className='logo-wrap'>
           <img className="xl-logo" src={logoImg} alt="logo"/>
-          <h1>DragonMasters Codex</h1>
+          <h1>DragonMaster's Codex</h1>
         </Link>
         <form id="login-form" className="vertical-form" onSubmit={createNewUser}>
-          <h2 className='form-header'>Sign Up</h2>
+          <h2>Sign Up</h2>
           <div className="form-piece">
             <input
               id='signup-username'
-              className='form-input'
+              className='form-input form-input-alt'
               required
               value={userInfo.username}
               onChange={(event) => {
                 setUserInfo({...userInfo, username: event.target.value})
               }}
             />
-            <label htmlFor='signup-username' className="form-label">Username</label>
+            <label htmlFor='signup-username' className="form-label form-label-alt">Username</label>
           </div>
           <div className="form-piece">
             <input
               id='signup-password'
-              className='form-input'
+              className='form-input form-input-alt'
               required
               type='password'
               value={userInfo.password}
@@ -75,17 +75,17 @@ function Signup() {
                 setUserInfo({...userInfo, password: event.target.value})
               })}
               />
-            <label htmlFor='signup-password' className="form-label">Password</label>
+            <label htmlFor='signup-password' className="form-label form-label-alt">Password</label>
           </div>
           <div className="form-piece">
             <input
               id='signup-password-confirm'
-              className='form-input'
+              className='form-input form-input-alt'
               required
               type='password'
               onChange={(event) => setUserInfo({...userInfo, checkedPassword: event.target.value})}
             />
-            <label htmlFor='signup-password-confirm' className="form-label">Confirm Password</label>
+            <label htmlFor='signup-password-confirm' className="form-label form-label-alt">Confirm Password</label>
           </div>
           <button className="btn btn-type-1 btn-color-1" type='submit'>Sign up</button>
           <p>Already have an account? <Link className='plaintext-link' to='/login'>Go To Login</Link></p>

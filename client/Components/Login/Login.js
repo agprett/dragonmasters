@@ -37,30 +37,30 @@ function Login() {
       <div className="login-form-container">
         <Link to='/' className='logo-wrap'>
           <img className="xl-logo" src={logoImg} alt="logo"/>
-          <h1>DragonMasters Codex</h1>
+          <h1>DragonMaster's Codex</h1>
         </Link>
         <form id="login-form" className="vertical-form" onSubmit={loginHandler}>
-          <h2 className="form-header">Log In</h2>
+          <h2>Log In</h2>
           <div className="form-piece">
             <input
               id='login-username'
-              className='form-input'
+              className='form-input form-input-alt'
               required
               value={userInfo.username}
               onChange={(event) => setUserInfo({...userInfo, username: event.target.value})}
             />
-            <label htmlFor="login-username" className="form-label">Username</label>
+            <label htmlFor="login-username" className="form-label form-label-alt">Username</label>
           </div>
           <div className="form-piece">
             <input
               id='login-password'
-              className='form-input'
+              className='form-input form-input-alt'
               required
               type='password'
               value={userInfo.password}
               onChange={(event) => setUserInfo({...userInfo, password: event.target.value})}
             />
-            <label htmlFor="login-password" className="form-label">Password</label>
+            <label htmlFor="login-password" className="form-label form-label-alt">Password</label>
           </div>
           <button className="btn btn-type-1 btn-color-1">Login</button>
           <p>New to the site? <Link className='plaintext-link' to='/signup'>Create an Account</Link></p>

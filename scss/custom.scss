@@ -14,3 +14,15 @@ $theme-colors: (
 $container-padding-x: 0;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.collapse {
+    &:not(.show){
+        height: 55px;
+        overflow: hidden;
+        display: block;
+    }
+}
+
+.collapsing {
+    height: 55px;
+}

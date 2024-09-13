@@ -29,7 +29,7 @@ function MonsterSpecs () {
   const statsBlock = () => {
     let stuff = []
     for(let stat in specs.stats) {
-      let text = <p key={stat}>{stat.substring(0, 3).toUpperCase()}: {specs.stats[stat]}</p>
+      let text = <p key={stat}>{stat.substring(0, 3).toUpperCase()}: {specs.stats[stat]} ({Math.floor((specs.stats[stat] - 10) / 2)})</p>
 
       stuff.push(text)
     }
@@ -65,8 +65,8 @@ function MonsterSpecs () {
     specs.special_abilities.map(ability => {
       return (
         <div>
-          <h3>{ability.name}</h3>
-          {ability.name.toLowerCase() === 'spellcasting' ? ability.desc.split('\n- ').map(sentence => <p>{sentence}</p>) : <p>{ability.desc}</p>}
+          <h5>{ability.name}</h5>
+          {ability.name.toLowerCase() === 'spellcasting' ? ability.desc.split('\n- ').map(sentence => <p>{sentence}</p>) : <p>&ensp;{ability.desc}</p>}
         </div>
       )
     })
@@ -74,8 +74,8 @@ function MonsterSpecs () {
 
   const createSpellStuff = specs.spellcasting && (
     <div>
-      <h2>Spellcasting</h2>
-      {specs.spellcasting.desc.split('\n').map(str => <p>{str}</p>)}
+      <h4>Spellcasting</h4>
+      {specs.spellcasting.desc.split('\n').map(str => <p>&ensp;{str}</p>)}
     </div>
   )
 
@@ -83,8 +83,8 @@ function MonsterSpecs () {
     specs.actions.map(action => {
       return (
         <div>
-          <h3>{action.name}</h3>
-          <p>{action.desc}</p>
+          <h5>{action.name}</h5>
+          <p>&ensp;{action.desc}</p>
           {action.usage && <p>Usage info needed</p>}
         </div>
       )
@@ -95,8 +95,8 @@ function MonsterSpecs () {
     specs.legendary_actions.map(action => {
       return (
         <div>
-          <h3>{action.name}</h3>
-          <p>{action.desc}</p>
+          <h5>{action.name}</h5>
+          <p>&ensp;{action.desc}</p>
         </div>
       )
     })
@@ -105,7 +105,7 @@ function MonsterSpecs () {
   return (
     <div className='monster-specs'>
       <div className='monster-header'>
-        <h2 className="monster-name">{specs.name}</h2>
+        <h3 className="monster-name">{specs.name}</h3>
         <p>&nbsp;-&nbsp;</p>
         <p>{specs.size} {specs.type} {specs.subtype && ` (${specs.subtype})`}, {specs.alignment}</p>
       </div>
@@ -137,7 +137,7 @@ function MonsterSpecs () {
           <div className="splitter"></div>
 
           <div className='monster-specials'>
-            <h2>Special Abilities</h2>
+            <h4>Special Abilities</h4>
             {createSpecials}
           </div>
         </>
@@ -154,7 +154,7 @@ function MonsterSpecs () {
       <div className="splitter"></div>
 
       <div className='monster-actions'>
-        <h2>Actions</h2>
+        <h4>Actions</h4>
         {createActions}
       </div> 
 
@@ -162,8 +162,8 @@ function MonsterSpecs () {
         <>
           <div className='splitter'></div>
           <div className='monster-legendary-actions'>
-            <h2>Legendary Actions</h2>
-            <p>The {specs.type} can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The {specs.type} regains spent legendary actions at the start of its turn.</p>
+            <h4>Legendary Actions</h4>
+            <p>&ensp;The {specs.type} can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The {specs.type} regains spent legendary actions at the start of its turn.</p>
             {createLegendary}
           </div>
         </>

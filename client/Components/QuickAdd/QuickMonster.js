@@ -50,14 +50,14 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
       <button className="btn btn-type-3 btn-color-1 back-btn-2" onClick={() => setType('none')}>{'< Back'}</button>
       <div className="info-list-group">
         <section className="info-list-wrapper info-list-full">
-          <h2 className="info-list-head">Add more:</h2>
+          <h4 className="info-list-head">Add more:</h4>
           {monsters[0] ? monstersDisplay : <p>No monsters in encounter</p>}
         </section>
       </div>
       
       <div className="info-list-group">
         <section className="info-list-wrapper info-list-full">
-          <h2 className="info-list-head">Add new:</h2>
+          <h4 className="info-list-head">Add new:</h4>
           <form className="horizontal-form" onSubmit={findMonsters}>
             <div className="form-piece">
               <label className="form-piece-filled">

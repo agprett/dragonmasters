@@ -13,11 +13,11 @@
 }
 
 .splitter {
-  height: 5px;
-  width: 95%;
-  margin: 10px 2.5%;
+  height: 3px;
+  width: 90%;
+  margin: 10px 5% 10px 0;
   background-color: #002d45;
-  border-radius: 50%;
+  border-radius: 0 50% 50% 0;
 }
 
 .view-specs {
@@ -53,13 +53,6 @@
 
 .monster-header {
   min-height: 40px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.monster-name {
-  margin-right: 3px;
 }
 
 .monster-desc {
@@ -87,6 +80,9 @@
 .monster-sub-skills {
   min-height: 85px;
   padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .monster-specials {
