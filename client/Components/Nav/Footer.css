@@ -1,5 +1,5 @@
 #main-footer {
-  height: 75px;
+  height: 50px;
   width: 100%;
   padding: 0 25px 0 15px;
   position: absolute;
@@ -7,20 +7,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #EBEBEB;
-  background-color: #13324A;
+  color: #ffffff;
+  background-color: #002d45;
 }
 
 #copyright-stuff {
   height: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: flex-start;
   flex-wrap: wrap;
+}
+
+#copyright-stuff > p, #copyright-stuff > h6 {
+  margin: 0;
+  font-size: .9rem;
 }
 
 #social-section {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -31,8 +38,8 @@
 }
 
 .social-img {
-  height: 40px;
-  border: 1px #EBEBEB solid;
+  height: 25px;
+  border: 1px #ffffff solid;
   border-radius: 50%;
-  background-color: #EBEBEB;
+  background-color: #ffffff;
 }

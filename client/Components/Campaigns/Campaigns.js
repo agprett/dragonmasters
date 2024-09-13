@@ -2,7 +2,11 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+
+import './Campaigns.css'
+
 import { clearCampaign } from '../../ducks/campaignSlice.js'
+import { Button } from 'react-bootstrap'
 
 function Campaigns() {
   const [campaigns, setCampaigns] = useState([])
@@ -28,10 +32,10 @@ function Campaigns() {
   const allCampaigns = campaigns.map((campaign, i) => {
     return (
       <div className='dashboard-item' key={i}>
-        <h3 className='dashboard-head'>{campaign.name}</h3>
+        <h4 className='dashboard-head'>{campaign.name}</h4>
         <p>{campaign.description}</p>
         <p>{campaign.Characters.map(e => e.name).join(', ')}</p>
-        <button className='btn btn-type-2 btn-color-1' onClick={() => viewCampaignHandler(campaign.campaign_id)}>View</button>
+        <Button variant='secondary' className='btn btn-type-2 btn-color-1' onClick={() => viewCampaignHandler(campaign.campaign_id)}>View</Button>
       </div>
     )
   })
@@ -39,7 +43,7 @@ function Campaigns() {
 
   return (
     <div className='page-layout-2'>
-      <h2 className='title-2'>My Campaigns</h2>
+      <h2>My Campaigns</h2>
       <button
         className='btn btn-type-2 btn-color-3 create-btn'
         onClick={() => viewNewCampaign()}

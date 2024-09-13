@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Nav } from 'react-bootstrap'
 
 function StuffNav () {
   const navigate = useNavigate()
@@ -17,11 +18,17 @@ function StuffNav () {
   }, [])
    
   return (
-    <nav id='stuff-nav'>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff" end>My Stuff</NavLink>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink>
-      <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
-    </nav>
+    <Nav id='stuff-nav'>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff" end>My Stuff</NavLink>
+      </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/campaigns">My Campaigns</NavLink>
+      </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
+      </div>
+    </Nav>
   )
 }
 

@@ -49,16 +49,8 @@ function SpellSpecs () {
   return (
     <div className='monster-specs'>
       <div>
-        <h2>{specs.name}{ritOrCon()}</h2>
-        <h3>{convertLevel()}</h3>
-      </div>
-
-      <div className="splitter"></div>
-
-      <div>
-        {specs.desc && specs.desc.map((para, i) => <p key={i} >{para}</p>)}
-        {specs.higher_level && specs.higher_level.map((para, i) => <p key={i} >{para}</p>)}
-        {specs.material && <p>Materials: {specs.material}</p>}
+        <h3>{specs.name}</h3>
+        <h5>{convertLevel()} {ritOrCon()}</h5>
       </div>
 
       <div className="splitter"></div>
@@ -71,6 +63,14 @@ function SpellSpecs () {
         {specs.attack_type && <p>Attack Type: {specs.attack_type}</p>}
         {specs.area_of_effect && <p>AOE: {specs.area_of_effect.size} ft. {specs.area_of_effect.type}</p>}
         {specs.damage && specs.damage.damage_type && <p>Damage Type: {specs.damage.damage_type.name}</p>}
+      </div>
+
+      <div className="splitter"></div>
+
+      <div>
+        {specs.desc && specs.desc.map((para, i) => <p key={i} >&ensp;{para}</p>)}
+        {specs.higher_level && specs.higher_level.map((para, i) => <p key={i} >&ensp;{para}</p>)}
+        {specs.material && <p>Materials: {specs.material}</p>}
       </div>
     </div>
   )

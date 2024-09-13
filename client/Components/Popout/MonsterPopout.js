@@ -1,6 +1,8 @@
 import React from 'react'
+
 import { Link } from 'react-router-dom'
 
+import './Popout.css'
 
 function MonsterPopout ({specs, setPopoutInfo}) {
   const createSpeedStr = () => {
@@ -16,7 +18,7 @@ function MonsterPopout ({specs, setPopoutInfo}) {
   const statsBlock = () => {
     let stuff = []
     for(let stat in specs.stats) {
-      let text = <p key={stat}>{stat.substring(0, 3).toUpperCase()}: {specs.stats[stat]}</p>
+      let text = <p key={stat}>{stat.substring(0, 3).toUpperCase()}: {specs.stats[stat]} ({Math.floor((specs.stats[stat] - 10) / 2)})</p>
 
       stuff.push(text)
     }
@@ -52,8 +54,8 @@ function MonsterPopout ({specs, setPopoutInfo}) {
     specs.special_abilities.map(ability => {
       return (
         <div key={ability.name}>
-          <h3>{ability.name}</h3>
-          {ability.desc.split('\n- ').map((sentence, i) => <p key={`${i}`}>{sentence}</p>)}
+          <h5>{ability.name}</h5>
+          {ability.desc.split('\n- ').map((sentence, i) => <p key={`${i}`}>&ensp;{sentence}</p>)}
         </div>
       )
     })
@@ -61,16 +63,16 @@ function MonsterPopout ({specs, setPopoutInfo}) {
 
   const createSpellStuff = specs.spellcasting && (
     <div>
-      <h2>Spellcasting</h2>
-      {specs.spellcasting.desc.split('\n').map((str, i) => <p key={`${i}`}>{str}</p>)}
+      <h4>Spellcasting</h4>
+      {specs.spellcasting.desc.split('\n').map((str, i) => <p key={`${i}`}>&ensp;{str}</p>)}
     </div>
   )
 
   const createActions = specs.actions.map(action => {
     return (
       <div key={action.name}>
-        <h3>{action.name}</h3>
-        <p>{action.desc}</p>
+        <h5>{action.name}</h5>
+        <p>&ensp;{action.desc}</p>
         {action.usage && <p>Usage info needed</p>}
       </div>
     )
@@ -80,8 +82,8 @@ function MonsterPopout ({specs, setPopoutInfo}) {
     specs.legendary_actions.map(action => {
       return (
         <div key={action.name}>
-          <h3>{action.name}</h3>
-          <p>{action.desc}</p>
+          <h5>{action.name}</h5>
+          <p>&ensp;{action.desc}</p>
         </div>
       )
     })
@@ -90,14 +92,13 @@ function MonsterPopout ({specs, setPopoutInfo}) {
   return (
     <div className='popout'>
 
-      <Link className='view-specs' to={`/guide/specs/monsters/${specs.index}`} target='_blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
+      <Link className='view-specs' to={`/codex/specs/monsters/${specs.index}`} target='-blank' rel="noopener noreferrer" relative='path'>View in Seperate Page</Link>
             
       <button className='close-info-button' onClick={() => setPopoutInfo(false)}>X</button>
       
-      <div className='monster-header'>
-        <h2 className="monster-name">{specs.name}</h2>
-        <p>&nbsp;-&nbsp;</p>
-        <p>{specs.size} {specs.type} {specs.subtype && ` (${specs.subtype})`}, {specs.alignment}</p>
+      <div>
+        <h3>{specs.name}</h3>
+        <h5>{specs.size} {specs.type} {specs.subtype && ` (${specs.subtype})`}, {specs.alignment}</h5>
       </div>
 
       {specs.desc && <p className="monster-desc"> {specs.desc}</p>}
@@ -127,7 +128,7 @@ function MonsterPopout ({specs, setPopoutInfo}) {
           <div className="splitter"></div>
 
           <div className='monster-specials'>
-            <h2>Special Abilities</h2>
+            <h4>Special Abilities</h4>
             {createSpecials}
           </div>
         </>
@@ -144,7 +145,7 @@ function MonsterPopout ({specs, setPopoutInfo}) {
       <div className="splitter"></div>
 
       <div className='monster-actions'>
-        <h2>Actions</h2>
+        <h4>Actions</h4>
         {createActions}
       </div>
 
@@ -152,8 +153,8 @@ function MonsterPopout ({specs, setPopoutInfo}) {
         <>
           <div className='splitter'></div>
           <div className='monster-legendary-actions'>
-            <h2>Legendary Actions</h2>
-            <p>The {specs.type} can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The {specs.type} regains spent legendary actions at the start of its turn.</p>
+            <h4>Legendary Actions</h4>
+            <p>&ensp;The {specs.type} can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The {specs.type} regains spent legendary actions at the start of its turn.</p>
             {createLegendary}
           </div>
         </>

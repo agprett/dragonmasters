@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
+import './Encounter.css'
 import MonsterPopout from "../Popout/MonsterPopout.js";
 import Tracker from './Tracker.js'
 import QuickAdd from '../QuickAdd/QuickAdd.js'
@@ -91,7 +92,7 @@ function EncounterRun() {
 
       <section className="breakdown-top">
         <div className="breakdown-base-info">
-          <h2 className="title-2">{name}</h2>
+          <h2>{name}</h2>
         </div>
 
         <div className="breakdown-top-buttons">

@@ -5,7 +5,7 @@ function ShowMonster ({monster, addMonsters, closePopup}) {
 
   return (
     <div className="info-list-item quick-add-monster" key={monster.name}>
-      <h3>{monster.name}</h3>
+      <h5>{monster.name}</h5>
       <input className="base-input small-input" placeholder="count" value={count} onChange={e => setCount(e.target.value)}/>
       <button
         className="btn btn-type-3 btn-color-3"

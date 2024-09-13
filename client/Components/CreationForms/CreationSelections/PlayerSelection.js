@@ -24,11 +24,11 @@ const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedP
       const {name, player: playerName, hit_points, level} = player
       return (
         <tr className='ne-character-row' key={i}>
-          <td><h3>{name}</h3></td>
+          <td><h5>{name}</h5></td>
           <td>{playerName}</td>
           <td>{hit_points}</td>
           <td>{level}</td>
-          <td><button className='btn btn-type-3 btn-color-2' onClick={() => selectPlayer(player)}>Add</button></td>
+          <td><button className='btn btn-type-3 btn-color-1' onClick={() => selectPlayer(player)}>Add</button></td>
         </tr>
       )
     }
@@ -37,7 +37,7 @@ const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedP
   const addedPlayersDisplay = addedPlayers.map((player, i) => {
     return (
       <tr className='new-added-row' key={i}>
-        <td><h3>{player.name}</h3></td>
+        <td><h5>{player.name}</h5></td>
         <td>{player.player}</td>
         <td><button className='btn btn-type-3 btn-color-4' onClick={() => removePlayer(player)}>Remove</button></td>
       </tr>
@@ -49,7 +49,7 @@ const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedP
       <table className='ne-player-table'>
         <thead>
             <tr className='ne-character-row' id='ne-character-head'>
-            <th><h3>Name</h3></th>
+            <th><h5>Name</h5></th>
             <th>Player</th>
             <th>HP</th>
             <th>Level</th>
@@ -62,7 +62,7 @@ const PlayersSelection = memo(function PlayersSelection({addedPlayers, setAddedP
       <table className='new-added'>
         <thead>
           <tr className='new-added-head new-added-row'>
-            <th><h2>Added Players</h2></th>
+            <th><h5>Added Players</h5></th>
           </tr>
         </thead>
         <tbody>

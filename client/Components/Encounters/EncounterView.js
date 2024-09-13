@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import './Encounter.css'
 import DeletePopup from '../DeletePopup/DeletePopup.js'
 
 import { addEncounter } from '../../ducks/encounterSlice.js'
@@ -47,8 +48,8 @@ function EncounterSummary() {
   const charShorts = encounterInfo.players.map((char, i) => {
     return (
       <div key={i} className='info-list-item encounter-char'>
-        <h2>{char.name}</h2>
-        <h3>{char.player}</h3>
+        <h5>{char.name}</h5>
+        <p>{char.player}</p>
         <p>AC: {char.armor_class}</p>
         <p>HP: {char.hit_points}</p>
       </div>
@@ -58,8 +59,8 @@ function EncounterSummary() {
   const monsterShorts = encounterInfo.monsters.map((element, i) => {
     return (
       <div key={i} className='info-list-item encounter-char'>
-        <h2>{element.name}</h2>
-        <h3>Amount: {element.count}</h3>
+        <h5>{element.name}</h5>
+        <p>Amount: {element.count}</p>
       </div>
     )
   })
@@ -76,24 +77,24 @@ function EncounterSummary() {
       <section className='breakdown-top'>
 
         <div className='breakdown-base-info'>
-          <h2 className='title-1'>{encounterInfo.name}</h2>
-          <h2>{encounterInfo.short_description}</h2>
+          <h2>{encounterInfo.name}</h2>
+          <h5>{encounterInfo.short_description}</h5>
         </div>
 
         <div className='breakdown-top-buttons'>
           <Link
-            className='btn btn-type-2 btn-color-3'
+            className='btn btn-type-1 btn-color-3'
             to={`/stuff/encounters/${encounter_id}/run`}
           >Run</Link>
           <button
-            className='btn btn-type-2 btn-color-1'
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateEncounter()}
           >Edit</button>
         </div>
       </section>
 
       <section className='breakdown'>
-        <h2 className='breakdown-head'>Details</h2>
+        <h4 className='breakdown-head'>Details</h4>
         <div className='breakdown-piece large-breakdown-piece'>
           <p className='breakdown-label'>Description:</p>
           <p className='breakdown-text'>
@@ -122,12 +123,12 @@ function EncounterSummary() {
 
       <section className='info-list-group'>
         <section className='info-list-wrapper'>
-          <h2 className='info-list-head'>Players:</h2>
+          <h4 className='info-list-head'>Players:</h4>
           {encounterInfo.players[0] ? charShorts : <p>No added characters</p>}
         </section>
 
         <section className='info-list-wrapper'>
-          <h2 className='info-list-head'>Monsters:</h2>
+          <h4 className='info-list-head'>Monsters:</h4>
           {encounterInfo.monsters[0] ? monsterShorts : <p>No added monsters</p>}
         </section>
       </section>

@@ -60,12 +60,12 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
     const {name, size, hit_points, armor_class, challenge_rating, xp} = monster
     return (
       <tr className='ne-character-row' key={monster.name + '-' + i}>
-        <td><h3>{name}</h3></td>
+        <td><h5>{name}</h5></td>
         <td>{size}</td>
         <td>{hit_points}</td>
         <td>{armor_class}</td>
         <td>{challenge_rating}/{xp}</td>
-        <td><button className='btn btn-type-3 btn-color-2' onClick={() => addMonster(monster)}>Add</button></td>
+        <td><button className='btn btn-type-3 btn-color-1' onClick={() => addMonster(monster)}>Add</button></td>
       </tr>
     )
   })
@@ -78,7 +78,7 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
 
       let monsterDiv = (
         <tr className='new-added-row' key={info.name}>
-          <td><h3>{info.name}</h3></td>
+          <td><h5>{info.name}</h5></td>
           <td>
             <input
               className='base-input small-input'
@@ -104,23 +104,21 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
     <div className="accordion-content new-encounter-selections">
       <div className='ne-monster-display'>
         <form id="search-monsters" className='horizontal-form'>
-          <h3>Search: </h3>
+          <h5>Search: </h5>
           <div className='form-piece'>
-            <label className='form-piece-filled'>
-              <input
-                className={'form-input' + (filter ? '' : ' empty-input')}
-                value={filter}
-                onChange={e => setFilter(e.target.value)}
-              />
-              <span className='form-label'>Name</span>
-            </label>
+            <input
+              className={'form-input' + (filter ? '' : ' empty-input')}
+              value={filter}
+              onChange={e => setFilter(e.target.value)}
+            />
+            <label className='form-label'>Name</label>
           </div>
         </form>
 
         <table className="ne-monster-table">
           <thead>
             <tr className='ne-character-row'  id='ne-character-head'>
-              <th><h3>Name</h3></th>
+              <th><h5>Name</h5></th>
               <th>Size</th>
               <th>HP</th>
               <th>AC</th>
@@ -135,7 +133,7 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
       <table className='new-added'>
         <thead>
           <tr className='new-added-head new-added-row'>
-            <th><h2>Added Monsters</h2></th>
+            <th><h5>Added Monsters</h5></th>
           </tr>
         </thead>
         <tbody id='added-monster-display'>{Object.keys(addedMonstersDisplay()).length ? addedMonstersDisplay(): <tr className='none-added-row'><td>No Monsters Currently Added</td></tr>}</tbody>

@@ -7,17 +7,17 @@
   max-height: 100%;
   overflow: auto;
   padding: 45px 35px 25px;
-  background-color: #DCEBF9F3;
-  border-left: 10px solid #1E4E73;
+  background-color: #cde3f1ee;
+  border-left: 10px solid #002d45;
   z-index: 8;
 }
 
 .splitter {
-  height: 5px;
-  width: 95%;
-  margin: 10px 2.5%;
-  background-color: #1E4E73;
-  border-radius: 50%;
+  height: 3px;
+  width: 90%;
+  margin: 10px 5% 10px 0;
+  background-color: #002d45;
+  border-radius: 0 50% 50% 0;
 }
 
 .view-specs {
@@ -31,8 +31,8 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
-  color: #EBEBEB;
-  background-color: #1E4E73;
+  color: #ffffff;
+  background-color: #166696;
 }
 
 .close-info-button {
@@ -42,7 +42,7 @@
   right: 20px;
   top: 20px;
   border-radius: 50%;
-  border: 2px solid black;
+  border: 2px solid #040114;
   background-color: inherit;
   cursor: pointer;
   font-weight: 700;
@@ -53,13 +53,6 @@
 
 .monster-header {
   min-height: 40px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.monster-name {
-  margin-right: 3px;
 }
 
 .monster-desc {
@@ -87,6 +80,9 @@
 .monster-sub-skills {
   min-height: 85px;
   padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .monster-specials {

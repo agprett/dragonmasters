@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 
+import './QuickAdd.css'
 import QuickMonster from "./QuickMonster.js"
 import QuickPlayer from "./QuickPlayer.js"
 
@@ -37,18 +38,18 @@ function QuickAdd({combatants, setAddPopup, addCombatant}) {
   return (
     <div className="quick-add-wrapper">
       <div className="quick-add">
-        <h2 className="dashboard-head">Quick Add</h2>
+        <h4 className="dashboard-head">Quick Add</h4>
         <button className="btn btn-type-3 btn-color-4 close-btn" onClick={closePopup}>Cancel</button>
         {type === 'none' && (
           <div className="type-selection">
             <div className="quick-options">
-              <h2>Player</h2>
-              <button className="btn btn-type-2 btn-color-2" onClick={() => setType('player')}>Select</button>
+              <h4>Player</h4>
+              <button className="btn btn-type-2 btn-color-1" onClick={() => setType('player')}>Select</button>
             </div>
-            <h3>- or -</h3>
+            <h4>- or -</h4>
             <div className="quick-options">
-              <h2>Monster</h2>
-              <button className="btn btn-type-2 btn-color-2" onClick={() => setType('monster')}>Select</button>
+              <h4>Monster</h4>
+              <button className="btn btn-type-2 btn-color-1" onClick={() => setType('monster')}>Select</button>
             </div>
           </div>
         )}

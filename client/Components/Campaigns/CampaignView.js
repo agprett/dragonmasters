@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+
+import './Campaigns.css'
 import { addCampaign } from '../../ducks/campaignSlice.js'
 import DeletePopup from '../DeletePopup/DeletePopup.js'
 
@@ -49,8 +51,8 @@ function CampaignView() {
   const charShorts = campaignInfo.Characters.map((char, i) => {
     return (
       <div key={i} className='info-list-item campaign-character'>
-        <h2>{char.name}</h2>
-        <h3>{char.player}</h3>
+        <h5>{char.name}</h5>
+        <p>{char.player}</p>
         <p>AC: {char.armor_class}</p>
         <p>HP: {char.hit_points}</p>
       </div>
@@ -60,7 +62,7 @@ function CampaignView() {
   const encounters = campaignInfo.Encounters.map((element, i) => {
     return (
       <div className='info-list-item campaign-encounter' key={i}>
-        <h2>{element.name}</h2>
+        <h5>{element.name}</h5>
         <button className='btn btn-type-4 btn-color-1' onClick={() => viewEncounterHandler(element.encounter_id)}>View</button>
       </div>
     )
@@ -77,19 +79,19 @@ function CampaignView() {
 
       <section className='breakdown-top'>
         <div className='breakdown-base-info'>
-          <h2 className='title-1'>{campaignInfo.name}</h2>
+          <h2>{campaignInfo.name}</h2>
         </div>
         
         <div className='breakdown-top-buttons'>
           <button
-            className='btn btn-type-2 btn-color-1'
+            className='btn btn-type-1 btn-color-1'
             onClick={() => updateCampaign()}
             >Edit</button>
         </div>
       </section>
 
       <section className='breakdown'>
-        <h2 className='breakdown-head'>Details:</h2>
+        <h4 className='breakdown-head'>Details:</h4>
         <div className='breakdown-piece large-breakdown-piece'>
           <p className='breakdown-label'>Description: </p>
           <p className='breakdown-text'>{campaignInfo.description || 'None'}</p>
@@ -107,12 +109,12 @@ function CampaignView() {
 
       <section className='info-list-group'>
         <section className='info-list-wrapper'>
-          <h2 className='info-list-head'>Players:</h2>
+          <h4 className='info-list-head'>Players:</h4>
           {campaignInfo.Characters[0] ? charShorts : <p>No added characters</p>}
         </section>
 
         <section className='info-list-wrapper'>
-          <h2 className='info-list-head'>Encounters:</h2>
+          <h4 className='info-list-head'>Encounters:</h4>
           {campaignInfo.Encounters[0] ? encounters : <p>No added encounters</p>}
         </section>
       </section>
