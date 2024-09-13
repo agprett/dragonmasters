@@ -57,7 +57,7 @@ function NewEncounter() {
     if(encounterInfo.name && encounterInfo.shortDesc && addedPlayers[0] && Object.keys(addedMonsters).length) {
       let structuredMonsters = []
 
-      for(mon in addedMonsters) {
+      for(let mon in addedMonsters) {
         const {name, amount, url, info} = addedMonsters[mon]
         structuredMonsters.push({name, count: amount, url, pointer: info.pointer})
       }
