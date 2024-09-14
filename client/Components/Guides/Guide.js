@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useParams, Link, useLoaderData } from 'react-router-dom'
+import { Button, Collapse, Container } from 'react-bootstrap'
 
-import GuideFilter from './GuideFilter'
-import GuideResult from './GuideResult'
-import MonsterPopup from '../Popout/MonsterPopup'
-import SpellPopup from '../Popout/SpellPopup'
+import './Guide.css'
+import GuideFilter from './GuideFilter.js'
+import GuideResult from './GuideResult.js'
+import MonsterPopout from '../Popout/MonsterPopout.js'
+import SpellPopout from '../Popout/SpellPopout.js'
 
 const capFirst = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
@@ -12,20 +14,24 @@ function Guide () {
   const data = useLoaderData()
   const {guide_type: type} = useParams()
 
-  const [viewPopup, setViewPopup] = useState(false)
-  const [popupData, setPopupData] = useState({})
-  const [guideData, setGuideData] = useState(data)
+  const [popoutInfo, setPopoutInfo] = useState(false)
+  const [info, setInfo] = useState(data)
+  const [showFilter, setShowFilter] = useState(false)
 
-  const viewGuides = guideData.map(data => <GuideResult key={data.index} data={data} setViewPopup={setViewPopup} setPopupData={setPopupData} type={type} />)
+  const viewGuides = info.map(data => <GuideResult key={data.index} data={data} setPopoutInfo={setPopoutInfo} type={type} />)
 
-  const renderPopup = () => {
+  const renderPopout = () => {
     switch(type) {
       case 'monsters':
-        return <MonsterPopup specs={popupData} setViewPopup={setViewPopup} />
+        return <MonsterPopout specs={popoutInfo} setPopoutInfo={setPopoutInfo} />
 
       case 'spells':
-        return <SpellPopup specs={popupData} setViewPopup={setViewPopup} />
+        return <SpellPopout specs={popoutInfo} setPopoutInfo={setPopoutInfo} />
     }
+  }
+
+  const showFilters = () => {
+    setShowFilter(!showFilter)
   }
 
   const resultsHead = () => {
@@ -33,7 +39,7 @@ function Guide () {
       case 'monsters':
         return (
           <tr className="guide-result" id="guide-result-head">
-            <th className='result-name'>Name</th>
+            <th>Name</th>
             <th>Size</th>
             <th>HP</th>
             <th>AC</th>
@@ -45,7 +51,7 @@ function Guide () {
       case 'spells':
         return (
           <tr className="guide-result" id="guide-result-head">
-            <th className='result-name'>Name</th>
+            <th>Name</th>
             <th>Casting Time</th>
             <th>Range</th>
             <th>Level</th>
@@ -58,23 +64,46 @@ function Guide () {
 
   return (
     <section className='page-layout-2'>
+      <Link to='../' className='btn btn-type-2 btn-color-1 back-btn'>{'< Back'}</Link>
+
       <header className='guide-title'>
-        <Link to='../' className='btn btn-type-1 btn-color-1 back-btn'>{'< Back'}</Link>
-        <h1 className='title-2'>{capFirst(type)}</h1>
+        <h1>{capFirst(type)}</h1>
       </header>
 
+      <Container
+        fluid
+        id='guide-filter-wrap'
+      >
+        <Collapse className='w-100 px-3' in={showFilter}>
+          <Container
+            fluid
+            className={`align-items-center guide-filters ${showFilter ? "" : "collapsed-filter"}`}
+            id="guide-filter-collapse"
+          >
+            <GuideFilter type={type} setInfo={setInfo} showFilter={showFilter} />
+            
+          </Container>
+        </Collapse>
+
+        <Button
+          onClick={showFilters}
+          aria-controls="guide-filter-collapse"
+          aria-expanded={showFilter}
+          id="filter-collapse-btn"
+        >
+          {showFilter ? "Show Less" : 'Show More'} Filters
+        </Button>
+      </Container>
+
       <section className='guide-body'>
-
-        {viewPopup ? renderPopup() : ''}
-
-        <GuideFilter type={type} setGuideData={setGuideData} />
-
+        {popoutInfo && renderPopout()}
+        
         <table className='guide-results'>
           <thead>
             {resultsHead()}
           </thead>
           <tbody>
-            {guideData[0] ? viewGuides : <tr className='guide-result'>No Data to Show</tr>}
+            {info[0] ? viewGuides : <tr className='guide-result'><td>No Data to Show</td></tr>}
           </tbody>
         </table>
 

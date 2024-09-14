@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import './Encounter.css'
 import { clearEncounter } from '../../ducks/encounterSlice.js'
 
 function Encounters() {
@@ -30,7 +31,7 @@ function Encounters() {
   const allEncounters = encounters.map((element, i) => {
     return (
       <div className='dashboard-item' key={i}>
-        <h3 className='dashboard-head'>{element.name}</h3>
+        <h4 className='dashboard-head'>{element.name}</h4>
         {element.campaign && <p>{element.campaign}</p>}
         <p>{element.short_description}</p>
         {element.location && <p>{element.location}</p>}
@@ -41,7 +42,7 @@ function Encounters() {
 
   return (
     <section className='page-layout-2'>
-      <h2 className='title-2'>My Encounters</h2>
+      <h2>My Encounters</h2>
       <button
         className='btn btn-type-2 btn-color-3 create-btn'
         onClick={() => viewNewEncounter()}
@@ -51,7 +52,7 @@ function Encounters() {
           encounters[0] ? (
             allEncounters
           ) : (
-            <p>Add an encounter to view</p>
+            <p>No Encounters to Display</p>
           )
         }
       </div>

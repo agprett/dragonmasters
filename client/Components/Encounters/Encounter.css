@@ -1,0 +1,92 @@
+.encounter-char {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
+  align-items: center;
+}
+
+
+
+.tracker-display {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tracker-table {
+  width: 100%;
+}
+
+#tracker-head {
+  height: 55px;
+  cursor: default;
+  border-radius: 3px 3px 0 0;
+  background-color: #166696;
+  border: none;
+  color: #ffffff;
+}
+
+.tracker {
+  min-height: 30px;
+  padding: 5px 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: .65fr 2.5fr .75fr .6fr .15fr;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 3px solid #002d45;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: 'MedievalSharp', sans-serif;
+}
+
+.inititiative-thing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tracker-name {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.info-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #166696;
+  background-color: #166696;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.health-display {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.health-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.health-input::-webkit-outer-spin-button,
+.health-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

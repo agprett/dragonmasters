@@ -6,11 +6,18 @@
   justify-content: space-evenly;
 }
 
-.campaign {
-  height: 200px;
-  width: 150px;
-  display: flex;
-  justify-content: center;
+.campaign-character {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
   align-items: center;
-  background-color: #4B6982;
+}
+
+.campaign-encounter {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  text-align: center;
+  align-items: center;
 }
