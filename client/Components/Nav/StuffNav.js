@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Nav } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 function StuffNav () {
   const navigate = useNavigate()
@@ -12,7 +13,7 @@ function StuffNav () {
         console.log('Logged in')
       })
       .catch(() => {
-        alert('You must be signed in to view this page!')
+        toast('You must be signed in to view this page!', { type: 'error' })
         navigate('/login')
       })
   }, [])
@@ -27,6 +28,9 @@ function StuffNav () {
       </div>
       <div className='nav-links-wrapper'>
         <NavLink className='stuff-nav-links nav-links' to="/stuff/encounters">My Encounters</NavLink>
+      </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/characters">My Characters</NavLink>
       </div>
     </Nav>
   )

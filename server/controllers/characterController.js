@@ -4,12 +4,13 @@ const characterFunctions = {
   getCharacters: async (req, res) => {
     const {user_id} = req.session.user
     
-    let data = await Character.findAll({where: {user_id}, attributes: ['character_id', 'name', 'player', 'level', 'hit_points']})
+    let data = await Character.findAll({where: {user_id}, attributes: ['character_id', 'name', 'player', 'level', 'hit_points', 'armor_class']})
 
     let characters = data.map(character => {
       character.character_id = +character.character_id
       character.level = +character.level
       character.hit_points = +character.hit_points
+      character.armor_class = +character.armor_class
       
       return character
     })
@@ -43,11 +44,29 @@ const characterFunctions = {
     }
   },
 
+  updateCharacter: async (req, res) => {
+    let {name, player, armor_class, hit_points, level, id: character_id} = req.body
+
+    if(req.session.user && name && player && armor_class && hit_points && level && character_id) {
+
+      let characterInfo = {name, player, armor_class, hit_points, level}
+
+      await Character.update(characterInfo, {where: {character_id: +character_id}})
+
+      res.status(200).send({message: 'Character updated!'})
+    } else {
+      res.status(400).send('Please provide all required information to update this character.')
+    }
+  },
+
   deleteCharacter: async (req, res) => {
     const {id} = req.params
 
-    let character = await Character.findByPk(id)
-
+    let character = await Character.findByPk(id, {
+      attributes: ['user_id']
+    })
+    
+    console.log(character)
     if(character !== null) {
       if(req.session.user && req.session.user.user_id === character.user_id) {
         await Character.destroy({where: {character_id: id}})

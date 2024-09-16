@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate, useLocation } from 'react-router-do
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navbar, Nav, NavbarCollapse, NavbarToggle, NavItem } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 import './Navi.css'
 import Footer from './Footer'
@@ -33,11 +34,11 @@ function Navi() {
     axios.post('/api/user/logout')
     .then(res => {
         dispatch(logoutUser())
-        alert('Sucessfully logged out.')
+        toast('Sucessfully logged out.')
         navigate('/')
       })
       .catch(() => {
-        alert('Unable to log out. Please try again.')
+        toast('Unable to log out. Please try again.', { type: 'error' })
       })
   }
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import './CreationForms.css'
 
@@ -54,7 +55,7 @@ function NewEncounter() {
   }, [])
 
   const postNewEncounter = () => {
-    if(encounterInfo.name && encounterInfo.shortDesc && addedPlayers[0] && Object.keys(addedMonsters).length) {
+    if(encounterInfo.name && encounterInfo.shortDesc) {
       let structuredMonsters = []
 
       for(let mon in addedMonsters) {
@@ -71,24 +72,26 @@ function NewEncounter() {
       if(body.id) {
         axios.put('/api/encounters', body)
           .then(res => {
-            alert('Encounter updated!')
+            toast('Encounter updated!')
             navigate(`/stuff/encounters/${res.data.id}`)
           })
           .catch(err => {
+            toast('Failed to update encounter. Please try again.', { type: 'error' })
             console.log(err)
           })
       } else {
         axios.post('/api/encounters', body)
           .then(res => {
-            alert('Encounter created!')
+            toast('Encounter created!')
             navigate(`/stuff/encounters/${res.data.id}`)
           })
           .catch(err => {
+            toast('Failed to create encounter. Please try again.', { type: 'error' })
             console.log(err)
           })
       }
     } else {
-      alert("Please fill in all required data and confirm it's correct before creating an encounter!")
+      toast("Please fill in all required data before creating an encounter!", { type: 'error' })
     }
   }
 

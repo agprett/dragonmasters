@@ -119,7 +119,7 @@ const encounterFunctions = {
   updateEncounter: async (req, res) => {
     let {name, shortDesc: short_description, desc: description, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
 
-    if(req.name && short_description && req.session.user, id) {
+    if(name && short_description && req.session.user && id) {
       let encounterInfo = {name, short_description, description, terrain, location, rewards}
 
       if(campaign_id) {
@@ -154,7 +154,11 @@ const encounterFunctions = {
         await Encounter.destroy({where: {encounter_id: id}})
 
         res.status(200).send('Deleted encounter')
+      } else {
+        res.status(400).send('You must be signed in to delete this encounter!')
       }
+    } else {
+      res.status(400).send('Encounter not found')
     }
   }
 }

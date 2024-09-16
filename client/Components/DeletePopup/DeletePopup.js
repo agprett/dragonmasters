@@ -2,6 +2,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 import './DeletePopup.css'
+import { toast } from "react-toastify"
 
 function DeletePopup({name, url, route, setDisplay}) {
   const navigate = useNavigate()
@@ -9,6 +10,7 @@ function DeletePopup({name, url, route, setDisplay}) {
   const handleDelete = () => {
     axios.delete(url)
       .then(res => {
+        toast('Successfully deleted!', { type: 'info' })
         setDisplay(false)
         navigate(route)
       })

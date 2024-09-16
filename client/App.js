@@ -18,6 +18,8 @@ import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/CreationForms/EncounterNew.js'
 import EncounterView from './Components/Encounters/EncounterView.js'
 import EncounterRun from './Components/Encounters/EncounterRun.js'
+import Characters from './Components/Characters/Characters.js'
+import CharacterNew from './Components/CreationForms/CharacterNew.js'
 
 import Login from './Components/Login/Login.js'
 import Signin from './Components/Login/Signup.js'
@@ -137,6 +139,19 @@ const router = createBrowserRouter([
                   }
                 ]
               }
+            ]
+          },
+          {
+            path: 'characters',
+            children: [
+              {
+                index: true,
+                element: <Characters />
+              },
+              {
+                path: 'new',
+                element: <CharacterNew />
+              },
             ]
           }
         ]

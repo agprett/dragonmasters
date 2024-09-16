@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import lodash from 'lodash'
+import { toast } from "react-toastify"
 
 const getD20 = () => {
   return lodash.random(1, 20)
@@ -20,7 +21,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
       if(health - 1 >= 0){
         setHealth(+health - 1)
       } else {
-        alert('Cannot go below 0')
+        toast('Cannot go below 0', { autoclose: 1000, type: 'error' })
         document.body.classList.remove('hide-scroll')
       }
     }
@@ -52,6 +53,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
       <td>
         <div className="inititiative-thing">
           <input
+            id={`${info.name}-init-input`}
             className='base-input small-input'
             value={info.initiative}
             onChange={e => {
@@ -60,6 +62,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
             }}
           /> {info.stats && <p>({(getModi(info.stats.dexterity) >= 0 ? '+': '')}{getModi(info.stats.dexterity)})</p>}
           <button onClick={rollInitiative} className="btn btn-type-3 btn-color-1">Roll</button>
+          <label htmlFor={`${info.name}-init-input`} className="hidden-label">{`${info.name}-init-input`}</label>
         </div>
       </td>
       <td>
@@ -98,6 +101,7 @@ function Tracker({type, baseInfo, setInitiative, setPopoutInfo, removeCombatant}
               document.body.classList.remove('hide-scroll')
             }}
           />
+          <label htmlFor={`${info.name}-hp-input`} className="hidden-label">{`${info.name}-hp-input`}</label>
           <div>
             <button onClick={() => updateHealth('up')} className="btn tiny-btn btn-color-1">+</button>
             <button onClick={() => updateHealth('down')} className="btn tiny-btn btn-color-1">-</button>

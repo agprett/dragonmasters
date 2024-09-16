@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
+import { toast } from "react-toastify"
 
 import ShowMonster from "./ShowMonsters"
 
@@ -16,7 +17,7 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
           setFound(res.data)
         })
     } else {
-      alert('Please enter a search')
+      toast('Please enter a search', { type: 'error' })
     }
   }
 
@@ -36,11 +37,11 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
   }
 
   let monstersDisplay = monsters.map(monster => {
-    return <ShowMonster key={monster.name} monster={monster} addMonsters={addMonsters} closePopup={closePopup} />
+    return <ShowMonster key={monster.name} monster={monster} addMonsters={addMonsters} closePopup={closePopup} pos={'top'} />
   })
 
   let foundDisplay = found.map(monster => {
-    return <ShowMonster key={monster.name} monster={monster} addMonsters={addMonsters} closePopup={closePopup} />
+    return <ShowMonster key={monster.name} monster={monster} addMonsters={addMonsters} closePopup={closePopup} pos={'bottom'} />
   })
 
 
@@ -60,16 +61,15 @@ function QuickMonster({monsters, closePopup, addCombatant, setType}) {
           <h4 className="info-list-head">Add new:</h4>
           <form className="horizontal-form" onSubmit={findMonsters}>
             <div className="form-piece">
-              <label className="form-piece-filled">
-                <input
-                  className={"form-input" + (search ? '' : ' empty-input')}
-                  value={search}
-                  onChange={(evt) => {
-                    setSearch(evt.target.value)
-                  }}
-                />
-                <span className="form-label">Name</span>
-              </label>
+              <input
+                id="name-search"
+                className={"form-input" + (search ? '' : ' empty-input')}
+                value={search}
+                onChange={(evt) => {
+                  setSearch(evt.target.value)
+                }}
+              />
+              <label htmlFor="name-search" className="form-label">Name</label>
             </div>
             <button className="btn btn-type-3 btn-color-1" type="submit">Search</button>
           </form>

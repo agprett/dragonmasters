@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import './Signup-Login.css'
 import logoImg from '../../images/logo.png'
@@ -25,10 +26,10 @@ function Login() {
         })
         .catch(err => {
           console.log(err)
-          alert('Login failed.')
+          toast('Login failed.', { type: 'error' })
         })
     } else {
-      alert('Please enter a username and password.')
+      toast('Please enter a username and password.', { type: 'error' })
     }
   }
 
