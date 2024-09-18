@@ -136,9 +136,11 @@ const encounterFunctions = {
 
       if(encounter.name) {
         if(encounter.user_id === req.session.user.user_id) {
-          // if(campaign_id) {
+          if(campaign_id) {
             encounterInfo.campaign_id = campaign_id
-          // }
+          } else {
+            encounterInfo.campaign_id = null
+          }
 
           await Encounter.update(encounterInfo, {where: {encounter_id: id}})
     
