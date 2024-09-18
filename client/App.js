@@ -14,10 +14,17 @@ import Stuff from './Components/Stuff/Stuff.js'
 import Campaigns from './Components/Campaigns/Campaigns.js'
 import CampaignView from './Components/Campaigns/CampaignView.js'
 import CampaignNew from './Components/CreationForms/CampaignNew.js'
+
 import Encounters from './Components/Encounters/Encounters.js'
 import EncounterNew from './Components/CreationForms/EncounterNew.js'
 import EncounterView from './Components/Encounters/EncounterView.js'
 import EncounterRun from './Components/Encounters/EncounterRun.js'
+
+import Characters from './Components/Characters/Characters.js'
+import CharacterNew from './Components/CreationForms/CharacterNew.js'
+
+import NPCs from './Components/Characters/Npcs.js'
+import NPCNew from './Components/CreationForms/NPCNew.js'
 
 import Login from './Components/Login/Login.js'
 import Signin from './Components/Login/Signup.js'
@@ -112,9 +119,9 @@ const router = createBrowserRouter([
 
                       let res = await axios.get(`/api/encounters/${encounter_id}`)
 
-                      let {monsters, players, name} = res.data
+                      let {monsters, players, npcs, name} = res.data
                       
-                      let combatants = [...players]
+                      let combatants = [...players, ...npcs]
 
                       monsters.forEach(monster => {
                         let i = 1
@@ -136,6 +143,32 @@ const router = createBrowserRouter([
                     }
                   }
                 ]
+              }
+            ]
+          },
+          {
+            path: 'characters',
+            children: [
+              {
+                index: true,
+                element: <Characters />
+              },
+              {
+                path: 'new',
+                element: <CharacterNew />
+              },
+            ]
+          },
+          {
+            path: 'npcs',
+            children: [
+              {
+                index: true,
+                element: <NPCs />
+              },
+              {
+                path: 'new',
+                element: <NPCNew />
               }
             ]
           }

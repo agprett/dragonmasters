@@ -38,7 +38,10 @@ import encounterFunctions from './controllers/encounterController.js'
 const {getEncounters, getEncounter, createEncounter, updateEncounter, deleteEncounter} = encounterFunctions
 
 import characterFunctions from './controllers/characterController.js'
-const {getCharacters, getCharacter, createCharacter, deleteCharacter} = characterFunctions
+const {getCharacters, getCharacter, createCharacter, updateCharacter, deleteCharacter} = characterFunctions
+
+import npcFunctions from './controllers/npcController.js'
+const {getNPCs, getNPC, createNPC, updateNPC, deleteNPC} = npcFunctions
 
 import monsterFunctions from './controllers/monsterController.js'
 const {getAllMonsters, getMonster} = monsterFunctions
@@ -79,7 +82,14 @@ app.delete('/api/encounters/:id', loginCheck, deleteEncounter)
 app.get('/api/characters', loginCheck, getCharacters)
 app.get('/api/characters/:id', loginCheck, getCharacter)
 app.post('/api/characters', loginCheck, createCharacter)
+app.put('/api/characters/:id', loginCheck, updateCharacter)
 app.delete('/api/characters/:id', loginCheck, deleteCharacter)
+
+app.get('/api/npcs', loginCheck, getNPCs)
+app.get('/api/npcs/:id', loginCheck, getNPC)
+app.post('/api/npcs', loginCheck, createNPC)
+app.put('/api/npcs/:id', loginCheck, updateNPC)
+app.delete('/api/npcs/:id', loginCheck, deleteNPC)
 
 app.get('/api/monsters/:index', getMonster)
 app.get('/api/monsters', getAllMonsters)

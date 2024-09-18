@@ -101,16 +101,28 @@ const campaignFunctions = {
     if(name && id && req.session.user) {
       let campaignInfo = {name, description, length, world_name}
 
-      await Encounter.update({campaign_id: null}, {where: {campaign_id: id}})
-      await Encounter.update({campaign_id: id}, {where: {encounter_id: addedEncounters}})
+      let campaign = await Campaign.findByPk(id, {
+        attributes: ['dungeon_master', 'name']
+      })
 
-      await Campaign.update(campaignInfo, {where: {campaign_id: id}})
+      if(campaign.name) {
+        if (campaign.dungeon_master === req.session.user.user_id) {
+          await Encounter.update({campaign_id: null}, {where: {campaign_id: id}})
+          await Encounter.update({campaign_id: id}, {where: {encounter_id: addedEncounters}})
 
-      await CampaignCharacter.destroy({where: {campaign_id: id}})
+          await Campaign.update(campaignInfo, {where: {campaign_id: id}})
 
-      await CampaignCharacter.bulkCreate(addedPlayers.map(player => {return {...player, campaign_id: id}}))
+          await CampaignCharacter.destroy({where: {campaign_id: id}})
 
-      res.status(200).send({message: 'Campaign updated!', id})
+          await CampaignCharacter.bulkCreate(addedPlayers.map(player => {return {...player, campaign_id: id}}))
+
+          res.status(200).send({message: 'Campaign updated!', id})
+        } else {
+          res.status(400).send('You must be signed in as the owner of this campaign to update it.')
+        }
+      } else {
+        res.status(400).send('Campaign not found.')
+      }
     } else {
       res.status(400).send('Please provide all required information to update the campaign.')
     }

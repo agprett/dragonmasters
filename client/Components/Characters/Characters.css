@@ -1,0 +1,11 @@
+.character-blob {
+  border-radius: 3px;
+  border-bottom: 1px solid #166696;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.character-blob-btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

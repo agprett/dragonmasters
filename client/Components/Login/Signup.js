@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import './Signup-Login.css'
 import logoImg from '../../images/logo.png'
@@ -37,9 +38,9 @@ function Signup() {
           dispatch(loginUser(res.data.username))
           navigate('/')
         })
-        .catch(() => alert('Username already in use.'))
+        .catch(() => toast('Username already in use.', { type: 'error' }))
     } else {
-      alert('Passwords do not match!')
+      toast('Passwords do not match!', { type: 'error' })
     }
   }
 

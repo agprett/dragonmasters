@@ -81,6 +81,7 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
           <td><h5>{info.name}</h5></td>
           <td>
             <input
+              id={`${info.name}-amount`}
               className='base-input small-input'
               type='number'
               value={amount}
@@ -89,6 +90,7 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
                 increaseCount(monster, event)
               }}
             />
+            <label htmlFor={`${info.name}-amount`} className='hidden-label'>{`${info.name}-amount`}</label>
           </td>
           <td><button className='btn btn-type-3 btn-color-4' onClick={() => removeMonster(monster)}>Remove</button></td>
         </tr>
@@ -107,11 +109,12 @@ const MonstersSelection = memo(function MonstersSelection({addedMonsters, setAdd
           <h5>Search: </h5>
           <div className='form-piece'>
             <input
+              id='search-name'
               className={'form-input' + (filter ? '' : ' empty-input')}
               value={filter}
               onChange={e => setFilter(e.target.value)}
             />
-            <label className='form-label'>Name</label>
+            <label htmlFor='search-name' className='form-label'>Name</label>
           </div>
         </form>
 

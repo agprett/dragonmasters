@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
+import { toast } from "react-toastify"
 
 import './CreationForms.css'
 
@@ -67,18 +68,24 @@ function CampaignNew() {
       if(body.id) {
         axios.put('/api/campaigns', body)
           .then(res => {
-            alert('Campaign updated!')
+            toast('Campaign updated!')
             navigate(`/stuff/campaigns/${res.data.id}`)
+          })
+          .catch(() => {
+            toast('Failed to update campaign. Please try again.', { type: 'error' })
           })
       } else {
         axios.post('/api/campaigns', body)
           .then(res => {
-            alert(res.data.message)
+            toast(res.data.message)
             navigate(`/stuff/campaigns/${res.data.id}`)
+          })
+          .catch(() => {
+            toast('Failed to create campaign. Please try again.', { type: 'error' })
           })
       }
     } else {
-      alert('Please fill in name.')
+      toast('Please add a name.', { type: 'error' })
     }
   }
 
@@ -137,56 +144,52 @@ function CampaignNew() {
             <div className="accordion-content">
               <form className="horizontal-form" onSubmit={evt => evt.preventDefault()}>
                 <div className="form-piece">
-                  <label className="form-piece-filled">
-                    <input
-                      required
-                      className="form-input"
-                      value={campaignInfo.name}
-                      onChange={(evt) => {
-                        setCampaignInfo({...campaignInfo, name: evt.target.value})
-                      }}
-                    />
-                    <span className="form-label">Name</span>
-                  </label>
+                  <input
+                    required
+                    id="campaign-name"
+                    className="form-input"
+                    value={campaignInfo.name}
+                    onChange={(evt) => {
+                      setCampaignInfo({...campaignInfo, name: evt.target.value})
+                    }}
+                  />
+                  <label htmlFor="campaign-name" className="form-label required">Name</label>
                 </div>
 
                 <div className="form-piece large-input">
-                  <label className="form-piece-filled">
-                    <textarea
-                      className={"form-input" + (campaignInfo.description ? '' : ' empty-input')}
-                      value={campaignInfo.description}
-                      onChange={(evt) => {
-                        setCampaignInfo({...campaignInfo, description: evt.target.value})
-                      }}
-                    />
-                    <span className="form-label">Description</span>
-                  </label>
+                  <textarea
+                    id="campaign-desc"
+                    className={"form-input" + (campaignInfo.description ? '' : ' empty-input')}
+                    value={campaignInfo.description}
+                    onChange={(evt) => {
+                      setCampaignInfo({...campaignInfo, description: evt.target.value})
+                    }}
+                  />
+                  <label htmlFor="campaign-desc" className="form-label">Description</label>
                 </div>
 
                 <div className="form-piece">
-                  <label className="form-piece-filled">
-                    <input
-                      className={"form-input" + (campaignInfo.length ? '' : ' empty-input')}
-                      value={campaignInfo.length}
-                      onChange={(evt) => {
-                        setCampaignInfo({...campaignInfo, length: evt.target.value})
-                      }}
-                    />
-                    <span className="form-label">Length</span>
-                  </label>
+                  <input
+                    id="campaign-length"
+                    className={"form-input" + (campaignInfo.length ? '' : ' empty-input')}
+                    value={campaignInfo.length}
+                    onChange={(evt) => {
+                      setCampaignInfo({...campaignInfo, length: evt.target.value})
+                    }}
+                  />
+                  <label htmlFor="campaign-length" className="form-label">Length</label>
                 </div>
 
                 <div className="form-piece">
-                  <label className="form-piece-filled">
-                    <input
-                      className={"form-input" + (campaignInfo.world_name ? '' : ' empty-input')}
-                      value={campaignInfo.world_name}
-                      onChange={(evt) => {
-                        setCampaignInfo({...campaignInfo, world_name: evt.target.value})
-                      }}
-                    />
-                    <span className="form-label">World Name</span>
-                  </label>
+                  <input
+                    id="campaign-world-name"
+                    className={"form-input" + (campaignInfo.world_name ? '' : ' empty-input')}
+                    value={campaignInfo.world_name}
+                    onChange={(evt) => {
+                      setCampaignInfo({...campaignInfo, world_name: evt.target.value})
+                    }}
+                  />
+                  <label htmlFor="campaign-world-name" className="form-label">World Name</label>
                 </div>
               </form>        
             </div>

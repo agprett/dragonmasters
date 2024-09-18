@@ -14,7 +14,7 @@ function EncounterSummary() {
   const location = useLocation()
 
   const {encounter_id} = useParams()
-  const [encounterInfo, setEncounterInfo] = useState({campaign: {}, players: [], monsters: []})
+  const [encounterInfo, setEncounterInfo] = useState({campaign: {}, players: [], npcs: [], monsters: []})
   const [displayPopup, setDisplayPopup] = useState(false)
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function EncounterSummary() {
   }, [])
 
   const updateEncounter = () => {
-    const {name, short_description, description, encounter_id, location, terrain, rewards, campaign, players, monsters} = encounterInfo
+    const {name, short_description, description, encounter_id, location, terrain, rewards, campaign, players, npcs, monsters} = encounterInfo
     let updatedMonsters = {}
 
     monsters.forEach(monster => {
@@ -39,7 +39,7 @@ function EncounterSummary() {
       updatedMonsters[monster.index] = {...obj}
     })
 
-    let info = {id: encounter_id, name, shortDesc: short_description, desc: description, location, terrain, rewards, campaign_id: campaign.campaign_id, campaignName: campaign.name, players, monsters: updatedMonsters}
+    let info = {id: encounter_id, name, shortDesc: short_description, desc: description, location, terrain, rewards, campaign_id: campaign.campaign_id, campaignName: campaign.name, players, npcs, monsters: updatedMonsters}
 
     dispatch(addEncounter(info))
     navigate('/stuff/encounters/new')
@@ -50,6 +50,16 @@ function EncounterSummary() {
       <div key={i} className='info-list-item encounter-char'>
         <h5>{char.name}</h5>
         <p>{char.player}</p>
+        <p>AC: {char.armor_class}</p>
+        <p>HP: {char.hit_points}</p>
+      </div>
+    )
+  })
+
+  const npcShorts = encounterInfo.npcs.map((char, i) => {
+    return (
+      <div key={i} className='info-list-item encounter-char'>
+        <h5>{char.name}</h5>
         <p>AC: {char.armor_class}</p>
         <p>HP: {char.hit_points}</p>
       </div>
@@ -126,6 +136,11 @@ function EncounterSummary() {
           <h4 className='info-list-head'>Players:</h4>
           {encounterInfo.players[0] ? charShorts : <p>No added characters</p>}
         </section>
+
+        {encounterInfo.npcs[0] && <section className='info-list-wrapper'>
+          <h4 className='info-list-head'>NPCs:</h4>
+          {npcShorts}
+        </section>}
 
         <section className='info-list-wrapper'>
           <h4 className='info-list-head'>Monsters:</h4>

@@ -41,7 +41,7 @@ function GuideFilter({ type, setInfo }) {
             <Row>
               <Col>
                 <div className="form-piece">
-                  <select className="form-input" onChange={evt => setFilters({...filters, size: evt.target.value})}>
+                  <select id="size-filter" className="form-input" onChange={evt => setFilters({...filters, size: evt.target.value})}>
                     <option defaultValue={true} value="">
                       Select Size
                     </option>
@@ -52,7 +52,7 @@ function GuideFilter({ type, setInfo }) {
                     <option>Huge</option>
                     <option>Gargantuan</option>
                   </select>
-                  <label className="form-label">Size</label>
+                  <label htmlFor="size-filter" className="form-label">Size</label>
                 </div>
               </Col>
               <Col>
@@ -61,20 +61,22 @@ function GuideFilter({ type, setInfo }) {
                   <div className="form-input-split">
                     <div className="form-piece">
                       <input
+                        id="cr-min-filter"
                         className={"form-input" + (filters.challenge_rating_min ? '' : ' empty-input')}
                         onChange={evt => setFilters({...filters, challenge_rating_min: evt.target.value})}
                       />
-                      <label className="form-label">Min</label>
+                      <label htmlFor="cr-min-filter" className="form-label">Min</label>
                     </div>
                   </div>
                   <div className="form-dash"></div>
                   <div className="form-input-split">
                     <div className="form-piece">
                       <input
+                        id="cr-max-filter"
                         className={"form-input" + (filters.challenge_rating_max ? '' : ' empty-input')}
                         onChange={evt => setFilters({...filters, challenge_rating_max: evt.target.value})} 
                       />
-                      <label className="form-label">Max</label>
+                      <label htmlFor="cr-max-filter" className="form-label">Max</label>
                     </div>
                   </div>
                 </div>
@@ -89,7 +91,7 @@ function GuideFilter({ type, setInfo }) {
           <Row>
             <Col>
               <div className="form-piece">
-                <select className="form-input" onChange={evt => setFilters({...filters, casting_time: evt.target.value})} >
+                <select id="casting-time-filter" className="form-input" onChange={evt => setFilters({...filters, casting_time: evt.target.value})} >
                   <option defaultValue={true} value=''>Select Casting Time</option>
                   <option>1 action</option>
                   <option>1 bonus action</option>
@@ -101,12 +103,12 @@ function GuideFilter({ type, setInfo }) {
                   <option>12 hours</option>
                   <option>24 hours</option>
                 </select>
-                <label className="form-label">Casting Time</label>
+                <label htmlFor="casting-time-filter" className="form-label">Casting Time</label>
               </div>
             </Col>
             <Col>
               <div className="form-piece">
-                <select className="form-input" onChange={evt => setFilters({...filters, school: evt.target.value})} >
+                <select id="school-filter" className="form-input" onChange={evt => setFilters({...filters, school: evt.target.value})} >
                   <option defaultValue={true} value=''>Select School</option>
                   <option>Evocation</option>
                   <option>Conjuration</option>
@@ -117,7 +119,7 @@ function GuideFilter({ type, setInfo }) {
                   <option>Divination</option>
                   <option>Illusion</option>
                 </select>
-                <label className="form-label">School</label>
+                <label htmlFor="school-filter" className="form-label">School</label>
               </div>
             </Col>
           </Row>
@@ -127,7 +129,7 @@ function GuideFilter({ type, setInfo }) {
                 <p>Spell Level:</p>
                 <div className="form-input-split">
                   <div className="form-piece">
-                    <select className="form-input" onChange={evt => setFilters({...filters, minLevel: evt.target.value})} >
+                    <select id="level-min-filter" className="form-input" onChange={evt => setFilters({...filters, minLevel: evt.target.value})} >
                       <option defaultValue={true} value=''>Select Level</option>
                       <option value='0'>Cantrip</option>
                       <option value='1'>1st</option>
@@ -140,13 +142,13 @@ function GuideFilter({ type, setInfo }) {
                       <option value='8'>8th</option>
                       <option value='9'>9th</option>
                     </select>
-                    <label className="form-label">Min</label>
+                    <label htmlFor="level-min-filter" className="form-label">Min</label>
                   </div>
                 </div>
                 <div className="form-dash"></div>
                 <div className="form-input-split">
                   <div className="form-piece">
-                    <select className="form-input" onChange={evt => setFilters({...filters, maxLevel: evt.target.value})} >
+                    <select id="level-max-filter" className="form-input" onChange={evt => setFilters({...filters, maxLevel: evt.target.value})} >
                       <option defaultValue={true} value=''>Select Level</option>
                       <option value='0'>Cantrip</option>
                       <option value='1'>1st</option>
@@ -159,14 +161,14 @@ function GuideFilter({ type, setInfo }) {
                       <option value='8'>8th</option>
                       <option value='9'>9th</option>
                     </select>
-                    <label className="form-label">Max</label>
+                    <label htmlFor="level-max-filter" className="form-label">Max</label>
                   </div>
                 </div>
               </div>
             </Col>
             <Col>
               <div className="form-piece">
-                <select className="form-input" onChange={evt => setFilters({...filters, classSelect: evt.target.value})} >
+                <select id="class-filter" className="form-input" onChange={evt => setFilters({...filters, classSelect: evt.target.value})} >
                   <option defaultValue={true} value=''>Select Class</option>
                   <option>Wizard</option>
                   <option>Sorcerer</option>
@@ -177,7 +179,7 @@ function GuideFilter({ type, setInfo }) {
                   <option>Druid</option>
                   <option>Warlock</option>
                 </select>
-                <label className="form-label">Class</label>
+                <label htmlFor="class-filter" className="form-label">Class</label>
               </div>
             </Col>
           </Row>
@@ -197,11 +199,12 @@ function GuideFilter({ type, setInfo }) {
           <Col>
             <div className="form-piece">
               <input
+                id="name-filter"
                 className={"form-input" + (filters.name ? '' : ' empty-input')}
                 value={filters.name}
                 onChange={evt => setFilters({...filters, name: evt.target.value})}
                 />
-              <label className="form-label">Name</label>
+              <label htmlFor="name-filter" className="form-label">Name</label>
             </div>
           </Col>
           <Col>
