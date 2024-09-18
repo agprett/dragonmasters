@@ -23,7 +23,7 @@ import EncounterRun from './Components/Encounters/EncounterRun.js'
 import Characters from './Components/Characters/Characters.js'
 import CharacterNew from './Components/CreationForms/CharacterNew.js'
 
-import NPCs from './Components/Characters/Npcs.js'
+import NPCs from './Components/Characters/NPCs.js'
 import NPCNew from './Components/CreationForms/NPCNew.js'
 
 import Login from './Components/Login/Login.js'
