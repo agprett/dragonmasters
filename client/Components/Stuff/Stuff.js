@@ -15,7 +15,7 @@ function Stuff() {
         <Collections collectionInfo={{name: 'Campaigns', link: 'campaigns', backgroundImg: campaignImg}} />
         <Collections collectionInfo={{name: 'Encounters', link: 'encounters', backgroundImg: encounterImg}} />
         <Collections collectionInfo={{name: 'Characters', link: 'characters', backgroundImg: charactersImg}} />
-        <Collections collectionInfo={{name: 'NPCs', link: 'characters', backgroundImg: npcsImg}} />
+        <Collections collectionInfo={{name: 'NPCs', link: 'npcs', backgroundImg: npcsImg}} />
       </div>
       {/* <h2>Other Stuff</h2>
       <div className='collections-display'>

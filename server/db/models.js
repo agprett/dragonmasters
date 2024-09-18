@@ -81,6 +81,44 @@ Character.init({
   }
 })
 
+//NPC table tracks information about NPC overall data
+class NPC extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
+
+NPC .init({
+  npc_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  user_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  hit_points: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  armor_class: {
+    type: DataTypes.INTEGER
+  }
+}, {  
+  sequelize: db,
+  tableName: 'npcs',
+  defaultScope: {
+    attributes: {
+      exclude: ['user_id']
+    }
+  }
+})
+
 // Campaign table tracks information about the overall campaign
 class Campaign extends Model {
   [util.inspect.custom]() {
@@ -292,9 +330,38 @@ EncounterCharacter.init({
   sequelize: db
 })
 
+// This table links the npcs to the encounters they're participating in
+class EncounterNPC extends Model {
+  [util.inspect.custom]() {
+    return this.toJSON();
+  }
+}
+
+EncounterNPC.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  encounter_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  npc_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
+}, {
+  sequelize: db,
+  tableName: 'encounter_npcs'
+})
+
 // Below are all the relationships present in the above tables
 User.hasMany(Character, {foreignKey: 'user_id'})
 Character.belongsTo(User, {foreignKey: 'user_id'})
+
+User.hasMany(NPC, {foreignKey: 'user_id'})
+NPC.belongsTo(User, {foreignKey: 'user_id'})
 
 User.hasMany(Campaign, {foreignKey: 'dungeon_master'})
 Campaign.belongsTo(User, {foreignKey: 'dungeon_master'})
@@ -325,5 +392,13 @@ EncounterCharacter.belongsTo(Encounter, {as: 'characters', foreignKey: 'encounte
 Character.hasMany(EncounterCharacter, {foreignKey: 'character_id'})
 EncounterCharacter.belongsTo(Character, {foreignKey: 'character_id'})
 
+Encounter.belongsToMany(NPC, {through: 'EncounterNPC', foreignKey: 'encounter_id', as: 'npcs'})
+NPC.belongsToMany(Encounter, {through: 'EncounterNPC', foreignKey: 'npc_id', as: 'npcs'})
+Encounter.hasMany(EncounterNPC, {as: 'non-players', foreignKey: 'encounter_id'})
+EncounterNPC.belongsTo(Encounter, {as: 'non-players', foreignKey: 'encounter_id'})
+NPC.hasMany(EncounterNPC, {foreignKey: 'npc_id'})
+EncounterNPC.belongsTo(NPC, {foreignKey: 'npc_id'})
+
+
 export default db
-export { User, Character, Campaign, Encounter, CampaignNote, CampaignCharacter, EncounterMonster, EncounterCharacter }
+export { User, Character, NPC, Campaign, Encounter, CampaignNote, CampaignCharacter, EncounterMonster, EncounterCharacter, EncounterNPC }

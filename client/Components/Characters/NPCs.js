@@ -7,7 +7,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap'
 import './Characters.css'
 import DeletePopup from '../DeletePopup/DeletePopup'
 
-import { addCharacter, clearCharacter } from '../../ducks/characterSlice.js'
+import { addNPC, clearNPC } from '../../ducks/npcSlice.js'
 
 function NPCs() {
   const navigate = useNavigate()
@@ -18,17 +18,17 @@ function NPCs() {
   const [deleteData, setDeleteData] = useState({name: '', id: ''})
 
   useEffect(() => {
-    axios.get('/api/characters')
+    axios.get('/api/npcs')
       .then(res => {
         setNPCs(res.data)
       })
   }, [displayPopup])
 
-  const updateCharacter = (npc) => {
-    const {name, player, hit_points, armor_class, level, character_id} = character
+  const updateNPC = (npc) => {
+    const {name, player, hit_points, armor_class, level, npc_id} = npc
 
     let info = {
-      id: character_id,
+      id: npc_id,
       name,
       player,
       hitPoints: hit_points,
@@ -36,7 +36,7 @@ function NPCs() {
       level
     }
 
-    dispatch(addCharacter(info))
+    dispatch(addNPC(info))
     navigate('/stuff/npcs/new')
   }
 
@@ -45,26 +45,25 @@ function NPCs() {
     setDisplayPopup(true)
   }
 
-  const viewNewCharacter = () => {
-    dispatch(clearCharacter())
+  const viewNewNPC = () => {
+    dispatch(clearNPC())
     navigate('/stuff/npcs/new')
   }
 
-  const charactersDisplay = npcs.map((character, i) => {
+  const npcsDisplay = npcs.map((npc, i) => {
     return (
-      <Col className="p-3" key={character.name + ' ' + i}>
+      <Col className="p-3" key={npc.name + ' ' + i}>
         <Card className="character-blob">
           <Card.Header className='bg-secondary text-white'>
-            <Card.Title>{character.name}</Card.Title>
-            <Card.Subtitle>{character.player}</Card.Subtitle>
+            <Card.Title>{npc.name}</Card.Title>
           </Card.Header>
           <Card.Body>
-            <p>HP: {character.hit_points}</p>
-            <p>AC: {character.armor_class}</p>
+            <p>HP: {npc.hit_points}</p>
+            <p>AC: {npc.armor_class}</p>
           </Card.Body>
           <Card.Body className='character-blob-btns'>
-            <button className='btn btn-type-5 btn-color-1' onClick={() => updateCharacter(character)}>Edit</button>
-            <button className='btn btn-type-5 btn-color-4' onClick={() => handleDelete(character.name, character.character_id)}>Delete</button>
+            <button className='btn btn-type-5 btn-color-1' onClick={() => updateNPC(npc)}>Edit</button>
+            <button className='btn btn-type-5 btn-color-4' onClick={() => handleDelete(npc.name, npc.npc_id)}>Delete</button>
           </Card.Body>
         </Card>
       </Col>
@@ -73,19 +72,19 @@ function NPCs() {
 
   return (
     <section className="page-layout-2">
-      {displayPopup && <DeletePopup name={deleteData.name} url={`/api/characters/${deleteData.id}`} route={'/stuff/characters'} setDisplay={setDisplayPopup}/>}
+      {displayPopup && <DeletePopup name={deleteData.name} url={`/api/npcs/${deleteData.id}`} route={'/stuff/npcs'} setDisplay={setDisplayPopup}/>}
 
 
       <h2>My NPCs</h2>
 
       <button
         className='btn btn-type-2 btn-color-3 create-btn'
-        onClick={() => viewNewCharacter()}
+        onClick={() => viewNewNPC()}
       >+ Create New</button>
 
       <Container fluid className='p-3'>
         <Row xs={2} md={3} lg={4} className='g-2'>
-          {charactersDisplay}
+          {npcsDisplay}
         </Row>
       </Container>
 

@@ -51,9 +51,22 @@ const characterFunctions = {
 
       let characterInfo = {name, player, armor_class, hit_points, level}
 
-      await Character.update(characterInfo, {where: {character_id: +character_id}})
-
-      res.status(200).send({message: 'Character updated!'})
+      let character = await Character.findByPk(character_id, {
+        attributes: ['user_id', 'name']
+      })
+      
+      if(character.name) {
+        console.log(character.user_id, req.session.user.user_id)
+        if(character.user_id === req.session.user.user_id) {
+          await Character.update(characterInfo, {where: {character_id: +character_id}})
+    
+          res.status(200).send({message: 'Character updated!'})
+        } else {
+          res.status(400).send('You must be signed in as the owner to update this character.')
+        }
+      } else {
+        res.status(400).send('Character not found.')
+      }
     } else {
       res.status(400).send('Please provide all required information to update this character.')
     }

@@ -15,7 +15,7 @@ function EncounterRun() {
 
   useEffect(() => {
     setCombatants(initialCombatants.map((ind, i) => {
-      return {...ind, i, initiative: 0, type: (ind.player ? 'player' : 'monster')}
+      return {...ind, i, initiative: 0, type: (ind.index ? 'monster' : 'player')}
     }))
   }, [])
 

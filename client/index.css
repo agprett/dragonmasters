@@ -555,7 +555,9 @@ select.form-input {
   width: 100%;
   justify-content: space-evenly;
   display: flex;
+  flex-wrap: wrap;
   margin: 20px 0px 25px;
+  gap: 25px 0;
 }
 
 .info-list-wrapper {

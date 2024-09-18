@@ -6,52 +6,52 @@ import { toast } from 'react-toastify';
 
 import './CreationForms.css'
 
-import CharacterForm from './CreationSelections/CharacterForm.js';
-import { clearCharacter } from '../../ducks/characterSlice.js';
+import NPCForm from './CreationSelections/NPCForm.js';
+import { clearNPC } from '../../ducks/npcSlice.js';
 
-function CharacterNew() {
+function NPCNew() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const editChar = useSelector(state => state.character.info)
+  const editChar = useSelector(state => state.npc.info)
 
   const [panels, setPanels] = useState({one: true})
-  const [characterInfo, setCharacterInfo] = useState(editChar.name ? editChar : {name: '', player: '', hitPoints: 0, level: 0, armorClass: 0})
+  const [npcInfo, setNPCInfo] = useState(editChar.name ? editChar : {name: '', hitPoints: 0, armorClass: 0})
 
 
-  const postNewCharacter = (evt) => {
+  const postNewNPC = (evt) => {
     evt.preventDefault()
-    if(characterInfo.name && characterInfo.hitPoints && characterInfo.armorClass && characterInfo.level && characterInfo.player) {
-      let {hitPoints, armorClass} = characterInfo
+    if(npcInfo.name && npcInfo.hitPoints && npcInfo.armorClass) {
+      let {hitPoints, armorClass} = npcInfo
 
       const body = {
-        ...characterInfo,
+        ...npcInfo,
         hit_points: hitPoints,
         armor_class: armorClass,
       }
       
       
       if(body.id) {
-        axios.put(`/api/characters/${body.id}`, body)
+        axios.put(`/api/npcs/${body.id}`, body)
           .then(res => {
-            toast('Character updated!')
-            navigate('/stuff/characters')
+            toast('NPC updated!')
+            navigate('/stuff/npcs')
           })
           .catch(err => {
-            toast('Failed to update character. Please try again.', { type: 'error' })
+            toast('Failed to update NPC. Please try again.', { type: 'error' })
           })
       } else {
-        axios.post('/api/characters', body)
+        axios.post('/api/npcs', body)
           .then(res => {
-            toast('New character created!')
-            navigate('/stuff/characters')
+            toast('New NPC created!')
+            navigate('/stuff/npcs')
           })
           .catch(() => {
-            toast('Failed to create character. Please try again.', { type: 'error' })
+            toast('Failed to create NPC. Please try again.', { type: 'error' })
           })
       } 
     } else {
-      toast('Please fill in all required data before creating a character!', { type: 'error' })
+      toast('Please fill in all required data before creating an NPC!', { type: 'error' })
     }
   }
 
@@ -65,19 +65,19 @@ function CharacterNew() {
       <button
         className='btn btn-type-1 btn-color-4 back-btn'
         onClick={() => {
-          dispatch(clearCharacter())
-          navigate('/stuff/characters')
+          dispatch(clearNPC())
+          navigate('/stuff/npcs')
         }}
       >Cancel</button>
 
       <section className='breakdown-top'>
-        <div className='breakdown-base-info'><h2>{characterInfo.name ? 'Update' : 'New'} Character</h2></div>
+        <div className='breakdown-base-info'><h2>{npcInfo.id ? 'Update' : 'New'} NPC</h2></div>
       </section>
 
       <button
         className='btn btn-type-1 btn-color-3 create-btn'
-        onClick={postNewCharacter}
-      >{characterInfo.name ? 'Save' : 'Create'}</button>
+        onClick={postNewNPC}
+      >{npcInfo.id ? 'Save' : 'Create'}</button>
 
 
       <section className='accordion'>
@@ -87,7 +87,7 @@ function CharacterNew() {
           ><h4>Basic Info</h4><button className='accordion-item-status'>{panels.one ? '-' : '+'}</button></div>
 
           <div className={`accordion-content-wrapper ${panels.one ? 'accordion-content-expanded' : ''}`}>
-            <CharacterForm characterInfo={characterInfo} setCharacterInfo={setCharacterInfo} />
+            <NPCForm npcInfo={npcInfo} setNPCInfo={setNPCInfo} />
           </div>
         </div>
       </section>
@@ -96,4 +96,4 @@ function CharacterNew() {
   )
 }
 
-export default CharacterNew
+export default NPCNew

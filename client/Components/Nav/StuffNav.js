@@ -32,6 +32,9 @@ function StuffNav () {
       <div className='nav-links-wrapper'>
         <NavLink className='stuff-nav-links nav-links' to="/stuff/characters">My Characters</NavLink>
       </div>
+      <div className='nav-links-wrapper'>
+        <NavLink className='stuff-nav-links nav-links' to="/stuff/npcs">My NPCs</NavLink>
+      </div>
     </Nav>
   )
 }

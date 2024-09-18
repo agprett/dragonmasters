@@ -12,7 +12,8 @@ const initialState = {
     campaign_id: '',
     campaignName: '',
     monsters: {},
-    players: []
+    players: [],
+    npcs: []
   }
 }
 

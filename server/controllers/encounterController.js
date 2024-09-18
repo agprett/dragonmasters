@@ -1,4 +1,4 @@
-import { Encounter, EncounterMonster, EncounterCharacter, Character, Campaign } from '../db/models.js'
+import { Encounter, EncounterMonster, EncounterCharacter, Character, Campaign, NPC, EncounterNPC } from '../db/models.js'
 
 import monstersDB from '../json/SRD_data/monsters.json' assert {type: 'json'}
 
@@ -41,6 +41,10 @@ const encounterFunctions = {
             as: 'players'
           },
           {
+            model: NPC,
+            as: 'npcs'
+          },
+          {
             model: Campaign,
             attributes: ['name', 'campaign_id'],
             required: false
@@ -48,13 +52,13 @@ const encounterFunctions = {
         ]
       })
 
-      const {encounter_id, name, description, short_description, terrain, location, rewards, players} = encounterData
+      const {encounter_id, name, description, short_description, terrain, location, rewards, players, npcs} = encounterData
       
       const monsters = encounterData.monsters.map(monster => {
         return {id: monster.id, ...monstersDB[monster.pointer], count: monster.count}
       })
       
-      const encounter = {encounter_id, name, description, short_description, terrain, location, rewards, campaign: encounterData.Campaign || {campaign_id: '', name: ''}, players, monsters}
+      const encounter = {encounter_id, name, description, short_description, terrain, location, rewards, campaign: encounterData.Campaign || {campaign_id: '', name: ''}, players, npcs, monsters}
 
       if(encounter.name) {
         res.status(200).send(encounter)
@@ -68,7 +72,7 @@ const encounterFunctions = {
   },
 
   createEncounter: async (req, res) => {
-    let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, monsters} = req.body
+    let {name, shortDesc: short_description, desc, terrain, location, rewards, campaign_id, characters, npcs, monsters} = req.body
 
     if(req.session.user && name && short_description) {
       const {user_id} = req.session.user
@@ -89,7 +93,8 @@ const encounterFunctions = {
         location,
         rewards,
         monsters: otherMonsters,
-        characters: characters.map(char => {return {character_id: char.character_id}})
+        characters: characters.map(char => {return {character_id: char.character_id}}),
+        'non-players': npcs.map(npc => {return {npc_id: npc.npc_id}})
       }
 
       if(campaign_id) {
@@ -103,6 +108,9 @@ const encounterFunctions = {
         }, {
           model: EncounterCharacter,
           as: 'characters'
+        }, {
+          model: EncounterNPC,
+          as: 'non-players'
         }]
       })
 
@@ -117,24 +125,39 @@ const encounterFunctions = {
   },
 
   updateEncounter: async (req, res) => {
-    let {name, shortDesc: short_description, desc: description, terrain, location, rewards, campaign_id, characters, monsters, id} = req.body
+    let {name, shortDesc: short_description, desc: description, terrain, location, rewards, campaign_id, characters, npcs, monsters, id} = req.body
 
     if(name && short_description && req.session.user && id) {
       let encounterInfo = {name, short_description, description, terrain, location, rewards}
 
-      if(campaign_id) {
-        encounterInfo.campaign_id = campaign_id
+      let encounter = await Encounter.findByPk(id, {
+        attributes: ['user_id', 'name']
+      })
+
+      if(encounter.name) {
+        if(encounter.user_id === req.session.user.user_id) {
+          // if(campaign_id) {
+            encounterInfo.campaign_id = campaign_id
+          // }
+
+          await Encounter.update(encounterInfo, {where: {encounter_id: id}})
+    
+          await EncounterMonster.destroy({where: {encounter_id: id}})
+          await EncounterCharacter.destroy({where: {encounter_id: id}})
+          await EncounterNPC.destroy({where: {encounter_id: id}})
+    
+          await EncounterMonster.bulkCreate(monsters.map(monster => {return {...monster, encounter_id: id}}))
+          await EncounterCharacter.bulkCreate(characters.map(character => {return {...character, encounter_id: id}}))
+          await EncounterNPC.bulkCreate(npcs.map(npcs => {return {...npcs, encounter_id: id}}))
+    
+          res.status(200).send({message: 'Encounter updated', id})
+        } else {
+          res.status(400).send({message: 'You must be signed in as owner to update this encounter.'})
+        }
+      } else {
+        res.status(400).send({message: 'Encounter not found.'})
       }
 
-      await Encounter.update(encounterInfo, {where: {encounter_id: id}})
-
-      await EncounterMonster.destroy({where: {encounter_id: id}})
-      await EncounterCharacter.destroy({where: {encounter_id: id}})
-
-      await EncounterMonster.bulkCreate(monsters.map(monster => {return {...monster, encounter_id: id}}))
-      await EncounterCharacter.bulkCreate(characters.map(character => {return {...character, encounter_id: id}}))
-
-      res.status(200).send({message: 'Encounter updated', id})
     } else {
       res.status(400).send('Please provide all required information to update the encounter.')
     }
@@ -150,6 +173,7 @@ const encounterFunctions = {
     if(encounter !== null) {
       if(req.session.user && req.session.user.user_id === encounter.user_id) {
         await EncounterCharacter.destroy({where: {encounter_id: id}})
+        await EncounterNPC.destroy({where: {encounter_id: id}})
         await EncounterMonster.destroy({where: {encounter_id: id}})
         await Encounter.destroy({where: {encounter_id: id}})
 
