@@ -18,6 +18,16 @@
 .tracker-table {
   width: 100%;
 }
+.hidden-columns {
+  width: 80%;
+}
+.hidden-columns td:nth-child(3), .hidden-columns td:nth-child(4),
+.hidden-columns th:nth-child(3), .hidden-columns th:nth-child(4)  {
+  display: none;
+}
+.hidden-columns .tracker {
+  grid-template-columns: .65fr 2.5fr .15fr;
+}
 
 #tracker-head {
   height: 55px;
@@ -29,7 +39,7 @@
 }
 
 .tracker {
-  min-height: 30px;
+  min-height: 60px;
   padding: 5px 12px;
   display: grid;
   grid-auto-flow: column;
