@@ -1,6 +1,7 @@
 .character-blob {
-  border-radius: 3px;
-  border-bottom: 1px solid #166696;
+  border-radius: 3px !important;
+  border: none !important;
+  border-bottom: 1px solid #166696 !important;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
