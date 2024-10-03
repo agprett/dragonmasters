@@ -6,12 +6,14 @@ import MonsterPopout from "../Popout/MonsterPopout.js";
 import Tracker from './Tracker.js'
 import QuickAdd from '../QuickAdd/QuickAdd.js'
 
+
 function EncounterRun() {
   const {initialCombatants, name, encounter_id} = useLoaderData()
 
   const [popoutInfo, setPopoutInfo] = useState(false)
   const [combatants, setCombatants] = useState([])
   const [addPopup, setAddPopup] =  useState(false)
+  const [playerFriendly, setPlayerFriendly] = useState(false)
 
   useEffect(() => {
     setCombatants(initialCombatants.map((ind, i) => {
@@ -97,12 +99,16 @@ function EncounterRun() {
 
         <div className="breakdown-top-buttons">
           <button className='btn btn-type-2 btn-color-1' onClick={orderCombatants}>Order</button>
+          <button
+            className='btn btn-type-2 btn-color-1'
+            onClick={() => setPlayerFriendly(!playerFriendly)}
+          >Show {playerFriendly ? 'DM' : 'Players'} Initiative</button>
         </div>
       </section>
-      
+
       <div className='tracker-display'>
         {addPopup && <QuickAdd combatants={combatants} setAddPopup={setAddPopup} addCombatant={addCombatant} />}
-        <table className='tracker-table'>
+        <table className={`tracker-table${playerFriendly ? ' hidden-columns' : ''}`}>
           <thead>
             <tr className='tracker' id='tracker-head'>
               <th>Initiative</th>
