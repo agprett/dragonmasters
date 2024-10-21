@@ -3,10 +3,11 @@ import session from 'express-session'
 import path from 'path'
 import url from 'url'
 import cors from 'cors'
+import MongoStore from 'connect-mongo'
 
 import 'dotenv/config'
 
-const {SERVER_PORT, SESSION_SECRET, ENVIRONMENT} = process.env
+const {SERVER_PORT, SESSION_SECRET, ENVIRONMENT, URI} = process.env
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const app = express()
@@ -15,6 +16,10 @@ let sess = {
   secret: SESSION_SECRET,
   cookie: {maxAge: (1000 * 60 * 60 * 24 * 7), sameSite: true},
   resave: true,
+  store: MongoStore.create({
+    mongoUrl: URI,
+    collectionName: 'sessions'
+  }),
   saveUninitialized: true
 }
 
